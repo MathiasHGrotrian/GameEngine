@@ -98,6 +98,8 @@ public class World
                 // Back the ball out 1% to avoid multiple interactions
                 ball.x = ball.x - oldvx * delta * 1.01f;
                 ball.y = ball.y - oldvy * delta * 1.01f;
+                // No needd to check collision with other blocks when it hits this block
+                break;
             }
         }
     }
