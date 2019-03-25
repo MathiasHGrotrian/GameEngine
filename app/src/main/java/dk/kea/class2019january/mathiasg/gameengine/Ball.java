@@ -2,6 +2,7 @@ package dk.kea.class2019january.mathiasg.gameengine;
 
 public class Ball
 {
+    public static float INITIAL_SPEED = 200;
     public static float WIDTH = 15;
     public static float HEIGHT = 15;
     public float x = 160;

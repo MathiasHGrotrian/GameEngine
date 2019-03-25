@@ -14,6 +14,13 @@ public class World
     Paddle paddle = new Paddle();
     List<Block> blocks = new ArrayList<>();
 
+    boolean gameOver = false;
+    boolean lostLife = false;
+    int lives = 3;
+    int level = 1;
+    int hits = 0;
+    int points = 0;
+
     public World()
     {
         generateBlocks();
@@ -43,13 +50,18 @@ public class World
             ball.y = MIN_Y;
         }
 
-        /*
-        if (ball.y > MAX_Y - Ball.HEIGHT)
+
+        if (ball.y > MAX_Y)
         {
-            ball.vy = -ball.vy;
-            ball.y = MAX_Y - Ball.HEIGHT;
+           lives = lives -1;
+           lostLife = true;
+           ball.x = paddle.x + Paddle.WIDTH / 2;
+           ball.y = paddle.y - Ball.HEIGHT - 5;
+           ball.vy = Ball.INITIAL_SPEED;
+           if(lives == 0) gameOver = true;
+           return;
         }
-        */
+
 
         //  move paddle based on phone tilt
         paddle.x = paddle.x - accelX * 60 * deltaTime;
@@ -64,22 +76,44 @@ public class World
         if (paddle.x < MIN_X) paddle.x = MIN_X;
         if (paddle.x + Paddle.WIDTH > MAX_X) paddle.x = MAX_X - Paddle.WIDTH;
 
-        collideBallPaddle();
+        collideBallPaddle(deltaTime);
         collideBallBlocks(deltaTime);
+
+        if(blocks.isEmpty())
+        {
+            level++;
+            generateBlocks();
+
+            ball.x = 160;
+            ball.y = 320 - 40;
+            ball.vy = -Ball.INITIAL_SPEED;
+        }
 
     }   //  end of update() method
 
 
-    private void collideBallPaddle()
+    private void collideBallPaddle(float deltaTime)
     {
-        if (ball.y > paddle.y + Paddle.HEIGHT) return;
-        if ((ball.x >= paddle.x) && (ball.x + Ball.WIDTH < paddle.x + Paddle.WIDTH) && (ball.y + Ball.HEIGHT > paddle.y))
+        //if (ball.y > paddle.y + Paddle.HEIGHT) return;
+        if ((ball.x + Ball.WIDTH >= paddle.x) && (ball.x < paddle.x + Paddle.WIDTH) && (ball.y + Ball.HEIGHT > paddle.y))
         {
+            ball.y = ball.y -ball.vy * deltaTime * 1.01f;
             ball.vy =- ball.vy;
+            hits++;
+            if(hits == 3)
+            {
+                hits = 0;
+
+                if(level == 2)
+                {
+                    advanceBlocks();
+                }
+            }
+
         }
     }
 
-    private void collideBallBlocks(float delta)
+    private void collideBallBlocks(float deltaTime)
     {
         Block block = null;
 
@@ -96,9 +130,10 @@ public class World
                 reflectBall(ball, block);
 
                 // Back the ball out 1% to avoid multiple interactions
-                ball.x = ball.x - oldvx * delta * 1.01f;
-                ball.y = ball.y - oldvy * delta * 1.01f;
-                // No needd to check collision with other blocks when it hits this block
+                ball.x = ball.x - oldvx * deltaTime * 1.01f;
+                ball.y = ball.y - oldvy * deltaTime * 1.01f;
+                points = points + 10 - block.type;
+                // No need to check collision with other blocks when it hits this block
                 break;
             }
         }
@@ -195,6 +230,14 @@ public class World
             {
                 blocks.add(new Block(x, y, type));
             }
+        }
+    }
+
+    private void advanceBlocks()
+    {
+        for(Block block : blocks)
+        {
+            block.y = block.y + 10;
         }
     }
 
