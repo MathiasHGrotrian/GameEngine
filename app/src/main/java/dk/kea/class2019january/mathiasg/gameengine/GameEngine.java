@@ -1,5 +1,6 @@
 package dk.kea.class2019january.mathiasg.gameengine;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -25,7 +26,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameEngine extends AppCompatActivity implements Runnable, TouchHandler, SensorEventListener
+public abstract class GameEngine extends Activity implements Runnable, TouchHandler, SensorEventListener
 {
 
     private Thread mainLoopThread;
