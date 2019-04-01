@@ -20,9 +20,9 @@ public class TestScreen extends Screen
     public TestScreen(GameEngine gameEngine)
     {
         super(gameEngine);
-        this.bitmap = gameEngine.loadBitmap("bob.png");
-        sound = gameEngine.loadSound("blocksplosion.wav");
-        backgroundMusic = gameEngine.loadMusic("music.ogg");
+        this.bitmap = gameEngine.loadBitmap("breakout/bob.png");
+        sound = gameEngine.loadSound("breakout/blocksplosion.wav");
+        backgroundMusic = gameEngine.loadMusic("breakout/music.ogg");
         isPlaying = true;
 
     }

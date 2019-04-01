@@ -1,6 +1,8 @@
-package dk.kea.class2019january.mathiasg.gameengine;
+package dk.kea.class2019january.mathiasg.gameengine.Breakout;
 
 import android.graphics.Bitmap;
+
+import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
 public class WorldRenderer
 {
@@ -15,9 +17,9 @@ public class WorldRenderer
     {
         this.gameEngine = gameEngine;
         this.world = world;
-        ballImage = gameEngine.loadBitmap("ball.png");
-        paddleImage = gameEngine.loadBitmap("paddle.png");
-        blockImage = gameEngine.loadBitmap("blocks.png");
+        ballImage = gameEngine.loadBitmap("breakout/ball.png");
+        paddleImage = gameEngine.loadBitmap("breakout/paddle.png");
+        blockImage = gameEngine.loadBitmap("breakout/blocks.png");
     }
 
     public void render()

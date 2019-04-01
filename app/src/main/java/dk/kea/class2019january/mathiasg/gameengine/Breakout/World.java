@@ -1,7 +1,12 @@
-package dk.kea.class2019january.mathiasg.gameengine;
+package dk.kea.class2019january.mathiasg.gameengine.Breakout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dk.kea.class2019january.mathiasg.gameengine.Breakout.Ball;
+import dk.kea.class2019january.mathiasg.gameengine.Breakout.Block;
+import dk.kea.class2019january.mathiasg.gameengine.Breakout.CollisionListener;
+import dk.kea.class2019january.mathiasg.gameengine.Breakout.Paddle;
 
 public class World
 {

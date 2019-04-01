@@ -1,4 +1,4 @@
-package dk.kea.class2019january.mathiasg.gameengine;
+package dk.kea.class2019january.mathiasg.gameengine.Breakout;
 
 public class Paddle
 {

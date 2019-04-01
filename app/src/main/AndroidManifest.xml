@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dk.kea.class2019january.mathiasg.gameengine"
+    package="dk.kea.class2019january.mathiasg.gameengine.Carscroller"
     android:installLocation="preferExternal">
 
     <application
@@ -10,9 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Breakout"
+        <activity android:name=".Carscroller"
                   android:configChanges="keyboard|keyboardHidden|orientation"
-                  android:screenOrientation="portrait"
+                  android:screenOrientation="landscape"
 
             >
             <intent-filter>

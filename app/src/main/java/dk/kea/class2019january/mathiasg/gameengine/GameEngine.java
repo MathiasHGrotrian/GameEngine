@@ -76,6 +76,7 @@ public abstract class GameEngine extends Activity implements Runnable, TouchHand
 
         screen = createStartScreen();
 
+        /*
         if (surfaceView.getWidth() > surfaceView.getHeight())
         {
             setOffScreenSurface(480, 320);
@@ -83,6 +84,7 @@ public abstract class GameEngine extends Activity implements Runnable, TouchHand
         {
             setOffScreenSurface(320, 480);
         }
+        */
 
         touchHandler = new MultiTouchHandler(surfaceView, touchEventBuffer, touchEventPool);
         SensorManager manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -418,11 +420,25 @@ public abstract class GameEngine extends Activity implements Runnable, TouchHand
     public void onResume()
     {
         super.onResume();
+
+        if (surfaceView.getWidth() > surfaceView.getHeight())
+        {
+            setOffScreenSurface(480, 320);
+        } else
+        {
+            setOffScreenSurface(320, 480);
+        }
+
+        setOffScreenSurface(480, 320);
+        //setOffScreenSurface(320, 480);
+
         mainLoopThread = new Thread(this);
         mainLoopThread.start();
         synchronized (stateChanges)
         {
             stateChanges.add(stateChanges.size(), State.Resume);
         }
+
+
     }
 }

@@ -1,4 +1,7 @@
-package dk.kea.class2019january.mathiasg.gameengine;
+package dk.kea.class2019january.mathiasg.gameengine.Breakout;
+
+import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
+import dk.kea.class2019january.mathiasg.gameengine.Screen;
 
 public class Breakout extends GameEngine
 {
@@ -6,7 +9,7 @@ public class Breakout extends GameEngine
     @Override
     public Screen createStartScreen()
     {
-        music = this.loadMusic("music.ogg");
+        music = this.loadMusic("breakout/music.ogg");
 
         return new MainMenuScreen(this);
     }
