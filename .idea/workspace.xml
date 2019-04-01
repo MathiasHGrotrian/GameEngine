@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e928dac9-ed38-47d3-870f-05f7bea3f5a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/font.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/assets/bounce.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/CollisionListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Breakout.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Breakout.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/World.java" afterDir="false" />
     </list>
@@ -34,47 +29,39 @@
     <session id="-20780128">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="8" />
+          <entry key="java" value="10" />
           <entry key="png" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="4" />
-          <entry key="JAVA" value="8" />
+          <entry key="JAVA" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3693" />
+          <entry key="java" value="4282" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3693" />
+          <entry key="JAVA" value="4282" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Ball.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="44" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Block.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -87,7 +74,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/WorldRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
+            <state relative-caret-position="60">
               <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
@@ -110,12 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
+            <state relative-caret-position="405">
               <caret line="53" column="23" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
-              <folding>
-                <element signature="e#6569#6570#0" expanded="true" />
-                <element signature="e#6610#6611#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -132,12 +115,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="98" column="20" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="20" />
+            <state relative-caret-position="369">
+              <caret line="41" column="21" lean-forward="true" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2779#2780#0" expanded="true" />
-                <element signature="e#2810#2811#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,13 +127,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/World.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="56" column="16" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
+            <state relative-caret-position="-485">
+              <caret line="109" column="48" selection-start-line="109" selection-start-column="48" selection-end-line="109" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/MainMenuScreen.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-117">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/CollisionListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -166,9 +172,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Ball.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/World.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameEngine.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Breakout.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/CollisionListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/World.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameScreen.java" />
       </list>
     </option>
@@ -184,6 +191,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -211,9 +220,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -315,10 +322,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="13" y="38" width="1260" height="687" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.50084037" side_tool="true" weight="0.22085387" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49915966" visible="true" weight="0.22085387" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49915966" visible="true" weight="0.16502462" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -329,10 +335,10 @@
       <window_info anchor="bottom" id="Logcat" order="1" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" visible="true" weight="0.0" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.52100843" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.45210084" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.06890757" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -354,10 +360,10 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/insertcoin.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Paddle.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="60">
+          <caret line="4" column="44" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -368,40 +374,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/WorldRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/blocks.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Ball.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="44" selection-start-line="4" selection-start-column="44" selection-end-line="4" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="56" column="16" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="53" column="23" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
-          <folding>
-            <element signature="e#6569#6570#0" expanded="true" />
-            <element signature="e#6610#6611#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Breakout.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -410,14 +384,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="53" column="23" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/Paddle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/WorldRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/MainMenuScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-117">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/CollisionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-485">
+          <caret line="109" column="48" selection-start-line="109" selection-start-column="48" selection-end-line="109" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/dk/kea/class2019january/mathiasg/gameengine/GameScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="98" column="20" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="20" />
+        <state relative-caret-position="369">
+          <caret line="41" column="21" lean-forward="true" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2779#2780#0" expanded="true" />
-            <element signature="e#2810#2811#0" expanded="true" />
           </folding>
         </state>
       </provider>

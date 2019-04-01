@@ -13,6 +13,7 @@ public class World
     Ball ball = new Ball();
     Paddle paddle = new Paddle();
     List<Block> blocks = new ArrayList<>();
+    CollisionListener collisionListener;
 
     boolean gameOver = false;
     boolean lostLife = false;
@@ -21,8 +22,9 @@ public class World
     int hits = 0;
     int points = 0;
 
-    public World()
+    public World(CollisionListener collisionListener)
     {
+        this.collisionListener = collisionListener;
         generateBlocks();
     }
 
@@ -32,22 +34,27 @@ public class World
         ball.y = ball.y + ball.vy * deltaTime;
 
 
+        // The ball bounces of the left wall
         if (ball.x < MIN_X)
         {
             ball.vx = -ball.vx;
             ball.x = MIN_X;
+            collisionListener.collisionWall();
         }
+        // The ball bounces of the right wall
         if (ball.x > MAX_X - Ball.WIDTH)
         {
             ball.vx = -ball.vx;
             ball.x = MAX_X - Ball.WIDTH;
+            collisionListener.collisionWall();
         }
 
-
+        // The ball bounces of the ceiling
         if (ball.y < MIN_Y)
         {
             ball.vy = -ball.vy;
             ball.y = MIN_Y;
+            collisionListener.collisionWall();
         }
 
 
@@ -86,7 +93,8 @@ public class World
 
             ball.x = 160;
             ball.y = 320 - 40;
-            ball.vy = -Ball.INITIAL_SPEED;
+            ball.vy = -Ball.INITIAL_SPEED * 1.3f;
+            ball.vx = Ball.INITIAL_SPEED * 1.1f;
         }
 
     }   //  end of update() method
@@ -99,6 +107,7 @@ public class World
         {
             ball.y = ball.y -ball.vy * deltaTime * 1.01f;
             ball.vy =- ball.vy;
+            collisionListener.collisionPaddle();
             hits++;
             if(hits == 3)
             {
@@ -133,6 +142,7 @@ public class World
                 ball.x = ball.x - oldvx * deltaTime * 1.01f;
                 ball.y = ball.y - oldvy * deltaTime * 1.01f;
                 points = points + 10 - block.type;
+                collisionListener.collisionBlock();
                 // No need to check collision with other blocks when it hits this block
                 break;
             }
@@ -228,7 +238,7 @@ public class World
         {
             for(int x = 30; x < 320 - Block.WIDTH; x = x + (int)Block.WIDTH+4)
             {
-                blocks.add(new Block(x, y, type));
+                blocks.add(new Block(x, y + level, type));
             }
         }
     }
