@@ -1,7 +1,10 @@
 package dk.kea.class2019january.mathiasg.gameengine.Carscroller;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
@@ -9,8 +12,8 @@ public class World
 {
     public static final float MIN_X = 0;
     public static final float MAX_X = 479;
-    public static final float MIN_Y = 40;
-    public static final float MAX_Y = 280;
+    public static final float MIN_Y = 30;
+    public static final float MAX_Y = 285;
 
     Car car = new Car();
 
@@ -21,14 +24,16 @@ public class World
     GameEngine gameEngine;
     CollisionListener listener;
 
-    boolean gameVOer = false;
+    boolean gameOver = false;
     int points = 0;
     int lives = 3;
+    int backgroundSpeed = 0;
 
-    public World(GameEngine gameEngine, CollisionListener listener)
+    public World(GameEngine gameEngine, CollisionListener listener, int backgroundSpeed)
     {
         this.gameEngine = gameEngine;
         this.listener = listener;
+        this.backgroundSpeed = backgroundSpeed;
         initializeMonsters();
     }
 
@@ -47,11 +52,34 @@ public class World
 
         // Check lower road boundary
         if(car.y + Car.HEIGHT > MAX_Y) car.y = (int) (MAX_Y - Car.HEIGHT - 1);
+
+        Monster monster = null;
+
+        for(int i = 0; i < maxMonsters; i++)
+        {
+            monster = monsterList.get(i);
+            monster.x = (int)(monster.x - backgroundSpeed * deltaTime);
+            if(monster.x < 0 - Monster.WIDTH)
+            {
+                Random random = new Random();
+                monster.x = 500 + random.nextInt(100);
+                monster.y = 30 + random.nextInt(230);
+                Log.d("World", "Recycled a monster");
+            }
+        }
     }
 
     private void initializeMonsters()
     {
+        Random random = new Random();
 
+        for(int i = 0; i < maxMonsters; i++)
+        {
+            int randX = random.nextInt(50);
+            int randY = random.nextInt(255);
+            Monster monster = new Monster(((500 + randX) + i * 50), 30 + randY);
+            monsterList.add(monster);
+        }
     }
 
 }

@@ -15,13 +15,13 @@ public class WorldRenderer
     {
         this.gameEngine = gameEngine;
         this.world = world;
-        this.carImage = gameEngine.loadBitmap("carscroller/xbluecar.png");
+        this.carImage = gameEngine.loadBitmap("carscroller/xbluecar2.png");
         this.monsterImage = gameEngine.loadBitmap("carscroller/xyellowmonster2.png");
     }
 
     public void render()
     {
-        gameEngine.drawBitmap(monsterImage, world.car.x, world.car.y);
+        gameEngine.drawBitmap(carImage, world.car.x, world.car.y);
 
         for(Monster monster : world.monsterList)
         {
