@@ -67,7 +67,37 @@ public class World
                 Log.d("World", "Recycled a monster");
             }
         }
+
+        collideCarMonster();
     }
+
+    private void collideCarMonster()
+    {
+        Monster monster = null;
+
+        for(int i = 0; i < monsterList.size(); i++)
+        {
+            monster = monsterList.get(i);
+            if(collideRects(car.x, car.y, Car.WIDTH, Car.HEIGHT,
+                    monster.x, monster.y, Monster.WIDTH, Monster.HEIGHT))
+            {
+                gameOver = true;
+                Log.d("World", "Hit a monster. Game is over");
+            }
+        }
+    }
+
+    private boolean collideRects(float x, float y, float width, float height,
+                                 float x2, float y2, float width2, float height2)
+    {
+        if(x < x2 + width2 && x + width > x2 && y < y2 + height2 && y + height > y2)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 
     private void initializeMonsters()
     {
