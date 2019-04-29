@@ -351,7 +351,6 @@ public abstract class GameEngine extends Activity implements Runnable, TouchHand
                         continue;
                     }
 
-                    Log.d("GameEngine", "We are trying to get a Canvas object");
                     Canvas canvas = surfaceHolder.lockCanvas();
                     fillEvents();
                     currentTime = System.nanoTime();
