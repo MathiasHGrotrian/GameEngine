@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dk.kea.class2019january.mathiasg.gameengine.Carscroller"
+    package="dk.kea.class2019january.mathiasg.gameengine.ExamGame"
     android:installLocation="preferExternal">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Carscroller"
+        android:label="ExamGame"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Carscroller"
+        <activity android:name=".ExamGame"
                   android:configChanges="keyboard|keyboardHidden|orientation"
                   android:screenOrientation="landscape"
 

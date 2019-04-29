@@ -30,7 +30,7 @@ public class GameScreen extends Screen
     World world = null;
     WorldRenderer worldRenderer = null;
     State state = State.Running;
-    int backGroundSpeed = 100;
+    int backGroundSpeed = 750;
 
     public GameScreen(GameEngine gameEngine)
     {
