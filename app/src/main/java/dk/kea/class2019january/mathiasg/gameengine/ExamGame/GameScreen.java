@@ -15,33 +15,42 @@ public class GameScreen extends Screen
         GameOver
     }
 
+
     Bitmap background;
     Bitmap floatingRock;
     Bitmap ground;
-    Bitmap player;
+
+    World world = null;
+    WorldRenderer worldRenderer = null;
+
 
     public GameScreen(GameEngine gameEngine)
     {
         super(gameEngine);
         Log.d("Examgame", "Starting the game");
 
+
         this.background = gameEngine.loadBitmap("ExamGame/sky.png");
         this.floatingRock = gameEngine.loadBitmap("ExamGame/floatingrock.png");
         this.ground = gameEngine.loadBitmap("ExamGame/ground.png");
-        this.player = gameEngine.loadBitmap("ExamGame/player.png");
+
+        this.world = new World(gameEngine);
+        this.worldRenderer = new WorldRenderer(gameEngine, world);
 
     }
 
     @Override
     public void update(float deltaTime)
-    {   //what is srcX srcY?
+    {
+
+        //what is srcX srcY?
         gameEngine.drawBitmap(background, 0, 0, 0, 0, 480, 320);
-
-        //gameEngine.drawBitmap(floatingRock, 200, 130);
-
-        //gameEngine.drawBitmap(player, 50, (300 - ground.getHeight()));
-
         gameEngine.drawBitmap(ground, 0, 220);
+
+
+        world.update(deltaTime);
+        worldRenderer.render();
+
     }
 
     @Override

@@ -118,6 +118,7 @@ public class GameScreen extends Screen
             // Update the game objects
             world.update(deltaTime, gameEngine.getAccelerometer()[1]);
         }
+
         // Draws the background regardless of state
         gameEngine.drawBitmap(background, 0, 0, (int)backgroundX, 0, 480, 320);
         // Draws the game objects regardless of state

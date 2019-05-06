@@ -41,6 +41,7 @@ public class World
     {
         // Move the car based on the phone accelerometer. For the finished game.
         //car.y = (int) (car.y + accelY * deltaTime * 40);
+
         // Move the car based on user screen touch. Only for testing. Remove before publishing
         if(gameEngine.isTouchDown(0))
         {
