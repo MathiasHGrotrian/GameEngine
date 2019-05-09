@@ -64,14 +64,14 @@ public class World
             {
                 //Shoot fireball right
                 //player.x = player.x + 30;
-                gameEngine.drawBitmap(rightFireball, player.x, player.y);
+                gameEngine.drawBitmap(rightFireball, player.x + 20, player.y);
 
             }
             if (player.direction == Player.Direction.LEFT)
             {
                 //Shoot fireball right
                 //player.x = player.x - 30;
-                gameEngine.drawBitmap(leftFireball, player.x, player.y);
+                gameEngine.drawBitmap(leftFireball, player.x - 20, player.y);
             }
 
         }
