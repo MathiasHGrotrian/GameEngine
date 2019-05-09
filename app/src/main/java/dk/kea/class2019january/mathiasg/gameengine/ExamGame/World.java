@@ -1,5 +1,7 @@
 package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 
+import android.graphics.Bitmap;
+
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
 public class World
@@ -11,9 +13,15 @@ public class World
     int actionButtonDimensions = 80;
     private PlayerDirection playerDirection = PlayerDirection.RIGHT;
 
+    //fireball sprites
+    Bitmap leftFireball;
+    Bitmap rightFireball;
+
     public World(GameEngine gameEngine)
     {
         this.gameEngine = gameEngine;
+        this.leftFireball = gameEngine.loadBitmap("ExamGame/leftfireball.png");
+        this.rightFireball = gameEngine.loadBitmap("ExamGame/rightfireball.png");
     }
 
     public void update(float deltaTime)
@@ -57,6 +65,7 @@ public class World
             {
                 //Shoot fireball right
                 player.x = player.x + 30;
+
             }
             if (playerDirection == PlayerDirection.LEFT)
             {
