@@ -63,13 +63,15 @@ public class World
             if (player.direction == Player.Direction.RIGHT)
             {
                 //Shoot fireball right
-                player.x = player.x + 30;
+                //player.x = player.x + 30;
+                gameEngine.drawBitmap(rightFireball, player.x, player.y);
 
             }
             if (player.direction == Player.Direction.LEFT)
             {
                 //Shoot fireball right
-                player.x = player.x - 30;
+                //player.x = player.x - 30;
+                gameEngine.drawBitmap(leftFireball, player.x, player.y);
             }
 
         }
