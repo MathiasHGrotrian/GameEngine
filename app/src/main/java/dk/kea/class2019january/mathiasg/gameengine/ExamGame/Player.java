@@ -19,7 +19,7 @@ public class Player
 
     public void jump(float deltaTime)
     {
-        this.y = this.y - 1;
+        this.y = this.y - 10;
 
     }
 }

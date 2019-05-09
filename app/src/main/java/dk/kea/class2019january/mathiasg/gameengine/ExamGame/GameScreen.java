@@ -45,7 +45,7 @@ public class GameScreen extends Screen
 
         //what is srcX srcY?
         gameEngine.drawBitmap(background, 0, 0, 0, 0, 480, 320);
-        gameEngine.drawBitmap(ground, 0, 220);
+        gameEngine.drawBitmap(ground, -100, 235);
 
 
         world.update(deltaTime);

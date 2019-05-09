@@ -19,13 +19,14 @@ public class World
 
     public void update(float deltaTime)
     {
-
+        //gravity
         player.y = player.y + 3;
 
         if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
-                0, 220, 500, 100))
+                -100, 235, 485, 10))
         {
-            player.y = 220;
+            //height makes it adjust to feet
+            player.y = 235 - Player.HEIGHT;
         }
 
         //moves player left
