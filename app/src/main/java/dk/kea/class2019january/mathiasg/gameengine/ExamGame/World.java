@@ -9,6 +9,7 @@ public class World
     int movementButtonsLenght = 75;
     int getMovementButtonsHeight = 61;
     int actionButtonDimensions = 80;
+    private PlayerDirection playerDirection = PlayerDirection.RIGHT;
 
     public World(GameEngine gameEngine)
     {
@@ -33,6 +34,7 @@ public class World
                 && gameEngine.getTouchY(0) > 240
                 && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
         {
+            playerDirection = PlayerDirection.LEFT;
             player.x = player.x - 2;
         }
 
@@ -41,6 +43,7 @@ public class World
                 && gameEngine.getTouchY(0) > 240
                 && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
         {
+            playerDirection = PlayerDirection.RIGHT;
             player.x = player.x + 2;
         }
 
@@ -50,7 +53,17 @@ public class World
                 && gameEngine.getTouchX(0) > movementButtonsLenght + 40
                 && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
         {
-            player.x = 150;
+            if (playerDirection == PlayerDirection.RIGHT)
+            {
+                //Shoot fireball right
+                player.x = player.x + 30;
+            }
+            if (playerDirection == PlayerDirection.LEFT)
+            {
+                //Shoot fireball right
+                player.x = player.x - 30;
+            }
+
         }
 
         //player jumps
@@ -62,9 +75,6 @@ public class World
             player.jump(deltaTime);
 
         }
-
-
-
     }
 
     private boolean collideRects(float x, float y, float width, float height,
