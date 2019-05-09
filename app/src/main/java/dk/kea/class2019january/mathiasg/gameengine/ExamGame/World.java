@@ -9,9 +9,8 @@ public class World
     Player player = new Player();
     GameEngine gameEngine;
     int movementButtonsLenght = 75;
-    int getMovementButtonsHeight = 61;
+    int movementButtonsHeight = 61;
     int actionButtonDimensions = 80;
-    private PlayerDirection playerDirection = PlayerDirection.RIGHT;
 
     //fireball sprites
     Bitmap leftFireball;
@@ -42,7 +41,7 @@ public class World
                 && gameEngine.getTouchY(0) > 240
                 && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
         {
-            playerDirection = PlayerDirection.LEFT;
+            player.direction = Player.Direction.LEFT;
             player.x = player.x - 2;
         }
 
@@ -51,7 +50,7 @@ public class World
                 && gameEngine.getTouchY(0) > 240
                 && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
         {
-            playerDirection = PlayerDirection.RIGHT;
+            player.direction = Player.Direction.RIGHT;
             player.x = player.x + 2;
         }
 
@@ -61,13 +60,13 @@ public class World
                 && gameEngine.getTouchX(0) > movementButtonsLenght + 40
                 && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
         {
-            if (playerDirection == PlayerDirection.RIGHT)
+            if (player.direction == Player.Direction.RIGHT)
             {
                 //Shoot fireball right
                 player.x = player.x + 30;
 
             }
-            if (playerDirection == PlayerDirection.LEFT)
+            if (player.direction == Player.Direction.LEFT)
             {
                 //Shoot fireball right
                 player.x = player.x - 30;

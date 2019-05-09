@@ -9,6 +9,14 @@ public class Player
     public int x = 0;
     public int y = 0;
 
+    public enum Direction
+    {
+        RIGHT,
+        LEFT
+    }
+
+    Direction direction = Direction.RIGHT;
+
     boolean isJumping = false;
 
     public Player()
