@@ -53,6 +53,7 @@ public class World
                 && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
         {
             player.jump(deltaTime);
+
         }
 
 
