@@ -28,29 +28,46 @@ public class WorldRenderer
 
     public void render()
     {
-        if(world.player.direction == Player.Direction.RIGHT)
-        {
-            this.playerImage = gameEngine.loadBitmap("ExamGame/playerRight.png");
-        }
-        else
-        {
-            this.playerImage = gameEngine.loadBitmap("ExamGame/playerLeft.png");
-        }
-
-        if(world.player.isJumping)
-        {
-            this.playerImage = gameEngine.loadBitmap("ExamGame/playerJump.png");
-        }
-        if(world.player.isFalling)
-        {
-            this.playerImage = gameEngine.loadBitmap("ExamGame/playerFall.png");
-        }
-
-        gameEngine.drawBitmap(playerImage, world.player.x, world.player.y);
+        gameEngine.drawBitmap(loadPlayerSprite(), world.player.x, world.player.y);
         //gameEngine.drawBitmap(dpadImage, 0, 0);
         gameEngine.drawBitmap(leftArrow, 20, 240);
         gameEngine.drawBitmap(rightArrow, 380, 240);
         gameEngine.drawBitmap(jumpButton, 280, 230);
         gameEngine.drawBitmap(fireBallButton, leftArrow.getWidth() + 40, 230);
+    }
+
+
+    private Bitmap loadPlayerSprite()
+    {
+        if(world.player.direction == Player.Direction.RIGHT)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerRight.png");
+        }
+        if(world.player.direction == Player.Direction.LEFT)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerLeft.png");
+        }
+        if(world.player.verticalDirection == Player.VerticalDirection.UP
+                && world.player.direction == Player.Direction.RIGHT)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerJumpRight.png");
+        }
+        if(world.player.verticalDirection == Player.VerticalDirection.UP
+                && world.player.direction == Player.Direction.LEFT)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerJumpLeft.png");
+        }
+        if(world.player.verticalDirection == Player.VerticalDirection.DOWN
+                && world.player.direction == Player.Direction.RIGHT)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerFallRight.png");
+        }
+        if(world.player.verticalDirection == Player.VerticalDirection.DOWN
+                && world.player.direction == Player.Direction.LEFT)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerFallLeft.png");
+        }
+
+        return this.playerImage;
     }
 }
