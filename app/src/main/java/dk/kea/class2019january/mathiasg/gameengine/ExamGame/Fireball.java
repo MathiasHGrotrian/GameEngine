@@ -7,6 +7,6 @@ public class Fireball
     public float x = 160;
     public float y = 240;
     // v = velocity aka speed
-    public float vx = 4;
+    public float vx = 200;
 
 }

@@ -6,9 +6,12 @@ public class Player
     public static final int HEIGHT = 30;
 
     //determines spawn location
-    public int x = 0;
-    public int y = 0;
+    public int x;
+    public int y;
+    int playervx = 2;
+    int playervy = 10;
     boolean isShootingFireball = false;
+    boolean isJumping;
 
     public enum Direction
     {
@@ -18,8 +21,6 @@ public class Player
 
     Direction direction = Direction.RIGHT;
 
-    boolean isJumping = false;
-
     public Player()
     {
         this.x = 15;
@@ -28,7 +29,7 @@ public class Player
 
     public void jump(float deltaTime)
     {
-        this.y = this.y - 10;
+        this.y = this.y - playervy;
 
     }
 }

@@ -80,7 +80,7 @@ public class World
             if(player.direction == Player.Direction.RIGHT)
             {
                 gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
-                fireball.x += fireball.vx;
+                fireball.x += fireball.vx * deltaTime;
 
                 if(fireball.x > fireballSpawnX + 200)
                 {
@@ -92,7 +92,7 @@ public class World
             if(player.direction == Player.Direction.LEFT)
             {
                 gameEngine.drawBitmap(leftFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
-                fireball.x -= fireball.vx;
+                fireball.x -= fireball.vx * deltaTime;
 
                 if(fireball.x < fireballSpawnX - 200)
                 {

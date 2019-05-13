@@ -19,8 +19,6 @@ public class WorldRenderer
     {
         this.gameEngine = gameEngine;
         this.world = world;
-        this.playerImage = gameEngine.loadBitmap("ExamGame/player.png");
-        //this.dpadImage = gameEngine.loadBitmap("ExamGame/dpad.png");
         this.rightArrow = gameEngine.loadBitmap("ExamGame/rightArrow.png");
         this.leftArrow = gameEngine.loadBitmap("ExamGame/leftArrow.png");
         this.jumpButton = gameEngine.loadBitmap("ExamGame/jumpButton.png");
@@ -30,6 +28,14 @@ public class WorldRenderer
 
     public void render()
     {
+        if(world.player.direction == Player.Direction.RIGHT)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerRight.png");
+        }
+        else
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerLeft.png");
+        }
         gameEngine.drawBitmap(playerImage, world.player.x, world.player.y);
         //gameEngine.drawBitmap(dpadImage, 0, 0);
         gameEngine.drawBitmap(leftArrow, 20, 240);
