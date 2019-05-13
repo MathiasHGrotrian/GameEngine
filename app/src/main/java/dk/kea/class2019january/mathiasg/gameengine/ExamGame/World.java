@@ -75,17 +75,20 @@ public class World
         }
 
 
-
-        if(player.isShootingFireball && player.direction == Player.Direction.RIGHT)
+        if(player.isShootingFireball)
         {
-            gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
-            fireball.x += 3;
-
-            if(fireball.x > fireballSpawnX + 200)
+            if(player.direction == Player.Direction.RIGHT)
             {
-                player.isShootingFireball = false;
-                fireball.x = player.x;
+                gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
+                fireball.x += 3;
+
+                if(fireball.x > fireballSpawnX + 200)
+                {
+                    player.isShootingFireball = false;
+                    fireball.x = player.x;
+                }
             }
+
         }
 
         //player jumps

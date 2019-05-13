@@ -345,7 +345,7 @@ public abstract class GameEngine extends Activity implements Runnable, TouchHand
 
                 if(state == State.Running)
                 {
-                    Log.d("GameEngine","State is Running");
+                    //Log.d("GameEngine","State is Running");
                     if(!surfaceHolder.getSurface().isValid())
                     {
                         continue;
