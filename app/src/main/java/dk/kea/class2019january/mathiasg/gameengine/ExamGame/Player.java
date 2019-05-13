@@ -8,6 +8,7 @@ public class Player
     //determines spawn location
     public int x = 0;
     public int y = 0;
+    boolean isShootingFireball = false;
 
     public enum Direction
     {

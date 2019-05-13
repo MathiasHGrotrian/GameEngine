@@ -16,6 +16,9 @@ public class World
     Bitmap leftFireball;
     Bitmap rightFireball;
 
+    // fireball object
+    Fireball fireball = new Fireball();
+
     public World(GameEngine gameEngine)
     {
         this.gameEngine = gameEngine;

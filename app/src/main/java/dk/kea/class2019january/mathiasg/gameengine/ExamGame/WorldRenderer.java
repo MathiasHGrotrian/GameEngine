@@ -36,5 +36,6 @@ public class WorldRenderer
         gameEngine.drawBitmap(rightArrow, 380, 240);
         gameEngine.drawBitmap(jumpButton, 280, 230);
         gameEngine.drawBitmap(fireBall, leftArrow.getWidth() + 40, 230);
+
     }
 }
