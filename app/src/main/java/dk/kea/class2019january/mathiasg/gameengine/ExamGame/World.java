@@ -11,6 +11,8 @@ public class World
     int movementButtonsLenght = 75;
     int movementButtonsHeight = 61;
     int actionButtonDimensions = 80;
+    int fireballSpawnX;
+    int fireballSpawnY;
 
     //fireball sprites
     Bitmap leftFireball;
@@ -63,27 +65,27 @@ public class World
                 && gameEngine.getTouchX(0) > movementButtonsLenght + 40
                 && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
         {
-            player.isShootingFireball = true;
-            if (player.direction == Player.Direction.RIGHT)
-            {
-                //Shoot fireball right
-                //player.x = player.x + 30;
-                gameEngine.drawBitmap(rightFireball, player.x + 20, player.y);
 
-            }
-            if (player.direction == Player.Direction.LEFT)
-            {
-                //Shoot fireball right
-                //player.x = player.x - 30;
-                gameEngine.drawBitmap(leftFireball, player.x - 20, player.y);
-            }
+            player.isShootingFireball = true;
+
+            //gets the location for projectile spawn on screen
+            fireballSpawnX = player.x;
+            fireballSpawnY = player.y;
 
         }
 
+
+
         if(player.isShootingFireball && player.direction == Player.Direction.RIGHT)
         {
-            gameEngine.drawBitmap(rightFireball, (int)(player.x + fireball.x), player.y);
+            gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
             fireball.x += 3;
+
+            if(fireball.x > fireballSpawnX + 200)
+            {
+                player.isShootingFireball = false;
+                fireball.x = player.x;
+            }
         }
 
         //player jumps
