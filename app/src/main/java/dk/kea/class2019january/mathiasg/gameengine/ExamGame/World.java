@@ -63,6 +63,7 @@ public class World
                 && gameEngine.getTouchX(0) > movementButtonsLenght + 40
                 && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
         {
+            player.isShootingFireball = true;
             if (player.direction == Player.Direction.RIGHT)
             {
                 //Shoot fireball right
@@ -77,6 +78,12 @@ public class World
                 gameEngine.drawBitmap(leftFireball, player.x - 20, player.y);
             }
 
+        }
+
+        if(player.isShootingFireball && player.direction == Player.Direction.RIGHT)
+        {
+            gameEngine.drawBitmap(rightFireball, (int)(player.x + fireball.x), player.y);
+            fireball.x += 3;
         }
 
         //player jumps

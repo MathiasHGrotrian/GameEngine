@@ -13,7 +13,7 @@ public class WorldRenderer
     Bitmap rightArrow;
     Bitmap leftArrow;
     Bitmap jumpButton;
-    Bitmap fireBall;
+    Bitmap fireBallButton;
 
     public WorldRenderer(GameEngine gameEngine, World world)
     {
@@ -24,7 +24,7 @@ public class WorldRenderer
         this.rightArrow = gameEngine.loadBitmap("ExamGame/rightArrow.png");
         this.leftArrow = gameEngine.loadBitmap("ExamGame/leftArrow.png");
         this.jumpButton = gameEngine.loadBitmap("ExamGame/jumpButton.png");
-        this.fireBall = gameEngine.loadBitmap("ExamGame/fireball.png");
+        this.fireBallButton = gameEngine.loadBitmap("ExamGame/fireball.png");
 
     }
 
@@ -35,7 +35,6 @@ public class WorldRenderer
         gameEngine.drawBitmap(leftArrow, 20, 240);
         gameEngine.drawBitmap(rightArrow, 380, 240);
         gameEngine.drawBitmap(jumpButton, 280, 230);
-        gameEngine.drawBitmap(fireBall, leftArrow.getWidth() + 40, 230);
-
+        gameEngine.drawBitmap(fireBallButton, leftArrow.getWidth() + 40, 230);
     }
 }
