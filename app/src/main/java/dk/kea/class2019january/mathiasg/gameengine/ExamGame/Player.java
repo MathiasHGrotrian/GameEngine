@@ -12,6 +12,7 @@ public class Player
     int playervy = 10;
     boolean isShootingFireball = false;
     boolean isJumping;
+    boolean isFalling;
 
     public enum Direction
     {
@@ -29,7 +30,7 @@ public class Player
 
     public void jump(float deltaTime)
     {
+        this.isJumping = true;
         this.y = this.y - playervy;
-
     }
 }

@@ -38,6 +38,8 @@ public class World
         {
             //height makes it adjust to feet
             player.y = 235 - Player.HEIGHT;
+            player.isJumping = false;
+            player.isFalling = false;
         }
 
         //moves player left
@@ -110,7 +112,6 @@ public class World
                 && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
         {
             player.jump(deltaTime);
-
         }
     }
 

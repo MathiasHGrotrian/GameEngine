@@ -36,6 +36,16 @@ public class WorldRenderer
         {
             this.playerImage = gameEngine.loadBitmap("ExamGame/playerLeft.png");
         }
+
+        if(world.player.isJumping)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerJump.png");
+        }
+        if(world.player.isFalling)
+        {
+            this.playerImage = gameEngine.loadBitmap("ExamGame/playerFall.png");
+        }
+
         gameEngine.drawBitmap(playerImage, world.player.x, world.player.y);
         //gameEngine.drawBitmap(dpadImage, 0, 0);
         gameEngine.drawBitmap(leftArrow, 20, 240);
