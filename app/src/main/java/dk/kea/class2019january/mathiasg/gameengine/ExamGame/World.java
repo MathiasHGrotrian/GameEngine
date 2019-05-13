@@ -80,9 +80,21 @@ public class World
             if(player.direction == Player.Direction.RIGHT)
             {
                 gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
-                fireball.x += 3;
+                fireball.x += fireball.vx;
 
                 if(fireball.x > fireballSpawnX + 200)
+                {
+                    player.isShootingFireball = false;
+                    fireball.x = player.x;
+                }
+            }
+
+            if(player.direction == Player.Direction.LEFT)
+            {
+                gameEngine.drawBitmap(leftFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
+                fireball.x -= fireball.vx;
+
+                if(fireball.x < fireballSpawnX - 200)
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
