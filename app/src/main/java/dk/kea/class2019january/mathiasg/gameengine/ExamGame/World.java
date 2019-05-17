@@ -1,7 +1,9 @@
 package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
 public class World
@@ -35,6 +37,8 @@ public class World
         //player.y = player.y + 3;
 
         collideGround();
+        collideDoor();
+
         movePlayerLeft(deltaTime);
         movePlayerRight(deltaTime);
         shootFireball(deltaTime);
@@ -156,6 +160,18 @@ public class World
             //height makes it adjust to feet
             player.y = 235 - Player.HEIGHT;
             player.verticalDirection = Player.VerticalDirection.STILL;
+        }
+    }
+
+    private void collideDoor()
+    {
+        if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
+                300, 195, 30, 40) /* and if player is jumping*/)
+        {
+            Log.d("World", "touching door");
+            //needs to discard old screen as well?
+            gameEngine.setScreen(new MainMenuScreen(gameEngine));
+
         }
     }
 

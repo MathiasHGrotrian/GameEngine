@@ -10,6 +10,7 @@ public class Player
     //determines spawn location
     public int x;
     public int y;
+
     int playervx = 100;
     int playervyUp = 100;
     int playervyDown = 150;

@@ -78,14 +78,14 @@ public class GameScreen extends Screen
 
         if(state == State.Paused && gameEngine.getTouchEvents().size() > 0)
         {
-            Log.d("GameScreen", "Starting the game again");
+            Log.d("FirstLevel", "Starting the game again");
             state = State.Running;
             resume();
         }
 
         if(state == State.GameOver)
         {
-            Log.d("GameScreen", "Game Over");
+            Log.d("FirstLevel", "Game Over");
             List<TouchEvent> events = gameEngine.getTouchEvents();
             for(int i = 0; i < events.size(); i++)
             {
@@ -101,7 +101,7 @@ public class GameScreen extends Screen
         if(state == State.Running && gameEngine.getTouchY(0) < 40
                 && gameEngine.getTouchX(0) > 320 - 40)
         {
-            Log.d("GameScreen", "Pausing the game");
+            Log.d("FirstLevel", "Pausing the game");
             state = State.Paused;
             pause();
         }

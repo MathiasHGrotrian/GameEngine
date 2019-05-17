@@ -1,9 +1,8 @@
-package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
+package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.GameScreen;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Screen;
 
@@ -25,7 +24,7 @@ public class MainMenuScreen extends Screen
         if (gameEngine.isTouchDown(0))
         {
             Log.d("Examgame", "trying to get game screen");
-            gameEngine.setScreen(new GameScreen(gameEngine));
+            gameEngine.setScreen(new FirstLevel(gameEngine));
             return;
         }
 

@@ -9,11 +9,11 @@ public class WorldRenderer
     GameEngine gameEngine;
     World world;
     Bitmap playerImage;
-    //Bitmap dpadImage;
     Bitmap rightArrow;
     Bitmap leftArrow;
     Bitmap jumpButton;
     Bitmap fireBallButton;
+    Bitmap door;
 
     public WorldRenderer(GameEngine gameEngine, World world)
     {
@@ -23,17 +23,18 @@ public class WorldRenderer
         this.leftArrow = gameEngine.loadBitmap("ExamGame/leftArrow.png");
         this.jumpButton = gameEngine.loadBitmap("ExamGame/jumpButton.png");
         this.fireBallButton = gameEngine.loadBitmap("ExamGame/fireball.png");
+        this.door = gameEngine.loadBitmap("ExamGame/door.png");
 
     }
 
-    public void render()
+    public void renderFirstLevel()
     {
         gameEngine.drawBitmap(loadPlayerSprite(), world.player.x, world.player.y);
-        //gameEngine.drawBitmap(dpadImage, 0, 0);
         gameEngine.drawBitmap(leftArrow, 20, 240);
         gameEngine.drawBitmap(rightArrow, 380, 240);
         gameEngine.drawBitmap(jumpButton, 280, 230);
         gameEngine.drawBitmap(fireBallButton, leftArrow.getWidth() + 40, 230);
+        gameEngine.drawBitmap(door, 300, 195);
     }
 
 
