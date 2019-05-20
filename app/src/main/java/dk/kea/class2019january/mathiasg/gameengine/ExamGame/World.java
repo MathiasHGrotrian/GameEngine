@@ -126,6 +126,18 @@ public class World
                 }
 
             }
+            if(player.direction == Player.Direction.LEFT)
+            {
+                fireball.x -= fireball.vx * deltaTime;
+                gameEngine.drawBitmap(rightFireball, fireball.x, player.y - 11);
+
+                if(fireball.x < player.x - 100)
+                {
+                    player.isShootingFireball = false;
+                    fireball.x = player.x;
+                }
+
+            }
         }
 
     }
