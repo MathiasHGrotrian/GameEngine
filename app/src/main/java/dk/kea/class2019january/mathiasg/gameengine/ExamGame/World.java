@@ -8,7 +8,7 @@ import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
 public class World
 {
-    Player player = new Player();
+    public Player player = new Player();
     GameEngine gameEngine;
     int movementButtonsLenght = 75;
     int movementButtonsHeight = 61;

@@ -7,7 +7,7 @@ import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 public class PlayerRenderer
 {
     GameEngine gameEngine;
-    World world;
+    public World world;
     Bitmap playerImage;
     Bitmap rightArrow;
     Bitmap leftArrow;

@@ -32,8 +32,8 @@ public class Player
     }
 
     // set default directions
-    Direction direction = Direction.RIGHT;
-    VerticalDirection verticalDirection = VerticalDirection.STILL;
+    public Direction direction = Direction.RIGHT;
+    public VerticalDirection verticalDirection = VerticalDirection.STILL;
 
     public Player()
     {

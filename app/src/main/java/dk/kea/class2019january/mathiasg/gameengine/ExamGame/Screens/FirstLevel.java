@@ -3,6 +3,8 @@ package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
@@ -23,7 +25,9 @@ public class FirstLevel extends Screen
     Bitmap orc;
 
     World world = null;
-    PlayerRenderer playerRenderer = null;
+    PlayerRenderer playerRenderer;
+    int levelX = 0;
+    DirectionHandler directionHandler = new DirectionHandler();
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -45,14 +49,24 @@ public class FirstLevel extends Screen
     public void update(float deltaTime)
     {
 
+        if(directionHandler.isMovingRight(gameEngine))
+        {
+            levelX = levelX + 10;
+        }
+        if(directionHandler.isMovingLeft(gameEngine))
+        {
+            levelX = levelX - 10;
+        }
         //what is srcX srcY?
-        gameEngine.drawBitmap(background, 0, 0, 0, 0, 480, 320);
-        gameEngine.drawBitmap(ground, -100, 235);
-        gameEngine.drawBitmap(door, 300, 195);
-        gameEngine.drawBitmap(orc, 200, 215);
+        gameEngine.drawBitmap(background, 100 - levelX, 0, 0, 0, 480, 320);
+        gameEngine.drawBitmap(ground, -100 - levelX, 235);
+        gameEngine.drawBitmap(door, 300 - levelX, 195);
+        gameEngine.drawBitmap(orc, 200 - levelX, 215);
 
         world.update(deltaTime);
         playerRenderer.render();
+
+
 
     }
 
@@ -73,4 +87,6 @@ public class FirstLevel extends Screen
     {
 
     }
+
+
 }
