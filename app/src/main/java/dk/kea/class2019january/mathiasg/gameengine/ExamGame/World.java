@@ -85,7 +85,8 @@ public class World
                 && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
         {
             player.direction = Player.Direction.LEFT;
-            player.x -= player.playervx * deltaTime;
+            //player.x -= player.playervx * deltaTime;
+            player.x = player.x - 2;
         }
     }
 
@@ -98,7 +99,8 @@ public class World
                 && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
         {
             player.direction = Player.Direction.RIGHT;
-            player.x += player.playervx * deltaTime;
+            //player.x += player.playervx * deltaTime;
+            player.x = player.x + 2;
         }
     }
 
