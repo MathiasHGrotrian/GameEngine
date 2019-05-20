@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
-public class WorldRenderer
+public class PlayerRenderer
 {
     GameEngine gameEngine;
     World world;
@@ -14,9 +14,7 @@ public class WorldRenderer
     Bitmap jumpButton;
     Bitmap fireBallButton;
 
-    Bitmap orc;
-
-    public WorldRenderer(GameEngine gameEngine, World world)
+    public PlayerRenderer(GameEngine gameEngine, World world)
     {
         this.gameEngine = gameEngine;
         this.world = world;
@@ -25,11 +23,9 @@ public class WorldRenderer
         this.jumpButton = gameEngine.loadBitmap("ExamGame/jumpButton.png");
         this.fireBallButton = gameEngine.loadBitmap("ExamGame/fireball.png");
 
-        this.orc = gameEngine.loadBitmap("ExamGame/orc.png");
-
     }
 
-    public void renderFirstLevel()
+    public void render()
     {
         gameEngine.drawBitmap(loadPlayerSprite(), world.player.x, world.player.y);
 
@@ -38,8 +34,6 @@ public class WorldRenderer
         gameEngine.drawBitmap(jumpButton, 280, 230);
         gameEngine.drawBitmap(fireBallButton, leftArrow.getWidth() + 40, 230);
 
-        //gameEngine.drawBitmap(door, 300, 195);
-        gameEngine.drawBitmap(orc, 200, 215);
     }
 
 
