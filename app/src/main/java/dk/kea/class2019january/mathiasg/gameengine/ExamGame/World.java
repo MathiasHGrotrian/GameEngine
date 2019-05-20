@@ -67,7 +67,7 @@ public class World
     public void collideDoor(int doorX, int doorY)
     {
         if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
-                doorX, doorY, Door.WIDTH, Door.HEIGHT) /* and if player is jumping*/)
+                doorX, doorY, Door.WIDTH, Door.HEIGHT) && player.verticalDirection == Player.VerticalDirection.UP)
         {
             Log.d("World", "touching door");
             //needs to discard old screen as well?
@@ -108,42 +108,26 @@ public class World
                 && gameEngine.getTouchX(0) > movementButtonsLenght + 40
                 && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
         {
-
             player.isShootingFireball = true;
-
-            //gets the location for projectile spawn on screen
-            fireballSpawnX = player.x;
-            fireballSpawnY = player.y;
-
+            fireball.x = player.x;
         }
 
         if(player.isShootingFireball)
         {
             if(player.direction == Player.Direction.RIGHT)
             {
-                gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
                 fireball.x += fireball.vx * deltaTime;
+                gameEngine.drawBitmap(rightFireball, 240 + fireball.x, player.y - 11);
 
-                if(fireball.x > fireballSpawnX + 200)
+                if(fireball.x > player.x + 100)
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
                 }
+
             }
-
-            if(player.direction == Player.Direction.LEFT)
-            {
-                gameEngine.drawBitmap(leftFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
-                fireball.x -= fireball.vx * deltaTime;
-
-                if(fireball.x < fireballSpawnX - 200)
-                {
-                    player.isShootingFireball = false;
-                    fireball.x = player.x;
-                }
-            }
-
         }
+
     }
 
     private void jump(float deltaTime)
