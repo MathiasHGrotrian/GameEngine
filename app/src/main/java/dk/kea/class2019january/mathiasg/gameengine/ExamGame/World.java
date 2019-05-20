@@ -44,105 +44,6 @@ public class World
         shootFireball(deltaTime);
         jump(deltaTime);
 
-        /*
-        if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
-                -100, 235, 485, 10))
-        {
-            //height makes it adjust to feet
-            player.y = 235 - Player.HEIGHT;
-            player.verticalDirection = Player.VerticalDirection.STILL;
-        }
-
-
-
-        //moves player left
-        //20 is padding from edge of screen
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
-        {
-            player.direction = Player.Direction.LEFT;
-            player.x -= player.playervx * deltaTime;
-        }
-
-        //moves player right
-        //20 is padding from edge of screen
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
-        {
-            player.direction = Player.Direction.RIGHT;
-            player.x += player.playervx * deltaTime;
-        }
-
-        //player shoots fireball
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > movementButtonsLenght + 40
-                && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
-        {
-
-            player.isShootingFireball = true;
-
-            //gets the location for projectile spawn on screen
-            fireballSpawnX = player.x;
-            fireballSpawnY = player.y;
-
-        }
-
-
-        if(player.isShootingFireball)
-        {
-            if(player.direction == Player.Direction.RIGHT)
-            {
-                gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
-                fireball.x += fireball.vx * deltaTime;
-
-                if(fireball.x > fireballSpawnX + 200)
-                {
-                    player.isShootingFireball = false;
-                    fireball.x = player.x;
-                }
-            }
-
-            if(player.direction == Player.Direction.LEFT)
-            {
-                gameEngine.drawBitmap(leftFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
-                fireball.x -= fireball.vx * deltaTime;
-
-                if(fireball.x < fireballSpawnX - 200)
-                {
-                    player.isShootingFireball = false;
-                    fireball.x = player.x;
-                }
-            }
-
-        }
-
-        //player jumps
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
-                && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
-        {
-            player.verticalDirection = Player.VerticalDirection.UP;
-            jumpStartPoint = player.y;
-        }
-
-        if(player.verticalDirection == Player.VerticalDirection.UP)
-        {
-            player.jump(deltaTime);
-            if(player.y < jumpStartPoint - 90)
-            {
-                player.fall(deltaTime);
-            }
-        }
-        if(player.verticalDirection == Player.VerticalDirection.DOWN)
-        {
-            player.fall(deltaTime);
-        }
-        */
-
     }
 
     private boolean collideRects(float x, float y, float width, float height,
@@ -272,4 +173,106 @@ public class World
             player.fall(deltaTime);
         }
     }
+
+
+    /*
+        if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
+                -100, 235, 485, 10))
+        {
+            //height makes it adjust to feet
+            player.y = 235 - Player.HEIGHT;
+            player.verticalDirection = Player.VerticalDirection.STILL;
+        }
+
+
+
+        //moves player left
+        //20 is padding from edge of screen
+        if (gameEngine.isTouchDown(0)
+                && gameEngine.getTouchY(0) > 240
+                && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
+        {
+            player.direction = Player.Direction.LEFT;
+            player.x -= player.playervx * deltaTime;
+        }
+
+        //moves player right
+        //20 is padding from edge of screen
+        if (gameEngine.isTouchDown(0)
+                && gameEngine.getTouchY(0) > 240
+                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
+        {
+            player.direction = Player.Direction.RIGHT;
+            player.x += player.playervx * deltaTime;
+        }
+
+        //player shoots fireball
+        if (gameEngine.isTouchDown(0)
+                && gameEngine.getTouchY(0) > 240
+                && gameEngine.getTouchX(0) > movementButtonsLenght + 40
+                && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
+        {
+
+            player.isShootingFireball = true;
+
+            //gets the location for projectile spawn on screen
+            fireballSpawnX = player.x;
+            fireballSpawnY = player.y;
+
+        }
+
+
+        if(player.isShootingFireball)
+        {
+            if(player.direction == Player.Direction.RIGHT)
+            {
+                gameEngine.drawBitmap(rightFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
+                fireball.x += fireball.vx * deltaTime;
+
+                if(fireball.x > fireballSpawnX + 200)
+                {
+                    player.isShootingFireball = false;
+                    fireball.x = player.x;
+                }
+            }
+
+            if(player.direction == Player.Direction.LEFT)
+            {
+                gameEngine.drawBitmap(leftFireball, (int)(fireballSpawnX + fireball.x), fireballSpawnY);
+                fireball.x -= fireball.vx * deltaTime;
+
+                if(fireball.x < fireballSpawnX - 200)
+                {
+                    player.isShootingFireball = false;
+                    fireball.x = player.x;
+                }
+            }
+
+        }
+
+        //player jumps
+        if (gameEngine.isTouchDown(0)
+                && gameEngine.getTouchY(0) > 240
+                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
+                && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
+        {
+            player.verticalDirection = Player.VerticalDirection.UP;
+            jumpStartPoint = player.y;
+        }
+
+        if(player.verticalDirection == Player.VerticalDirection.UP)
+        {
+            player.jump(deltaTime);
+            if(player.y < jumpStartPoint - 90)
+            {
+                player.fall(deltaTime);
+            }
+        }
+        if(player.verticalDirection == Player.VerticalDirection.DOWN)
+        {
+            player.fall(deltaTime);
+        }
+        */
+
+
 }
