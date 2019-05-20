@@ -20,7 +20,7 @@ public class FirstLevel extends Screen
     Bitmap background;
     Bitmap floatingRock;
     Bitmap ground;
-    //Bitmap door;
+    Bitmap door;
 
     World world = null;
     WorldRenderer worldRenderer = null;
@@ -32,9 +32,8 @@ public class FirstLevel extends Screen
 
         //level objects
         this.background = gameEngine.loadBitmap("ExamGame/sky.png");
-        //this.floatingRock = gameEngine.loadBitmap("ExamGame/floatingrock.png");
         this.ground = gameEngine.loadBitmap("ExamGame/ground.png");
-        //this.door = gameEngine.loadBitmap("Examgame/door.png");
+        this.door = gameEngine.loadBitmap("ExamGame/door.png");
 
         this.world = new World(gameEngine);
         this.worldRenderer = new WorldRenderer(gameEngine, world);
@@ -45,13 +44,10 @@ public class FirstLevel extends Screen
     public void update(float deltaTime)
     {
 
-        //why is ground and background drawn here, and other stuff in worldrenderer?
-
-
         //what is srcX srcY?
         gameEngine.drawBitmap(background, 0, 0, 0, 0, 480, 320);
         gameEngine.drawBitmap(ground, -100, 235);
-        //gameEngine.drawBitmap(door, 300, 195);
+        gameEngine.drawBitmap(door, 300, 195);
 
         world.update(deltaTime);
         worldRenderer.renderFirstLevel();

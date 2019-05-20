@@ -6,8 +6,8 @@ public class Fireball
     public static float HEIGHT = 7;
 
     //is this what fucks up the fireball location?
-    public float x = 160;
-    public float y = 240;
+    public float x;
+    public float y;
 
     // v = velocity aka speed
     public float vx = 200;

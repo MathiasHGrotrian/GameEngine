@@ -14,7 +14,6 @@ public class WorldRenderer
     Bitmap jumpButton;
     Bitmap fireBallButton;
 
-    Bitmap door;
     Bitmap orc;
 
     public WorldRenderer(GameEngine gameEngine, World world)
@@ -26,7 +25,6 @@ public class WorldRenderer
         this.jumpButton = gameEngine.loadBitmap("ExamGame/jumpButton.png");
         this.fireBallButton = gameEngine.loadBitmap("ExamGame/fireball.png");
 
-        this.door = gameEngine.loadBitmap("ExamGame/door.png");
         this.orc = gameEngine.loadBitmap("ExamGame/orc.png");
 
     }
@@ -40,7 +38,7 @@ public class WorldRenderer
         gameEngine.drawBitmap(jumpButton, 280, 230);
         gameEngine.drawBitmap(fireBallButton, leftArrow.getWidth() + 40, 230);
 
-        gameEngine.drawBitmap(door, 300, 195);
+        //gameEngine.drawBitmap(door, 300, 195);
         gameEngine.drawBitmap(orc, 200, 215);
     }
 
