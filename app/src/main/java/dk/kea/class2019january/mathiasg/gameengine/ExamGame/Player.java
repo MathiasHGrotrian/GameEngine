@@ -37,7 +37,7 @@ public class Player
 
     public Player()
     {
-        this.x = 15;
+        this.x = 240;
         this.y = 320 - 140;
     }
 

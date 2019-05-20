@@ -7,4 +7,10 @@ public class Door
     public int x;
     public int y;
 
+    public Door(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
 }

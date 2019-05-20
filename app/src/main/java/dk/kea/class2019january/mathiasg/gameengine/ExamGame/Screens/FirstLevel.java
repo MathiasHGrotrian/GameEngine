@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
@@ -28,6 +29,7 @@ public class FirstLevel extends Screen
     PlayerRenderer playerRenderer;
     int levelX = 0;
     DirectionHandler directionHandler = new DirectionHandler();
+    Door objDoor;
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -42,6 +44,7 @@ public class FirstLevel extends Screen
 
         this.world = new World(gameEngine);
         this.playerRenderer = new PlayerRenderer(gameEngine, world);
+        this.objDoor = new Door(300, 195);
 
     }
 
@@ -51,17 +54,21 @@ public class FirstLevel extends Screen
 
         if(directionHandler.isMovingRight(gameEngine))
         {
-            levelX = levelX + 10;
+            levelX = levelX + 2;
         }
         if(directionHandler.isMovingLeft(gameEngine))
         {
-            levelX = levelX - 10;
+            levelX = levelX - 2;
         }
         //what is srcX srcY?
         gameEngine.drawBitmap(background, 100 - levelX, 0, 0, 0, 480, 320);
         gameEngine.drawBitmap(ground, -100 - levelX, 235);
-        gameEngine.drawBitmap(door, 300 - levelX, 195);
+        gameEngine.drawBitmap(door, 300 - levelX, objDoor.y);
         gameEngine.drawBitmap(orc, 200 - levelX, 215);
+
+
+
+        world.collideDoor(300 - levelX, objDoor.y);
 
         world.update(deltaTime);
         playerRenderer.render();

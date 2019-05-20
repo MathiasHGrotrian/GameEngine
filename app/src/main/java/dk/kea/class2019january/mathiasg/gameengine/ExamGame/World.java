@@ -24,6 +24,7 @@ public class World
     // fireball object
     Fireball fireball = new Fireball();
 
+
     public World(GameEngine gameEngine)
     {
         this.gameEngine = gameEngine;
@@ -37,7 +38,6 @@ public class World
         //player.y = player.y + 3;
 
         collideGround();
-        collideDoor();
 
         movePlayerLeft(deltaTime);
         movePlayerRight(deltaTime);
@@ -64,10 +64,10 @@ public class World
         }
     }
 
-    private void collideDoor()
+    public void collideDoor(int doorX, int doorY)
     {
         if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
-                300, 195, 30, 40) /* and if player is jumping*/)
+                doorX, doorY, Door.WIDTH, Door.HEIGHT) /* and if player is jumping*/)
         {
             Log.d("World", "touching door");
             //needs to discard old screen as well?
@@ -85,8 +85,6 @@ public class World
                 && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
         {
             player.direction = Player.Direction.LEFT;
-            //player.x -= player.playervx * deltaTime;
-            player.x = player.x - 2;
         }
     }
 
@@ -99,8 +97,6 @@ public class World
                 && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
         {
             player.direction = Player.Direction.RIGHT;
-            //player.x += player.playervx * deltaTime;
-            player.x = player.x + 2;
         }
     }
 
