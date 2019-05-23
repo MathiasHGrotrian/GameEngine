@@ -37,20 +37,19 @@ public class World
         //gravity
         //player.y = player.y + 3;
 
-        //collideGround();
+        collideGround();
 
-        movePlayerLeft(deltaTime);
-        movePlayerRight(deltaTime);
+        movePlayerLeft();
+        movePlayerRight();
         shootFireball(deltaTime);
-        jump(deltaTime);
 
+        jump(deltaTime);
     }
 
     private boolean collideRects(float x, float y, float width, float height,
                                  float x2, float y2, float width2, float height2)
     {
         return (x < x2 + width2 && x + width > x2 && y < y2 + height2 && y + height > y2);
-
     }
 
     private void collideGround()
@@ -76,7 +75,8 @@ public class World
         }
     }
 
-    private void movePlayerLeft(float deltaTime)
+
+    private void movePlayerLeft()
     {
         //moves player left
         //20 is padding from edge of screen
@@ -88,7 +88,7 @@ public class World
         }
     }
 
-    private void movePlayerRight(float deltaTime)
+    private void movePlayerRight()
     {
         //moves player right
         //20 is padding from edge of screen
@@ -99,6 +99,7 @@ public class World
             player.direction = Player.Direction.RIGHT;
         }
     }
+
 
     private void shootFireball(float deltaTime)
     {
@@ -142,8 +143,23 @@ public class World
 
     }
 
-    public void jump(float deltaTime)
+    private void jump(float deltaTime)
     {
+        if(player.verticalDirection == Player.VerticalDirection.UP)
+        {
+            player.jump(deltaTime);
+            if(player.y < jumpStartPoint - 90)
+            {
+                player.fall(deltaTime);
+
+            }
+        }
+        if(player.verticalDirection == Player.VerticalDirection.DOWN)
+        {
+            player.fall(deltaTime);
+            return;
+        }
+
         //player jumps
         if (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
@@ -154,18 +170,6 @@ public class World
             jumpStartPoint = player.y;
         }
 
-        if(player.verticalDirection == Player.VerticalDirection.UP)
-        {
-            player.jump(deltaTime);
-            if(player.y < jumpStartPoint - 90)
-            {
-                player.fall(deltaTime);
-            }
-        }
-        if(player.verticalDirection == Player.VerticalDirection.DOWN)
-        {
-            player.fall(deltaTime);
-        }
     }
 
 

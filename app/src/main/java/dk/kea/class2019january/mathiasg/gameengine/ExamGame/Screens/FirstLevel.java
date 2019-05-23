@@ -5,6 +5,7 @@ import android.util.Log;
 
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Door;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
@@ -29,10 +30,11 @@ public class FirstLevel extends Screen
 
     World world = null;
     PlayerRenderer playerRenderer;
-    int levelX = -82;
-    int levelY = -444;
+    int levelX = 0;
+    int levelY = 0;
     DirectionHandler directionHandler = new DirectionHandler();
     Door objDoor;
+    Orc objOrc = new Orc(300,210);
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -44,10 +46,11 @@ public class FirstLevel extends Screen
         this.background = gameEngine.loadBitmap("ExamGame/sky.png");
         this.ground = gameEngine.loadBitmap("ExamGame/ground.png");
         this.door = gameEngine.loadBitmap("ExamGame/door.png");
-        this.orc = gameEngine.loadBitmap("ExamGame/orc.png");
         */
+        this.orc = gameEngine.loadBitmap("ExamGame/orc.png");
 
-        this.firstLevel = gameEngine.loadBitmap("ExamGame/FirstLevel.png");
+
+        this.firstLevel = gameEngine.loadBitmap("ExamGame/Levels/firstLevel.png");
 
 
         this.world = new World(gameEngine);
@@ -61,19 +64,13 @@ public class FirstLevel extends Screen
     {
         if(directionHandler.isMovingRight(gameEngine))
         {
-            levelX += 2;
+            levelX -= 2;
+            objOrc.x -= 2;
         }
         if(directionHandler.isMovingLeft(gameEngine))
         {
-            levelX -= 2;
-        }
-        if(directionHandler.isJumping(gameEngine, playerRenderer.world.player))
-        {
-            levelY -= 10;
-            if(levelY < 20)
-            {
-                levelY += 10;
-            }
+            levelX += 2;
+            objOrc.x += 2;
         }
         /*
         if(directionHandler.isJumping(gameEngine, playerRenderer.world.player))
@@ -97,8 +94,14 @@ public class FirstLevel extends Screen
         gameEngine.drawBitmap(orc, 200 - levelX, 215);
         */
 
+
+
         //gameEngine.drawBitmap(firstLevel,levelX, levelY);
-        gameEngine.drawBitmap(firstLevel,playerRenderer.world.player.x, playerRenderer.world.player.y);
+        gameEngine.drawBitmap(firstLevel, levelX, levelY);
+
+        gameEngine.drawBitmap(orc, objOrc.x, 210);
+
+        collideOrc(playerRenderer.world.player, objOrc);
 
         //world.collideDoor(300 - levelX, objDoor.y);
 
@@ -113,6 +116,17 @@ public class FirstLevel extends Screen
     {
         return (x < x2 + width2 && x + width > x2 && y < y2 + height2 && y + height > y2);
 
+    }
+
+    private void collideOrc(Player player, Orc orc)
+    {
+        if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
+                orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
+        {
+            Log.d("FirstLevel", "Player collided with Orc");
+            levelX += 30;
+            objOrc.x += 30;
+        }
     }
 
     @Override

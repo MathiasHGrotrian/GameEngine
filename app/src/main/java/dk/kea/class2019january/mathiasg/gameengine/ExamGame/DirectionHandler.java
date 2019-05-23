@@ -26,20 +26,4 @@ public class DirectionHandler
                 && gameEngine.getTouchX(0) < 20 + movementButtonsLenght);
 
     }
-
-    public boolean isJumping(GameEngine gameEngine, Player player)
-    {
-        //player jumps
-        return (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
-                && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40) ||
-                player.verticalDirection == Player.VerticalDirection.UP;
-
-    }
-
-    public boolean isFalling(Player player)
-    {
-        return player.verticalDirection == Player.VerticalDirection.DOWN;
-    }
 }
