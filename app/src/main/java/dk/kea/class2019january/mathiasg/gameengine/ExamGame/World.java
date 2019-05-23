@@ -37,7 +37,7 @@ public class World
         //gravity
         //player.y = player.y + 3;
 
-        collideGround();
+        //collideGround();
 
         movePlayerLeft(deltaTime);
         movePlayerRight(deltaTime);

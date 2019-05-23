@@ -37,8 +37,8 @@ public class Player
 
     public Player()
     {
-        this.x = 240;
-        this.y = 320 - 140;
+        this.x = 226;
+        this.y = 196;
     }
 
     // moves player character up
