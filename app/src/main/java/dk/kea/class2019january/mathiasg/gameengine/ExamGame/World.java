@@ -142,7 +142,7 @@ public class World
 
     }
 
-    private void jump(float deltaTime)
+    public void jump(float deltaTime)
     {
         //player jumps
         if (gameEngine.isTouchDown(0)

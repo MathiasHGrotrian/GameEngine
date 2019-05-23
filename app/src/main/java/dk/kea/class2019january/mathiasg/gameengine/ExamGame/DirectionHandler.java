@@ -4,18 +4,16 @@ import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
 public class DirectionHandler
 {
+    private int movementButtonsLenght = 75;
+    private int actionButtonDimensions = 80;
+
     public boolean isMovingRight(GameEngine gameEngine)
     {
         //moves player right
         //20 is padding from edge of screen
-        if (gameEngine.isTouchDown(0)
+        return  (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > 480 - 75 - 20)
-        {
-            return true;
-        }
-
-        return false;
+                && gameEngine.getTouchX(0) > 480 - 75 - 20);
 
     }
 
@@ -23,13 +21,25 @@ public class DirectionHandler
     {
         //moves player left
         //20 is padding from edge of screen
-        if (gameEngine.isTouchDown(0)
+        return (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) < 20 + 75)
-        {
-            return true;
-        }
+                && gameEngine.getTouchX(0) < 20 + movementButtonsLenght);
 
-        return false;
+    }
+
+    public boolean isJumping(GameEngine gameEngine, Player player)
+    {
+        //player jumps
+        return (gameEngine.isTouchDown(0)
+                && gameEngine.getTouchY(0) > 240
+                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
+                && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40) ||
+                player.verticalDirection == Player.VerticalDirection.UP;
+
+    }
+
+    public boolean isFalling(Player player)
+    {
+        return player.verticalDirection == Player.VerticalDirection.DOWN;
     }
 }

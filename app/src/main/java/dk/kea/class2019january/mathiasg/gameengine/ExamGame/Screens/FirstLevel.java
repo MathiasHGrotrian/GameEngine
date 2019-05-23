@@ -30,6 +30,7 @@ public class FirstLevel extends Screen
     World world = null;
     PlayerRenderer playerRenderer;
     int levelX = -82;
+    int levelY = -444;
     DirectionHandler directionHandler = new DirectionHandler();
     Door objDoor;
 
@@ -58,15 +59,36 @@ public class FirstLevel extends Screen
     @Override
     public void update(float deltaTime)
     {
-
         if(directionHandler.isMovingRight(gameEngine))
         {
-            levelX = levelX + 2;
+            levelX += 2;
         }
         if(directionHandler.isMovingLeft(gameEngine))
         {
-            levelX = levelX - 2;
+            levelX -= 2;
         }
+        if(directionHandler.isJumping(gameEngine, playerRenderer.world.player))
+        {
+            levelY -= 10;
+            if(levelY < 20)
+            {
+                levelY += 10;
+            }
+        }
+        /*
+        if(directionHandler.isJumping(gameEngine, playerRenderer.world.player))
+        {
+            playerRenderer.world.player.verticalDirection = Player.VerticalDirection.UP;
+            levelY -= -10;
+            playerRenderer.world.player.verticalDirection = Player.VerticalDirection.DOWN;
+
+        }
+        if(directionHandler.isFalling(playerRenderer.world.player))
+        {
+            levelY += 10;
+            playerRenderer.world.player.verticalDirection = Player.VerticalDirection.STILL;
+        }
+        */
         //what is srcX srcY?
         /*
         gameEngine.drawBitmap(background, 100 - levelX, 0, 0, 0, 480, 320);
@@ -75,7 +97,8 @@ public class FirstLevel extends Screen
         gameEngine.drawBitmap(orc, 200 - levelX, 215);
         */
 
-        gameEngine.drawBitmap(firstLevel,levelX, -444);
+        //gameEngine.drawBitmap(firstLevel,levelX, levelY);
+        gameEngine.drawBitmap(firstLevel,playerRenderer.world.player.x, playerRenderer.world.player.y);
 
         //world.collideDoor(300 - levelX, objDoor.y);
 
