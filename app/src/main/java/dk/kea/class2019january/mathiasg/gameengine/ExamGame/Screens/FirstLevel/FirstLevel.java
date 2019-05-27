@@ -272,7 +272,6 @@ public class FirstLevel extends Screen
         platforms.add(secondBigMossy);
         platforms.add(longStonePlatform);
 
-
         return platforms;
     }
 
