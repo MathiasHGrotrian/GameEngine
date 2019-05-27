@@ -11,8 +11,10 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.FloatingRock;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.MossyPlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
@@ -39,7 +41,8 @@ public class FirstLevel extends Screen
     Door objDoor;
     Orc objOrc = new Orc(300,210);
     List<LevelObject> levelObjects = buildLevel();
-    Ground ground = new Ground(0, 250);
+    Ground ground = new Ground(0, 243);
+
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -62,6 +65,7 @@ public class FirstLevel extends Screen
     {
 
         collideGround(playerRenderer.world.player, ground);
+        collideGround(playerRenderer.world.player, levelObjects.get(2));
         if(directionHandler.isMovingRight(gameEngine))
         {
             levelX -= 10;
@@ -163,11 +167,11 @@ public class FirstLevel extends Screen
     private void collideGround(Player player, LevelObject levelObject)
     {
         if(player.y + Player.HEIGHT >= levelObject.y
-                /*&& player.x > levelObject.x
-                && player.x < levelObject.x + levelObject.width*/)
+                && player.x > levelObject.x
+                && player.x < levelObject.x + levelObject.width)
         {
-            Log.d("FirstLevel.collideGround()", "Player collided with ground");
-            player.y = 235 - Player.HEIGHT;
+            Log.d("FirstLevel.collideGround()", "Player collided with mossy");
+            player.y = levelObject.y - Player.HEIGHT - 5;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
     }
@@ -181,6 +185,8 @@ public class FirstLevel extends Screen
         levelObjects.add(boundaryWallLeft);
         BoundaryWall boundaryWallRight = new BoundaryWall(2618, 0);
         levelObjects.add(boundaryWallRight);
+        MossyPlatform mossyPlatform = new MossyPlatform(1061, 156);
+        levelObjects.add(mossyPlatform);
 
         return levelObjects;
     }

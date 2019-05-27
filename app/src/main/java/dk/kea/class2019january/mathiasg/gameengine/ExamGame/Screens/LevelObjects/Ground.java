@@ -7,6 +7,6 @@ public class Ground extends LevelObject
 
     public Ground(int x, int y)
     {
-        super(x, y, HEIGHT, WIDTH);
+        super(x, y, WIDTH, HEIGHT);
     }
 }
