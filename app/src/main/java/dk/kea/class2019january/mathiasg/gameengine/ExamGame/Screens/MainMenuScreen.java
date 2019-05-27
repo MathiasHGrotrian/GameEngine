@@ -3,6 +3,7 @@ package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.FirstLevel.FirstLevel;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Screen;
 
