@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BigStonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BoundaryWall;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.FloatingRock;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.MossyPlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.StonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
@@ -40,9 +41,10 @@ public class FirstLevel extends Screen
     DirectionHandler directionHandler = new DirectionHandler();
     Door objDoor;
     Orc objOrc = new Orc(300,210);
-    List<LevelObject> levelObjects = buildLevel();
+    List<LevelObject> levelObjects = buildBoundaries();
     Ground ground = new Ground(0, 243);
-    MossyPlatform mossyPlatform = new MossyPlatform(1061, 156);
+    List<LevelObject> platforms = buildPlatforms();
+
 
 
     public FirstLevel(GameEngine gameEngine)
@@ -67,7 +69,11 @@ public class FirstLevel extends Screen
         playerRenderer.world.player.y += 1;
 
         collideGround(playerRenderer.world.player, ground);
-        collidePlatform(playerRenderer.world.player, mossyPlatform);
+        for(LevelObject platform : platforms)
+        {
+            collidePlatform(playerRenderer.world.player, platform);
+        }
+
         if(directionHandler.isMovingRight(gameEngine))
         {
             levelX -= 10;
@@ -76,7 +82,6 @@ public class FirstLevel extends Screen
             {
                 levelObject.x -= 10;
             }
-            mossyPlatform.x -= 10;
 
         }
         if(directionHandler.isMovingLeft(gameEngine))
@@ -87,7 +92,6 @@ public class FirstLevel extends Screen
             {
                 levelObject.x += 10;
             }
-            mossyPlatform.x += 10;
         }
 
         gameEngine.drawBitmap(firstLevel, levelX, levelY);
@@ -199,18 +203,29 @@ public class FirstLevel extends Screen
     }
 
 
-    private List<LevelObject> buildLevel()
+    private List<LevelObject> buildBoundaries()
     {
-        List<LevelObject> levelObjects = new ArrayList<>();
+        List<LevelObject> boundaries = new ArrayList<>();
 
         BoundaryWall boundaryWallLeft = new BoundaryWall(218, 0);
-        levelObjects.add(boundaryWallLeft);
+        boundaries.add(boundaryWallLeft);
         BoundaryWall boundaryWallRight = new BoundaryWall(2618, 0);
-        levelObjects.add(boundaryWallRight);
-        //MossyPlatform mossyPlatform = new MossyPlatform(1061, 156);
-        //levelObjects.add(mossyPlatform);
+        boundaries.add(boundaryWallRight);
 
-        return levelObjects;
+
+        return boundaries;
+    }
+
+    private List<LevelObject> buildPlatforms()
+    {
+        List<LevelObject> platforms = new ArrayList<>();
+
+        BigStonePlatform upperBigStone = new BigStonePlatform(646, 99);
+        BigStonePlatform lowerBigStone = new BigStonePlatform(595, 137);
+        StonePlatform stonePlatform = new StonePlatform(549, 172);
+        MossyPlatform firstMossy = new MossyPlatform(1061, 156);
+
+        return platforms;
     }
 
     @Override
