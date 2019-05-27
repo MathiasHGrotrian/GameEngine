@@ -11,6 +11,7 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
@@ -38,6 +39,7 @@ public class FirstLevel extends Screen
     Door objDoor;
     Orc objOrc = new Orc(300,210);
     List<LevelObject> levelObjects = buildLevel();
+    Ground ground = new Ground(0, 250);
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -58,6 +60,8 @@ public class FirstLevel extends Screen
     @Override
     public void update(float deltaTime)
     {
+
+        collideGround(playerRenderer.world.player, ground);
         if(directionHandler.isMovingRight(gameEngine))
         {
             levelX -= 10;
@@ -76,11 +80,7 @@ public class FirstLevel extends Screen
             {
                 levelObject.x += 10;
             }
-
         }
-
-
-
 
         gameEngine.drawBitmap(firstLevel, levelX, levelY);
         gameEngine.drawBitmap(orc, objOrc.x, 210);
@@ -163,10 +163,12 @@ public class FirstLevel extends Screen
     private void collideGround(Player player, LevelObject levelObject)
     {
         if(player.y + Player.HEIGHT >= levelObject.y
-                && player.x > levelObject.x
-                && player.x < levelObject.x + levelObject.width)
+                /*&& player.x > levelObject.x
+                && player.x < levelObject.x + levelObject.width*/)
         {
-            player.y = levelObject.y;
+            Log.d("FirstLevel.collideGround()", "Player collided with ground");
+            player.y = 235 - Player.HEIGHT;
+            player.verticalDirection = Player.VerticalDirection.STILL;
         }
     }
 
