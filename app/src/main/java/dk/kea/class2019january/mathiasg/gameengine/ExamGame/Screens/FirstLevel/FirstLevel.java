@@ -3,10 +3,15 @@ package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.FirstLevel;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Door;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BoundaryWall;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
@@ -35,6 +40,7 @@ public class FirstLevel extends Screen
     DirectionHandler directionHandler = new DirectionHandler();
     Door objDoor;
     Orc objOrc = new Orc(300,210);
+    List<LevelObject> levelObjects = buildLevel();
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -64,13 +70,27 @@ public class FirstLevel extends Screen
     {
         if(directionHandler.isMovingRight(gameEngine))
         {
-            levelX -= 2;
-            objOrc.x -= 2;
+            levelX -= 10;
+            objOrc.x -= 10;
+            for(LevelObject levelObject: levelObjects)
+            {
+                levelObject.x -= 10;
+            }
+            //levelObjects.get(0).x -= 10;
+            //levelObjects.get(1).x -= 10;
         }
         if(directionHandler.isMovingLeft(gameEngine))
         {
-            levelX += 2;
-            objOrc.x += 2;
+            levelX += 10;
+            objOrc.x += 10;
+            for(LevelObject levelObject: levelObjects)
+            {
+                levelObject.x += 10;
+            }
+
+            //levelObjects.get(0).x += 10;
+            //levelObjects.get(1).x += 10;
+
         }
         /*
         if(directionHandler.isJumping(gameEngine, playerRenderer.world.player))
@@ -103,6 +123,11 @@ public class FirstLevel extends Screen
 
         collideOrc(playerRenderer.world.player, objOrc);
 
+        for (LevelObject levelObject: levelObjects)
+        {
+            collideObjects(playerRenderer.world.player, levelObject);
+        }
+
         //world.collideDoor(300 - levelX, objDoor.y);
 
         world.update(deltaTime);
@@ -124,9 +149,63 @@ public class FirstLevel extends Screen
                 orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
         {
             Log.d("FirstLevel", "Player collided with Orc");
-            levelX += 30;
-            objOrc.x += 30;
+            if(player.direction == Player.Direction.RIGHT)
+            {
+                levelX += player.knockBack;
+                objOrc.x += player.knockBack;
+
+                for(LevelObject levelObject: levelObjects)
+                {
+                    levelObject.x += player.knockBack;
+                }
+            }
+            else
+            {
+                levelX -= player.knockBack;
+                objOrc.x -= player.knockBack;
+
+                for(LevelObject levelObject: levelObjects)
+                {
+                    levelObject.x -= player.knockBack;
+                }
+            }
+
         }
+    }
+    private void collideObjects(Player player, LevelObject levelObject)
+    {
+        if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
+                levelObject.x, levelObject.y, levelObject.width, levelObject.height))
+        {
+            Log.d("FirstLevel", "Player collided with object");
+            if(player.direction == Player.Direction.RIGHT)
+            {
+                levelX += player.knockBack;
+                levelObject.x += player.knockBack;
+                objOrc.x += player.knockBack;
+            }
+            else
+            {
+                levelX -= player.knockBack;
+                levelObject.x -= player.knockBack;
+                objOrc.x -= player.knockBack;
+            }
+
+
+        }
+    }
+
+
+    private List<LevelObject> buildLevel()
+    {
+        List<LevelObject> levelObjects = new ArrayList<>();
+
+        BoundaryWall boundaryWallLeft = new BoundaryWall(218, 0);
+        levelObjects.add(boundaryWallLeft);
+        BoundaryWall boundaryWallRight = new BoundaryWall(2618, 0);
+        levelObjects.add(boundaryWallRight);
+
+        return levelObjects;
     }
 
     @Override

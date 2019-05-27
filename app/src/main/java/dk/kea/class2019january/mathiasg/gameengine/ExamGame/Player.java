@@ -11,7 +11,7 @@ public class Player
     public int x;
     public int y;
 
-    int playervx = 100;
+    public int knockBack = 11;
     int playervyUp = 100;
     int playervyDown = 150;
     boolean isShootingFireball = false;
@@ -37,8 +37,8 @@ public class Player
 
     public Player()
     {
-        this.x = 226;
-        this.y = 196;
+        this.x = 256;
+        this.y = 206;
     }
 
     // moves player character up

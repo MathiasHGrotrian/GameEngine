@@ -3,6 +3,7 @@ package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
@@ -191,7 +192,7 @@ public class World
                 && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
         {
             player.direction = Player.Direction.LEFT;
-            player.x -= player.playervx * deltaTime;
+            player.x -= player.knockBack * deltaTime;
         }
 
         //moves player right
@@ -201,7 +202,7 @@ public class World
                 && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
         {
             player.direction = Player.Direction.RIGHT;
-            player.x += player.playervx * deltaTime;
+            player.x += player.knockBack * deltaTime;
         }
 
         //player shoots fireball
