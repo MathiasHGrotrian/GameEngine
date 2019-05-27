@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BigHill;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BigMossyPlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BigStonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BoundaryWall;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
@@ -14,6 +16,7 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LongStonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.MossyPlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.StonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
@@ -248,10 +251,26 @@ public class FirstLevel extends Screen
         BigStonePlatform lowerBigStone = new BigStonePlatform(595, 137);
         StonePlatform stonePlatform = new StonePlatform(549, 172);
         MossyPlatform firstMossy = new MossyPlatform(1061, 156);
+        MossyPlatform secondMossy = new MossyPlatform(1624, 117);
+        MossyPlatform thirdMossy = new MossyPlatform(1703, 81);
+        MossyPlatform fourthMossy = new MossyPlatform(1775, 115);
+        MossyPlatform fifthMossy = new MossyPlatform(1839, 78);
+        BigHill bigHill = new BigHill(1115, 90);
+        BigMossyPlatform firstBigMossy = new BigMossyPlatform(1374, 90);
+        BigMossyPlatform secondBigMossy = new BigMossyPlatform(1504, 90);
+        LongStonePlatform longStonePlatform = new LongStonePlatform(1933, 78);
         platforms.add(upperBigStone);
         platforms.add(lowerBigStone);
         platforms.add(stonePlatform);
         platforms.add(firstMossy);
+        platforms.add(secondMossy);
+        platforms.add(thirdMossy);
+        platforms.add(fourthMossy);
+        platforms.add(fifthMossy);
+        platforms.add(bigHill);
+        platforms.add(firstBigMossy);
+        platforms.add(secondBigMossy);
+        platforms.add(longStonePlatform);
 
 
         return platforms;
