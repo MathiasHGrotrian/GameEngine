@@ -146,23 +146,8 @@ public class World
 
     }
 
-    private void jump(float deltaTime)
+    public void jump(float deltaTime)
     {
-        if(player.verticalDirection == Player.VerticalDirection.UP)
-        {
-            player.jump(deltaTime);
-            if(player.y < jumpStartPoint - 90)
-            {
-                player.fall(deltaTime);
-
-            }
-        }
-        if(player.verticalDirection == Player.VerticalDirection.DOWN)
-        {
-            player.fall(deltaTime);
-            return;
-        }
-
         //player jumps
         if (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
@@ -170,6 +155,7 @@ public class World
                 && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
         {
             player.verticalDirection = Player.VerticalDirection.UP;
+            player.y -= 10;
             jumpStartPoint = player.y;
         }
 

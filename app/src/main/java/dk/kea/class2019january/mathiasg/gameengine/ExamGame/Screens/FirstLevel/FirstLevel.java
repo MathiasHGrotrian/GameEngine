@@ -42,6 +42,7 @@ public class FirstLevel extends Screen
     Orc objOrc = new Orc(300,210);
     List<LevelObject> levelObjects = buildLevel();
     Ground ground = new Ground(0, 243);
+    MossyPlatform mossyPlatform = new MossyPlatform(1061, 156);
 
 
     public FirstLevel(GameEngine gameEngine)
@@ -63,9 +64,10 @@ public class FirstLevel extends Screen
     @Override
     public void update(float deltaTime)
     {
+        playerRenderer.world.player.y += 1;
 
         collideGround(playerRenderer.world.player, ground);
-        collidePlatform(playerRenderer.world.player, levelObjects.get(2));
+        collidePlatform(playerRenderer.world.player, mossyPlatform);
         if(directionHandler.isMovingRight(gameEngine))
         {
             levelX -= 10;
@@ -74,6 +76,7 @@ public class FirstLevel extends Screen
             {
                 levelObject.x -= 10;
             }
+            mossyPlatform.x -= 10;
 
         }
         if(directionHandler.isMovingLeft(gameEngine))
@@ -84,6 +87,7 @@ public class FirstLevel extends Screen
             {
                 levelObject.x += 10;
             }
+            mossyPlatform.x += 10;
         }
 
         gameEngine.drawBitmap(firstLevel, levelX, levelY);
@@ -139,8 +143,7 @@ public class FirstLevel extends Screen
     }
     private void collideObjectsSides(Player player, LevelObject levelObject, List<LevelObject> levelObjects)
     {
-        if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
-                levelObject.x, levelObject.y, levelObject.width, levelObject.height))
+        if(collideSides(player, levelObject))
         {
             Log.d("FirstLevel", "Player collided with object");
             if(player.direction == Player.Direction.RIGHT)
@@ -164,14 +167,20 @@ public class FirstLevel extends Screen
         }
     }
 
+    private boolean collideSides(Player player, LevelObject levelObject)
+    {
+        return (player.x < levelObject.x + levelObject.width
+                && player.x + Player.WIDTH > levelObject.x);
+    }
+
     private void collideGround(Player player, LevelObject levelObject)
     {
-        if(player.y + Player.HEIGHT >= levelObject.y
+        if(player.y + Player.HEIGHT > levelObject.y
                 && player.x > levelObject.x
                 && player.x < levelObject.x + levelObject.width)
         {
-            Log.d("FirstLevel.collideGround()", "Player collided with mossy");
-            player.y = levelObject.y - Player.HEIGHT - 5;
+            Log.d("FirstLevel.collideGround()", "Player collided with ground");
+            player.y = levelObject.y - Player.HEIGHT;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
     }
@@ -183,9 +192,10 @@ public class FirstLevel extends Screen
                 && player.x < levelObject.x + levelObject.width)
         {
             Log.d("FirstLevel.collideGround()", "Player collided with mossy");
-            player.y = levelObject.y - Player.HEIGHT - 5;
+            player.y = levelObject.y - Player.HEIGHT - 1;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
+
     }
 
 
@@ -197,8 +207,8 @@ public class FirstLevel extends Screen
         levelObjects.add(boundaryWallLeft);
         BoundaryWall boundaryWallRight = new BoundaryWall(2618, 0);
         levelObjects.add(boundaryWallRight);
-        MossyPlatform mossyPlatform = new MossyPlatform(1061, 156);
-        levelObjects.add(mossyPlatform);
+        //MossyPlatform mossyPlatform = new MossyPlatform(1061, 156);
+        //levelObjects.add(mossyPlatform);
 
         return levelObjects;
     }

@@ -1,22 +1,16 @@
 package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 
-import android.util.Log;
-
 public class Player
 {
-    public static final int WIDTH = 17;
-    public static final int HEIGHT = 30;
+    public static final int WIDTH = 22;
+    public static final int HEIGHT = 34;
 
     //determines spawn location
     public int x;
     public int y;
 
     public int knockBack = 11;
-    int playervyUp = 100;
-    int playervyDown = 150;
     boolean isShootingFireball = false;
-    boolean isJumping;
-    boolean isFalling;
 
     // enums used to determine which player sprite to load
     public enum Direction
@@ -38,10 +32,11 @@ public class Player
     public Player()
     {
         this.x = 256;
-        this.y = 206;
+        this.y = 100;
     }
 
     // moves player character up
+    /*
     public void jump(float deltaTime)
     {
         this.verticalDirection = VerticalDirection.UP;
@@ -55,4 +50,5 @@ public class Player
         this.verticalDirection = VerticalDirection.DOWN;
         this.y += playervyDown * deltaTime;
     }
+    */
 }
