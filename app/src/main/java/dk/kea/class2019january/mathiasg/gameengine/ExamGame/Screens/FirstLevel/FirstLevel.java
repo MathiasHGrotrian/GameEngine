@@ -26,9 +26,6 @@ public class FirstLevel extends Screen
         GameOver
     }
 
-    Bitmap background;
-    Bitmap ground;
-    Bitmap door;
     Bitmap orc;
 
     Bitmap firstLevel;
@@ -47,21 +44,14 @@ public class FirstLevel extends Screen
         super(gameEngine);
         Log.d("Examgame", "Starting the game");
 
-        //level objects
-        /*
-        this.background = gameEngine.loadBitmap("ExamGame/sky.png");
-        this.ground = gameEngine.loadBitmap("ExamGame/ground.png");
-        this.door = gameEngine.loadBitmap("ExamGame/door.png");
-        */
         this.orc = gameEngine.loadBitmap("ExamGame/orc.png");
-
 
         this.firstLevel = gameEngine.loadBitmap("ExamGame/Levels/firstLevel.png");
 
 
         this.world = new World(gameEngine);
         this.playerRenderer = new PlayerRenderer(gameEngine, world);
-        //this.objDoor = new Door(300, 195);
+
 
     }
 
@@ -76,8 +66,7 @@ public class FirstLevel extends Screen
             {
                 levelObject.x -= 10;
             }
-            //levelObjects.get(0).x -= 10;
-            //levelObjects.get(1).x -= 10;
+
         }
         if(directionHandler.isMovingLeft(gameEngine))
         {
@@ -88,47 +77,19 @@ public class FirstLevel extends Screen
                 levelObject.x += 10;
             }
 
-            //levelObjects.get(0).x += 10;
-            //levelObjects.get(1).x += 10;
-
         }
-        /*
-        if(directionHandler.isJumping(gameEngine, playerRenderer.world.player))
-        {
-            playerRenderer.world.player.verticalDirection = Player.VerticalDirection.UP;
-            levelY -= -10;
-            playerRenderer.world.player.verticalDirection = Player.VerticalDirection.DOWN;
-
-        }
-        if(directionHandler.isFalling(playerRenderer.world.player))
-        {
-            levelY += 10;
-            playerRenderer.world.player.verticalDirection = Player.VerticalDirection.STILL;
-        }
-        */
-        //what is srcX srcY?
-        /*
-        gameEngine.drawBitmap(background, 100 - levelX, 0, 0, 0, 480, 320);
-        gameEngine.drawBitmap(ground, -100 - levelX, 235);
-        gameEngine.drawBitmap(door, 300 - levelX, objDoor.y);
-        gameEngine.drawBitmap(orc, 200 - levelX, 215);
-        */
 
 
 
-        //gameEngine.drawBitmap(firstLevel,levelX, levelY);
+
         gameEngine.drawBitmap(firstLevel, levelX, levelY);
-
         gameEngine.drawBitmap(orc, objOrc.x, 210);
-
         collideOrc(playerRenderer.world.player, objOrc);
 
         for (LevelObject levelObject: levelObjects)
         {
-            collideObjects(playerRenderer.world.player, levelObject);
+            collideObjectsSides(playerRenderer.world.player, levelObject, levelObjects);
         }
-
-        //world.collideDoor(300 - levelX, objDoor.y);
 
         world.update(deltaTime);
         playerRenderer.render();
@@ -172,7 +133,7 @@ public class FirstLevel extends Screen
 
         }
     }
-    private void collideObjects(Player player, LevelObject levelObject)
+    private void collideObjectsSides(Player player, LevelObject levelObject, List<LevelObject> levelObjects)
     {
         if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
                 levelObject.x, levelObject.y, levelObject.width, levelObject.height))
@@ -181,17 +142,31 @@ public class FirstLevel extends Screen
             if(player.direction == Player.Direction.RIGHT)
             {
                 levelX += player.knockBack;
-                levelObject.x += player.knockBack;
+                for (LevelObject object : levelObjects)
+                {
+                    object.x += player.knockBack;
+                }
                 objOrc.x += player.knockBack;
             }
             else
             {
                 levelX -= player.knockBack;
-                levelObject.x -= player.knockBack;
+                for (LevelObject object : levelObjects)
+                {
+                    object.x -= player.knockBack;
+                }
                 objOrc.x -= player.knockBack;
             }
+        }
+    }
 
-
+    private void collideGround(Player player, LevelObject levelObject)
+    {
+        if(player.y + Player.HEIGHT >= levelObject.y
+                && player.x > levelObject.x
+                && player.x < levelObject.x + levelObject.width)
+        {
+            player.y = levelObject.y;
         }
     }
 
