@@ -65,7 +65,7 @@ public class FirstLevel extends Screen
     {
 
         collideGround(playerRenderer.world.player, ground);
-        collideGround(playerRenderer.world.player, levelObjects.get(2));
+        collidePlatform(playerRenderer.world.player, levelObjects.get(2));
         if(directionHandler.isMovingRight(gameEngine))
         {
             levelX -= 10;
@@ -167,6 +167,18 @@ public class FirstLevel extends Screen
     private void collideGround(Player player, LevelObject levelObject)
     {
         if(player.y + Player.HEIGHT >= levelObject.y
+                && player.x > levelObject.x
+                && player.x < levelObject.x + levelObject.width)
+        {
+            Log.d("FirstLevel.collideGround()", "Player collided with mossy");
+            player.y = levelObject.y - Player.HEIGHT - 5;
+            player.verticalDirection = Player.VerticalDirection.STILL;
+        }
+    }
+
+    private void collidePlatform(Player player, LevelObject levelObject)
+    {
+        if(player.y + Player.HEIGHT == levelObject.y
                 && player.x > levelObject.x
                 && player.x < levelObject.x + levelObject.width)
         {
