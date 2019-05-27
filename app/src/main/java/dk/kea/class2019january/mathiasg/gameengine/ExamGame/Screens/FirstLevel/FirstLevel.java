@@ -82,6 +82,10 @@ public class FirstLevel extends Screen
             {
                 levelObject.x -= 10;
             }
+            for(LevelObject platform: platforms)
+            {
+                platform.x -= 10;
+            }
 
         }
         if(directionHandler.isMovingLeft(gameEngine))
@@ -91,6 +95,10 @@ public class FirstLevel extends Screen
             for(LevelObject levelObject: levelObjects)
             {
                 levelObject.x += 10;
+            }
+            for(LevelObject platform: platforms)
+            {
+                platform.x += 10;
             }
         }
 
@@ -131,6 +139,10 @@ public class FirstLevel extends Screen
                 {
                     levelObject.x += player.knockBack;
                 }
+                for(LevelObject platform: platforms)
+                {
+                    platform.x += 10;
+                }
             }
             else
             {
@@ -140,6 +152,10 @@ public class FirstLevel extends Screen
                 for(LevelObject levelObject: levelObjects)
                 {
                     levelObject.x -= player.knockBack;
+                }
+                for(LevelObject platform: platforms)
+                {
+                    platform.x -= 10;
                 }
             }
 
@@ -157,6 +173,10 @@ public class FirstLevel extends Screen
                 {
                     object.x += player.knockBack;
                 }
+                for(LevelObject platform: platforms)
+                {
+                    platform.x += 10;
+                }
                 objOrc.x += player.knockBack;
             }
             else
@@ -165,6 +185,10 @@ public class FirstLevel extends Screen
                 for (LevelObject object : levelObjects)
                 {
                     object.x -= player.knockBack;
+                }
+                for(LevelObject platform: platforms)
+                {
+                    platform.x -= 10;
                 }
                 objOrc.x -= player.knockBack;
             }
@@ -195,7 +219,7 @@ public class FirstLevel extends Screen
                 && player.x > levelObject.x
                 && player.x < levelObject.x + levelObject.width)
         {
-            Log.d("FirstLevel.collideGround()", "Player collided with mossy");
+            Log.d("FirstLevel.collideGround()", "Player collided with platform");
             player.y = levelObject.y - Player.HEIGHT - 1;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
@@ -224,6 +248,11 @@ public class FirstLevel extends Screen
         BigStonePlatform lowerBigStone = new BigStonePlatform(595, 137);
         StonePlatform stonePlatform = new StonePlatform(549, 172);
         MossyPlatform firstMossy = new MossyPlatform(1061, 156);
+        platforms.add(upperBigStone);
+        platforms.add(lowerBigStone);
+        platforms.add(stonePlatform);
+        platforms.add(firstMossy);
+
 
         return platforms;
     }
