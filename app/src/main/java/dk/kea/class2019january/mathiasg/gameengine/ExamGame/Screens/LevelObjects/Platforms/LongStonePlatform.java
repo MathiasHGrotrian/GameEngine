@@ -1,4 +1,6 @@
-package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects;
+package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms;
+
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
 
 public class LongStonePlatform extends LevelObject
 {

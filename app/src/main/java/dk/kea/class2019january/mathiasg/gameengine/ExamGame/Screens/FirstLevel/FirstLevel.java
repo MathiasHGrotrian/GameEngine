@@ -7,18 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BigHill;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BigMossyPlatform;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BigStonePlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Fireball;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigHill;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigMossyPlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigStonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BoundaryWall;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LongStonePlatform;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.MossyPlatform;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.StonePlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.LongStonePlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.MossyPlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.StonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
@@ -43,10 +44,10 @@ public class FirstLevel extends Screen
     int levelY = 0;
     DirectionHandler directionHandler = new DirectionHandler();
     Door objDoor;
-    Orc objOrc = new Orc(300,210);
     List<LevelObject> levelObjects = buildBoundaries();
     Ground ground = new Ground(0, 243);
     List<LevelObject> platforms = buildPlatforms();
+    List<Orc> orcs = populateLevel();
 
 
 
@@ -80,7 +81,11 @@ public class FirstLevel extends Screen
         if(directionHandler.isMovingRight(gameEngine))
         {
             levelX -= 10;
-            objOrc.x -= 10;
+            for(Orc orc: orcs)
+            {
+                orc.x -= 10;
+            }
+
             for(LevelObject levelObject: levelObjects)
             {
                 levelObject.x -= 10;
@@ -94,7 +99,10 @@ public class FirstLevel extends Screen
         if(directionHandler.isMovingLeft(gameEngine))
         {
             levelX += 10;
-            objOrc.x += 10;
+            for(Orc orc: orcs)
+            {
+                orc.x += 10;
+            }
             for(LevelObject levelObject: levelObjects)
             {
                 levelObject.x += 10;
@@ -106,12 +114,24 @@ public class FirstLevel extends Screen
         }
 
         gameEngine.drawBitmap(firstLevel, levelX, levelY);
-        gameEngine.drawBitmap(orc, objOrc.x, 210);
-        collideOrc(playerRenderer.world.player, objOrc);
+
+        for(Orc objOrc: orcs)
+        {
+            gameEngine.drawBitmap(orc, objOrc.x, 210);
+        }
+        for(Orc objOrc: orcs)
+        {
+            collideOrc(playerRenderer.world.player, objOrc);
+        }
 
         for (LevelObject levelObject: levelObjects)
         {
             collideObjectsSides(playerRenderer.world.player, levelObject, levelObjects);
+        }
+
+        for(Orc orc: orcs)
+        {
+            collideFireball(playerRenderer.world.fireball, orc, playerRenderer.world.player, orcs);
         }
 
         world.update(deltaTime);
@@ -136,7 +156,11 @@ public class FirstLevel extends Screen
             if(player.direction == Player.Direction.RIGHT)
             {
                 levelX += player.knockBack;
-                objOrc.x += player.knockBack;
+                for(Orc objOrc: orcs)
+                {
+                    objOrc.x += player.knockBack;
+                }
+
 
                 for(LevelObject levelObject: levelObjects)
                 {
@@ -144,13 +168,16 @@ public class FirstLevel extends Screen
                 }
                 for(LevelObject platform: platforms)
                 {
-                    platform.x += 10;
+                    platform.x += player.knockBack;
                 }
             }
             else
             {
                 levelX -= player.knockBack;
-                objOrc.x -= player.knockBack;
+                for(Orc objOrc: orcs)
+                {
+                    objOrc.x -= player.knockBack;
+                }
 
                 for(LevelObject levelObject: levelObjects)
                 {
@@ -158,7 +185,7 @@ public class FirstLevel extends Screen
                 }
                 for(LevelObject platform: platforms)
                 {
-                    platform.x -= 10;
+                    platform.x -= player.knockBack;
                 }
             }
 
@@ -178,9 +205,12 @@ public class FirstLevel extends Screen
                 }
                 for(LevelObject platform: platforms)
                 {
-                    platform.x += 10;
+                    platform.x += player.knockBack;
                 }
-                objOrc.x += player.knockBack;
+                for(Orc objOrc: orcs)
+                {
+                    objOrc.x += player.knockBack;
+                }
             }
             else
             {
@@ -191,9 +221,12 @@ public class FirstLevel extends Screen
                 }
                 for(LevelObject platform: platforms)
                 {
-                    platform.x -= 10;
+                    platform.x -= player.knockBack;
                 }
-                objOrc.x -= player.knockBack;
+                for(Orc objOrc: orcs)
+                {
+                    objOrc.x -= player.knockBack;
+                }
             }
         }
     }
@@ -210,7 +243,7 @@ public class FirstLevel extends Screen
                 && player.x > levelObject.x
                 && player.x < levelObject.x + levelObject.width)
         {
-            Log.d("FirstLevel.collideGround()", "Player collided with ground");
+            //Log.d("FirstLevel.collideGround()", "Player collided with ground");
             player.y = levelObject.y - Player.HEIGHT;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
@@ -226,9 +259,17 @@ public class FirstLevel extends Screen
             player.y = levelObject.y - Player.HEIGHT - 1;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
-
     }
 
+    private void collideFireball(Fireball fireball, Orc orc, Player player, List<Orc> orcs)
+    {
+        if(collideRects(fireball.x, player.y + 11, Fireball.WIDTH, Fireball.HEIGHT,
+                    orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
+        {
+            Log.d("FirstLevel.collideFireball()", "Fireball collided with orc");
+            orcs.remove(orc);
+        }
+    }
 
     private List<LevelObject> buildBoundaries()
     {
@@ -241,6 +282,15 @@ public class FirstLevel extends Screen
 
 
         return boundaries;
+    }
+
+    private List<Orc> populateLevel()
+    {
+        List<Orc> orcs = new ArrayList<>();
+        Orc objOrc = new Orc(300,210);
+        orcs.add(objOrc);
+        return orcs;
+
     }
 
     private List<LevelObject> buildPlatforms()
