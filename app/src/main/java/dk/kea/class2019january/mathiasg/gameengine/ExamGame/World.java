@@ -27,7 +27,7 @@ public class World
     {
         this.gameEngine = gameEngine;
         this.fireballBitmap = gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
-        this.fireballSound = gameEngine.loadSound("ExamGame/Sounds/blocksplosion.wav");
+        this.fireballSound = gameEngine.loadSound("ExamGame/Sounds/fireball.wav");
         this.jumpSound = gameEngine.loadSound("ExamGame/Sounds/jump.wav");
 
     }

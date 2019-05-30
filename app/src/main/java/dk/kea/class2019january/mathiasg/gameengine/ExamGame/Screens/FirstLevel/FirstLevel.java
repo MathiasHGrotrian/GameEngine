@@ -27,6 +27,7 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScre
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
+import dk.kea.class2019january.mathiasg.gameengine.Music;
 import dk.kea.class2019january.mathiasg.gameengine.Screen;
 import dk.kea.class2019january.mathiasg.gameengine.Sound;
 
@@ -61,6 +62,11 @@ public class FirstLevel extends Screen
     Sound coinSound;
     Sound deathSound;
     Sound damageSound;
+    Sound orcDeathSound;
+    float passedTime = 0;
+    Bitmap movingPlayer1;
+    Bitmap movingPlayer2;
+    Music backgroundMusic;
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -77,6 +83,10 @@ public class FirstLevel extends Screen
         this.coinSound = gameEngine.loadSound("ExamGame/Sounds/coin.ogg");
         this.deathSound = gameEngine.loadSound("ExamGame/Sounds/death.ogg");
         this.damageSound = gameEngine.loadSound("ExamGame/Sounds/damage.wav");
+        this.orcDeathSound = gameEngine.loadSound("ExamGame/Sounds/orcDeath.wav");
+        this.movingPlayer1 = gameEngine.loadBitmap("ExamGame/Player/playerRun1.png");
+        this.movingPlayer2 = gameEngine.loadBitmap("ExamGame/Player/playerRun2.png");
+        this.backgroundMusic = gameEngine.loadMusic("ExamGame/music.ogg");
 
 
         this.world = new World(gameEngine);
@@ -88,6 +98,7 @@ public class FirstLevel extends Screen
     @Override
     public void update(float deltaTime)
     {
+        backgroundMusic.play();
         playerRenderer.world.player.y += 1;
 
         collideGround(playerRenderer.world.player, ground);
@@ -214,6 +225,7 @@ public class FirstLevel extends Screen
         String showText = "Coins: " + playerRenderer.world.player.coinsCollected;
 
         gameEngine.drawText(font,showText, 400, 20, Color.BLACK, 12);
+        gameEngine.drawBitmap(coin, 380, 7);
 
         world.update(deltaTime);
         playerRenderer.render();
@@ -291,6 +303,7 @@ public class FirstLevel extends Screen
         if(collideRects(fireball.x, player.y + 11, Fireball.WIDTH, Fireball.HEIGHT,
                     orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
         {
+            orcDeathSound.play(1);
             Log.d("FirstLevel.collideFireball()", "Fireball collided with orc");
             orcs.remove(orc);
         }

@@ -8,7 +8,7 @@ public class PlayerRenderer
 {
     GameEngine gameEngine;
     public World world;
-    Bitmap playerImage;
+    public Bitmap playerImage;
     Bitmap rightArrow;
     Bitmap leftArrow;
     Bitmap jumpButton;

@@ -9,7 +9,6 @@ import dk.kea.class2019january.mathiasg.gameengine.Screen;
 
 public class MainMenuScreen extends Screen
 {
-
     Bitmap background;
     Bitmap pressToPlay;
     float passedTime = 0;
