@@ -176,6 +176,11 @@ public class FirstLevel extends Screen
             collideObjectsSides(playerRenderer.world.player, levelObject, levelObjects);
         }
 
+        for(LevelObject platform: platforms)
+        {
+            collidePlatform(playerRenderer.world.player, platform);
+        }
+
 
         if(openDoor())
         {
@@ -249,8 +254,8 @@ public class FirstLevel extends Screen
                 && player.x > levelObject.x
                 && player.x < levelObject.x + levelObject.width)
         {
-            //Log.d("FirstLevel.collideGround()", "Player collided with platform");
-            player.y = levelObject.y - Player.HEIGHT - 1;
+            Log.d("FirstLevel.collideGround()", "Player collided with platform");
+            player.y = levelObject.y - Player.HEIGHT - 2;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
     }
