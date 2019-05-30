@@ -17,7 +17,7 @@ public class World
 
 
     // fireball object
-    public Fireball fireball = new Fireball();
+    public Fireball fireball = new Fireball(player.x, player.y + 11);
 
 
     public World(GameEngine gameEngine)

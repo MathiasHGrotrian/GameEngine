@@ -12,4 +12,10 @@ public class Fireball
     // v = velocity aka speed
     public float vx = 200;
 
+    public Fireball(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
 }
