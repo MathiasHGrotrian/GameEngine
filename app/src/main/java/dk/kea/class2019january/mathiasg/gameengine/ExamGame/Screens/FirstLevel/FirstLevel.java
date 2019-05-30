@@ -39,21 +39,19 @@ public class FirstLevel extends Screen
     Bitmap orc;
     Bitmap coin;
     Bitmap firstLevel;
-    //Bitmap door;
+    Bitmap door;
 
     World world = null;
     PlayerRenderer playerRenderer;
     int levelX = 0;
     int levelY = 0;
     DirectionHandler directionHandler = new DirectionHandler();
-    //Door objDoor = new Door(2555, 200);
+    Door objDoor = new Door(2555, 200);
     List<LevelObject> levelObjects = buildBoundaries();
     Ground ground = new Ground(0, 243);
     List<LevelObject> platforms = buildPlatforms();
     List<Orc> orcs = populateLevel();
     List<Coin> coins = placeCoins();
-
-
 
     public FirstLevel(GameEngine gameEngine)
     {
@@ -63,7 +61,7 @@ public class FirstLevel extends Screen
         this.orc = gameEngine.loadBitmap("ExamGame/orc.png");
         this.coin = gameEngine.loadBitmap("ExamGame/coin.png");
         this.firstLevel = gameEngine.loadBitmap("ExamGame/Levels/firstLevel.png");
-        //this.firstLevel = gameEngine.loadBitmap("ExamGame/door.png");
+        this.door = gameEngine.loadBitmap("ExamGame/door.png");
 
 
         this.world = new World(gameEngine);
@@ -75,7 +73,7 @@ public class FirstLevel extends Screen
     @Override
     public void update(float deltaTime)
     {
-        playerRenderer.world.player.y += 1;
+        playerRenderer.world.player.y += 2;
 
         collideGround(playerRenderer.world.player, ground);
         for(LevelObject platform : platforms)
@@ -87,63 +85,63 @@ public class FirstLevel extends Screen
         {
 
             //  orcs
-            levelX -= 10;
+            levelX -= 3;
             for(Orc orc: orcs)
             {
-                orc.x -= 10;
+                orc.x -= 3;
             }
 
             //  objects
             for(LevelObject levelObject: levelObjects)
             {
-                levelObject.x -= 10;
+                levelObject.x -= 3;
             }
 
             //  platforms
             for(LevelObject platform: platforms)
             {
-                platform.x -= 10;
+                platform.x -= 3;
             }
 
             //  coins
             for(Coin objCoin: coins)
             {
-                objCoin.x -= 10;
+                objCoin.x -= 3;
             }
 
             //  door
-            //objDoor.x -= 10;
+            objDoor.x -= 3;
 
         }
         if(directionHandler.isMovingLeft(gameEngine))
         {
             //  orcs
-            levelX += 10;
+            levelX += 3;
             for(Orc orc: orcs)
             {
-                orc.x += 10;
+                orc.x += 3;
             }
 
             //  objects
             for(LevelObject levelObject: levelObjects)
             {
-                levelObject.x += 10;
+                levelObject.x += 3;
             }
 
             //  platforms
             for(LevelObject platform: platforms)
             {
-                platform.x += 10;
+                platform.x += 3;
             }
 
             //  coins
             for(Coin objCoin: coins)
             {
-                objCoin.x += 10;
+                objCoin.x += 3;
             }
 
             //  door
-            //objDoor.x += 10;
+            objDoor.x += 3;
         }
 
         gameEngine.drawBitmap(firstLevel, levelX, levelY);
@@ -178,9 +176,10 @@ public class FirstLevel extends Screen
             collideObjectsSides(playerRenderer.world.player, levelObject, levelObjects);
         }
 
-        /*
+
         if(openDoor())
         {
+            Log.d("door", "update: opening door");
             gameEngine.drawBitmap(door, objDoor.x,objDoor.y);
             if(collideDoor(playerRenderer.world.player, objDoor) && (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
@@ -190,7 +189,7 @@ public class FirstLevel extends Screen
                 gameEngine.setScreen(new MainMenuScreen(gameEngine));
             }
         }
-        */
+
 
 
         world.update(deltaTime);
@@ -250,7 +249,7 @@ public class FirstLevel extends Screen
                 && player.x > levelObject.x
                 && player.x < levelObject.x + levelObject.width)
         {
-            Log.d("FirstLevel.collideGround()", "Player collided with platform");
+            //Log.d("FirstLevel.collideGround()", "Player collided with platform");
             player.y = levelObject.y - Player.HEIGHT - 1;
             player.verticalDirection = Player.VerticalDirection.STILL;
         }
@@ -291,20 +290,28 @@ public class FirstLevel extends Screen
     private List<Orc> populateLevel()
     {
         List<Orc> orcs = new ArrayList<>();
+
         Orc orc1 = new Orc(700,220);
         orcs.add(orc1);
+
         Orc orc2 = new Orc(950,200);
         orcs.add(orc2);
+
         Orc orc3 = new Orc(980,200);
         orcs.add(orc3);
+
         Orc orc4 = new Orc(1195,69);
         orcs.add(orc4);
+
         Orc orc5 = new Orc(1545,70);
         orcs.add(orc5);
+
         Orc orc6 = new Orc(1720,61);
         orcs.add(orc6);
+
         Orc orc7 = new Orc(1855,58);
         orcs.add(orc7);
+
         return orcs;
 
     }
@@ -312,23 +319,33 @@ public class FirstLevel extends Screen
     private List<Coin> placeCoins()
     {
         List<Coin> coins = new ArrayList<>();
+
         Coin coin1 = new Coin(564, 144);
         coins.add(coin1);
+
         Coin coin2 = new Coin(620, 110);
         coins.add(coin2);
+
         Coin coin3 = new Coin(680, 70);
         coins.add(coin3);
+
         Coin coin4 = new Coin(1075, 135);
         coins.add(coin4);
+
         Coin coin5 = new Coin(1415, 60);
         coins.add(coin5);
+
         Coin coin6 = new Coin(1980, 55);
         coins.add(coin6);
+
         Coin coin7 = new Coin(2010, 55);
         coins.add(coin7);
+
         Coin coin8 = new Coin(2040, 55);
         coins.add(coin8);
+
         return coins;
+
     }
 
     private List<LevelObject> buildPlatforms()
@@ -394,7 +411,7 @@ public class FirstLevel extends Screen
             }
 
             //  door
-            //objDoor.x += 10;
+            objDoor.x += player.knockBack;
         }
         else
         {
@@ -425,7 +442,7 @@ public class FirstLevel extends Screen
             }
 
             //  door
-            //objDoor.x -= 10;
+            objDoor.x -= player.knockBack;
         }
     }
 

@@ -12,6 +12,8 @@ public class Player
     public int knockBack = 11;
     public boolean isShootingFireball = false;
 
+    public int movementSpeed = 2;
+
     // enums used to determine which player sprite to load
     public enum Direction
     {

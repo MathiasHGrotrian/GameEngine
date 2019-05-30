@@ -112,7 +112,7 @@ public class World
                 && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
         {
             player.verticalDirection = Player.VerticalDirection.UP;
-            player.y -= 10;
+            player.y -= 5;
             jumpStartPoint = player.y;
         }
     }
