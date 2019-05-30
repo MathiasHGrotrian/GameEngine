@@ -18,6 +18,8 @@ public class Player
 
     public int movementSpeed = 2;
 
+    public boolean isIdle = true;
+
     // enums used to determine which player sprite to load
     public enum Direction
     {

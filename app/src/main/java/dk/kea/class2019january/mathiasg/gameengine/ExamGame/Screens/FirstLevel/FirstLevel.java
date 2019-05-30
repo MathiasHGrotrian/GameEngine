@@ -84,8 +84,8 @@ public class FirstLevel extends Screen
         this.deathSound = gameEngine.loadSound("ExamGame/Sounds/death.ogg");
         this.damageSound = gameEngine.loadSound("ExamGame/Sounds/damage.wav");
         this.orcDeathSound = gameEngine.loadSound("ExamGame/Sounds/orcDeath.wav");
-        this.movingPlayer1 = gameEngine.loadBitmap("ExamGame/Player/playerRun1.png");
-        this.movingPlayer2 = gameEngine.loadBitmap("ExamGame/Player/playerRun2.png");
+        this.movingPlayer1 = gameEngine.loadBitmap("ExamGame/Player/playerRunRight1.png");
+        this.movingPlayer2 = gameEngine.loadBitmap("ExamGame/Player/playerRunRight2.png");
         this.backgroundMusic = gameEngine.loadMusic("ExamGame/Sounds/music.wav");
 
 
@@ -109,6 +109,7 @@ public class FirstLevel extends Screen
 
         if(directionHandler.isMovingRight(gameEngine))
         {
+            playerRenderer.world.player.isIdle = false;
             //  orcs
             levelX -= 3;
             for(Orc orc: orcs)
@@ -138,8 +139,9 @@ public class FirstLevel extends Screen
             objDoor.x -= 3;
 
         }
-        if(directionHandler.isMovingLeft(gameEngine))
+        else if(directionHandler.isMovingLeft(gameEngine))
         {
+            playerRenderer.world.player.isIdle = false;
             //  orcs
             levelX += 3;
             for(Orc orc: orcs)
@@ -167,6 +169,10 @@ public class FirstLevel extends Screen
 
             //  door
             objDoor.x += 3;
+        }
+        else
+        {
+            playerRenderer.world.player.isIdle = true;
         }
 
         gameEngine.drawBitmap(firstLevel, levelX, levelY);
@@ -228,7 +234,7 @@ public class FirstLevel extends Screen
         gameEngine.drawBitmap(coin, 380, 7);
 
         world.update(deltaTime);
-        playerRenderer.render();
+        playerRenderer.render(deltaTime);
 
     }
 
@@ -283,6 +289,7 @@ public class FirstLevel extends Screen
             //Log.d("FirstLevel.collideGround()", "Player collided with ground");
             player.y = levelObject.y - Player.HEIGHT;
             player.verticalDirection = Player.VerticalDirection.STILL;
+            player.isIdle = true;
         }
     }
 
