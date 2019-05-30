@@ -1,6 +1,8 @@
 package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.FirstLevel;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Screen;
+import dk.kea.class2019january.mathiasg.gameengine.Sound;
 
 public class FirstLevel extends Screen
 {
@@ -53,17 +56,28 @@ public class FirstLevel extends Screen
     List<LevelObject> platforms = buildPlatforms();
     List<Orc> orcs = populateLevel();
     List<Coin> coins = placeCoins();
+    Typeface font;
+    Sound bounceSound;
+    Sound coinSound;
+    Sound deathSound;
+    Sound damageSound;
 
     public FirstLevel(GameEngine gameEngine)
     {
         super(gameEngine);
         Log.d("Examgame", "Starting the game");
 
-        this.orc = gameEngine.loadBitmap("ExamGame/orc.png");
+        this.orc = gameEngine.loadBitmap("ExamGame/orcRight.png");
         this.coin = gameEngine.loadBitmap("ExamGame/coin.png");
         this.firstLevel = gameEngine.loadBitmap("ExamGame/Levels/firstLevel.png");
         this.door = gameEngine.loadBitmap("ExamGame/door.png");
         this.health = gameEngine.loadBitmap("ExamGame/3hearts.png");
+        this.font = gameEngine.loadFont("ExamGame/font.ttf");
+        this.bounceSound = gameEngine.loadSound("ExamGame/Sounds/bounce.wav");
+        this.coinSound = gameEngine.loadSound("ExamGame/Sounds/coin.ogg");
+        this.deathSound = gameEngine.loadSound("ExamGame/Sounds/death.ogg");
+        this.damageSound = gameEngine.loadSound("ExamGame/Sounds/damage.wav");
+
 
         this.world = new World(gameEngine);
         this.playerRenderer = new PlayerRenderer(gameEngine, world);
@@ -149,7 +163,7 @@ public class FirstLevel extends Screen
         //  orcs
         for(Orc objOrc: orcs)
         {
-            gameEngine.drawBitmap(orc, objOrc.x, objOrc.y);
+            gameEngine.drawBitmap(loadOrc(playerRenderer.world.player.x, objOrc.x), objOrc.x, objOrc.y);
         }
         for(int i = 0; i < orcs.size(); i++)
         {
@@ -197,7 +211,9 @@ public class FirstLevel extends Screen
 
         gameEngine.drawBitmap(loadHealth(playerRenderer.world.player.health), 10, 10);
 
+        String showText = "Coins: " + playerRenderer.world.player.coinsCollected;
 
+        gameEngine.drawText(font,showText, 400, 20, Color.BLACK, 12);
 
         world.update(deltaTime);
         playerRenderer.render();
@@ -218,10 +234,12 @@ public class FirstLevel extends Screen
                 orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
         {
             Log.d("FirstLevel", "Player collided with Orc");
+            damageSound.play(1);
             moveObjects(player, player.orcKnockBack);
             player.health -= 1;
             if(player.health <= 0)
             {
+                deathSound.play(1);
                 gameEngine.setScreen(new MainMenuScreen(gameEngine));
             }
 
@@ -233,6 +251,7 @@ public class FirstLevel extends Screen
         if(collideSides(player, levelObject))
         {
             Log.d("FirstLevel", "Player collided with object");
+            bounceSound.play(1);
             moveObjects(player, player.wallKnockBack);
         }
     }
@@ -282,7 +301,9 @@ public class FirstLevel extends Screen
         if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
                         coin.x, coin.y, Coin.WIDTH, Coin.HEIGHT))
         {
+            coinSound.play(1);
             coins.remove(coin);
+            player.coinsCollected += 1;
         }
     }
 
@@ -481,7 +502,12 @@ public class FirstLevel extends Screen
 
     private Bitmap loadOrc(int playerX, int orcX)
     {
-        return null;
+        if(playerX <= orcX)
+        {
+            return gameEngine.loadBitmap("ExamGame/orcLeft.png");
+        }
+
+        return gameEngine.loadBitmap("ExamGame/orcRight.png");
     }
 
     private boolean openDoor()
@@ -498,7 +524,7 @@ public class FirstLevel extends Screen
     @Override
     public void resume()
     {
-
+        gameEngine.music.play();
     }
 
     @Override
@@ -506,6 +532,5 @@ public class FirstLevel extends Screen
     {
 
     }
-
 
 }

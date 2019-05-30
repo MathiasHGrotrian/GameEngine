@@ -21,8 +21,8 @@ public class TestScreen extends Screen
     {
         super(gameEngine);
         this.bitmap = gameEngine.loadBitmap("breakout/bob.png");
-        sound = gameEngine.loadSound("breakout/blocksplosion.wav");
-        backgroundMusic = gameEngine.loadMusic("breakout/music.ogg");
+        sound = gameEngine.loadSound("ExamGame/blocksplosion.wav");
+        backgroundMusic = gameEngine.loadMusic("ExamGame/music.ogg");
         isPlaying = true;
 
     }

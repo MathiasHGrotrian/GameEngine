@@ -15,7 +15,7 @@ public class MainMenuScreen extends Screen
     public MainMenuScreen(GameEngine gameEngine)
     {
         super(gameEngine);
-        background = gameEngine.loadBitmap("ExamGame/mainmenu.jpg");
+        background = gameEngine.loadBitmap("ExamGame/mainMenu.png");
 
     }
 

@@ -38,9 +38,9 @@ public class GameScreen extends Screen
         background = gameEngine.loadBitmap("breakout/background.png");
         resume = gameEngine.loadBitmap("breakout/resume.png");
         gameOver = gameEngine.loadBitmap("breakout/gameover.png");
-        font = gameEngine.loadFont("breakout/font.ttf");
-        bounceSound = gameEngine.loadSound("breakout/bounce.wav");
-        blockSound = gameEngine.loadSound("breakout/blocksplosion.wav");
+        font = gameEngine.loadFont("ExamGame/font.ttf");
+        bounceSound = gameEngine.loadSound("ExamGame/Sounds/bounce.wav");
+        blockSound = gameEngine.loadSound("ExamGame/blocksplosion.wav");
 
         world = new World(new CollisionListener()
         {

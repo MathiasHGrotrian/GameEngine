@@ -41,7 +41,7 @@ public class GameScreen extends Screen
         this.resume = gameEngine.loadBitmap("carscroller/resume.png");
         this.gameover = gameEngine.loadBitmap("carscroller/gameover.png");
         this.bounce = gameEngine.loadSound("carscroller/bounce.wav");
-        this.crash = gameEngine.loadSound("carscroller/blocksplosion.wav");
+        this.crash = gameEngine.loadSound("ExamGame/Sounds/blocksplosion.wav");
         this.gameOverSound = gameEngine.loadSound("carscroller/gameover.wav");
 
         this.world = new World(gameEngine, new CollisionListener()

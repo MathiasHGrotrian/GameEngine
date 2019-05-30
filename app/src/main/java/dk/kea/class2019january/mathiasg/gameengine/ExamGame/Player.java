@@ -9,6 +9,7 @@ public class Player
     public int x;
     public int y;
     public int health;
+    public int coinsCollected;
 
     public int wallKnockBack = 11;
     public int orcKnockBack = 30;
@@ -39,6 +40,7 @@ public class Player
         this.x = 256;
         this.y = 100;
         this.health = 3;
+        this.coinsCollected = 0;
     }
 
     // moves player character up

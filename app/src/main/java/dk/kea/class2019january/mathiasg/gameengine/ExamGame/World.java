@@ -3,6 +3,7 @@ package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 import android.graphics.Bitmap;
 
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
+import dk.kea.class2019january.mathiasg.gameengine.Sound;
 
 public class World
 {
@@ -14,6 +15,8 @@ public class World
 
     //fireball sprites
     Bitmap fireballBitmap;
+    Sound fireballSound;
+    Sound jumpSound;
 
 
     // fireball object
@@ -24,6 +27,8 @@ public class World
     {
         this.gameEngine = gameEngine;
         this.fireballBitmap = gameEngine.loadBitmap("ExamGame/leftfireball.png");
+        this.fireballSound = gameEngine.loadSound("ExamGame/Sounds/blocksplosion.wav");
+        this.jumpSound = gameEngine.loadSound("ExamGame/Sounds/jump.wav");
 
     }
 
@@ -71,6 +76,7 @@ public class World
                 && gameEngine.getTouchX(0) > movementButtonsLenght + 40
                 && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
         {
+            fireballSound.play(1);
             player.isShootingFireball = true;
             fireball.x = player.x;
         }
@@ -116,6 +122,7 @@ public class World
                     && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
                     && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
             {
+                jumpSound.play(1);
                 jumpStartPoint = player.y;
                 player.verticalDirection = Player.VerticalDirection.UP;
                 //player.y -= 5;
