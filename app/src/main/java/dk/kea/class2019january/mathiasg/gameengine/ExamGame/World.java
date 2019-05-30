@@ -34,6 +34,8 @@ public class World
         shootFireball(deltaTime);
 
         jump(deltaTime);
+
+
     }
 
     private void movePlayerLeft()
@@ -107,15 +109,19 @@ public class World
     {
 
         //player jumps
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
-                && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
+        if(player.verticalDirection == Player.VerticalDirection.STILL)
         {
-            jumpStartPoint = player.y;
-            player.verticalDirection = Player.VerticalDirection.UP;
-            //player.y -= 5;
+            if (gameEngine.isTouchDown(0)
+                    && gameEngine.getTouchY(0) > 240
+                    && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
+                    && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
+            {
+                jumpStartPoint = player.y;
+                player.verticalDirection = Player.VerticalDirection.UP;
+                //player.y -= 5;
+            }
         }
+
         if (player.verticalDirection == Player.VerticalDirection.UP)
         {
             player.y -= 5;
