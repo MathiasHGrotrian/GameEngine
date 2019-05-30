@@ -8,8 +8,11 @@ public class Player
     //determines spawn location
     public int x;
     public int y;
+    public int health;
 
-    public int knockBack = 11;
+    public int wallKnockBack = 11;
+    public int orcKnockBack = 30;
+
     public boolean isShootingFireball = false;
 
     public int movementSpeed = 2;
@@ -35,6 +38,7 @@ public class Player
     {
         this.x = 256;
         this.y = 100;
+        this.health = 3;
     }
 
     // moves player character up
