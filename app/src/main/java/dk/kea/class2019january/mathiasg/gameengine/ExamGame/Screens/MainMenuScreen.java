@@ -11,18 +11,21 @@ public class MainMenuScreen extends Screen
 {
 
     Bitmap background;
+    Bitmap pressToPlay;
+    float passedTime = 0;
 
     public MainMenuScreen(GameEngine gameEngine)
     {
         super(gameEngine);
-        background = gameEngine.loadBitmap("ExamGame/mainMenu.png");
+        background = gameEngine.loadBitmap("ExamGame/Menu/mainMenu.png");
+        pressToPlay = gameEngine.loadBitmap("ExamGame/Menu/pressToPlay.png");
 
     }
 
     @Override
     public void update(float deltaTime)
     {
-        if (gameEngine.isTouchDown(0))
+        if (gameEngine.isTouchDown(0) && passedTime > 0.5f)
         {
             Log.d("Examgame", "trying to get game screen");
             gameEngine.setScreen(new FirstLevel(gameEngine));
@@ -30,6 +33,13 @@ public class MainMenuScreen extends Screen
         }
 
         gameEngine.drawBitmap(background, 0, 0);
+
+        passedTime += deltaTime;
+        if((passedTime - (int)passedTime) > 0.5f)
+        {
+            gameEngine.drawBitmap(pressToPlay, 0,0);
+        }
+
     }
 
     @Override

@@ -26,7 +26,7 @@ public class World
     public World(GameEngine gameEngine)
     {
         this.gameEngine = gameEngine;
-        this.fireballBitmap = gameEngine.loadBitmap("ExamGame/leftfireball.png");
+        this.fireballBitmap = gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
         this.fireballSound = gameEngine.loadSound("ExamGame/Sounds/blocksplosion.wav");
         this.jumpSound = gameEngine.loadSound("ExamGame/Sounds/jump.wav");
 
@@ -144,11 +144,11 @@ public class World
         Bitmap fireball;
         if(player.direction == Player.Direction.RIGHT)
         {
-            fireball = gameEngine.loadBitmap("ExamGame/rightfireball.png");
+            fireball = gameEngine.loadBitmap("ExamGame/Fireball/rightfireball.png");
         }
         else
         {
-            fireball = gameEngine.loadBitmap("ExamGame/leftfireball.png");
+            fireball = gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
         }
 
         return fireball;

@@ -67,11 +67,11 @@ public class FirstLevel extends Screen
         super(gameEngine);
         Log.d("Examgame", "Starting the game");
 
-        this.orc = gameEngine.loadBitmap("ExamGame/orcRight.png");
-        this.coin = gameEngine.loadBitmap("ExamGame/coin.png");
+        this.orc = gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
+        this.coin = gameEngine.loadBitmap("ExamGame/LevelObjects/coin.png");
         this.firstLevel = gameEngine.loadBitmap("ExamGame/Levels/firstLevel.png");
-        this.door = gameEngine.loadBitmap("ExamGame/door.png");
-        this.health = gameEngine.loadBitmap("ExamGame/3hearts.png");
+        this.door = gameEngine.loadBitmap("ExamGame/LevelObjects/door.png");
+        this.health = gameEngine.loadBitmap("ExamGame/Health/3hearts.png");
         this.font = gameEngine.loadFont("ExamGame/font.ttf");
         this.bounceSound = gameEngine.loadSound("ExamGame/Sounds/bounce.wav");
         this.coinSound = gameEngine.loadSound("ExamGame/Sounds/coin.ogg");
@@ -489,14 +489,14 @@ public class FirstLevel extends Screen
     {
         if(health == 3)
         {
-            return gameEngine.loadBitmap("ExamGame/3hearts.png");
+            return gameEngine.loadBitmap("ExamGame/Health/3hearts.png");
         }
         if(health == 2)
         {
-            return gameEngine.loadBitmap("ExamGame/2hearts.png");
+            return gameEngine.loadBitmap("ExamGame/Health/2hearts.png");
         }
 
-        return gameEngine.loadBitmap("ExamGame/heart.png");
+        return gameEngine.loadBitmap("ExamGame/Health/heart.png");
 
     }
 
@@ -504,10 +504,10 @@ public class FirstLevel extends Screen
     {
         if(playerX <= orcX)
         {
-            return gameEngine.loadBitmap("ExamGame/orcLeft.png");
+            return gameEngine.loadBitmap("ExamGame/Orc/orcLeft.png");
         }
 
-        return gameEngine.loadBitmap("ExamGame/orcRight.png");
+        return gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
     }
 
     private boolean openDoor()
