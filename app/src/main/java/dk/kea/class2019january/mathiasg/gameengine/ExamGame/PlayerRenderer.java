@@ -40,11 +40,15 @@ public class PlayerRenderer
 
     private Bitmap loadPlayerSprite(float deltaTime)
     {
-        if(world.player.isIdle && world.player.direction == Player.Direction.RIGHT)
+        if(world.player.isIdle
+                && world.player.direction == Player.Direction.RIGHT
+                && world.player.verticalDirection == Player.VerticalDirection.STILL)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerRight.png");
         }
-        if(world.player.isIdle && world.player.direction == Player.Direction.LEFT)
+        if(world.player.isIdle
+                && world.player.direction == Player.Direction.LEFT
+                && world.player.verticalDirection == Player.VerticalDirection.STILL)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerLeft.png");
         }
