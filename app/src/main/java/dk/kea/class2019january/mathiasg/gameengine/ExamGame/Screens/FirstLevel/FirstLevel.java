@@ -86,7 +86,7 @@ public class FirstLevel extends Screen
         this.orcDeathSound = gameEngine.loadSound("ExamGame/Sounds/orcDeath.wav");
         this.movingPlayer1 = gameEngine.loadBitmap("ExamGame/Player/playerRun1.png");
         this.movingPlayer2 = gameEngine.loadBitmap("ExamGame/Player/playerRun2.png");
-        this.backgroundMusic = gameEngine.loadMusic("ExamGame/music.ogg");
+        this.backgroundMusic = gameEngine.loadMusic("ExamGame/Sounds/music.wav");
 
 
         this.world = new World(gameEngine);
@@ -543,7 +543,7 @@ public class FirstLevel extends Screen
     @Override
     public void dispose()
     {
-
+        backgroundMusic.dispose();
     }
 
 }
