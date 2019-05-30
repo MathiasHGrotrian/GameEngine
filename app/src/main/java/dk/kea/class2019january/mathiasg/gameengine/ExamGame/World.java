@@ -117,7 +117,6 @@ public class World
         //player jumps
         if(player.verticalDirection == Player.VerticalDirection.STILL)
         {
-            player.isIdle = false;
             if (gameEngine.isTouchDown(0)
                     && gameEngine.getTouchY(0) > 240
                     && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
@@ -126,6 +125,7 @@ public class World
                 jumpSound.play(1);
                 jumpStartPoint = player.y;
                 player.verticalDirection = Player.VerticalDirection.UP;
+                player.isIdle = false;
                 //player.y -= 5;
             }
         }

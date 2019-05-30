@@ -87,6 +87,7 @@ public class FirstLevel extends Screen
         this.movingPlayer1 = gameEngine.loadBitmap("ExamGame/Player/playerRunRight1.png");
         this.movingPlayer2 = gameEngine.loadBitmap("ExamGame/Player/playerRunRight2.png");
         this.backgroundMusic = gameEngine.loadMusic("ExamGame/Sounds/music.wav");
+        this.backgroundMusic.setLooping(true);
 
 
         this.world = new World(gameEngine);
