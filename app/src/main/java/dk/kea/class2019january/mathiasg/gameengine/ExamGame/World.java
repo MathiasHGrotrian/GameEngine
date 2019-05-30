@@ -36,8 +36,6 @@ public class World
     public Door objDoor;
     public int levelX = 0;
 
-
-
     // fireball object
     public Fireball fireball = new Fireball(player.x, player.y + 11);
 
@@ -100,6 +98,7 @@ public class World
 
     private void shootFireball(float deltaTime)
     {
+        Player.Direction initialDirection = Player.Direction.RIGHT;
         //player shoots fireball
         if (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
@@ -108,15 +107,17 @@ public class World
         {
             fireballSound.play(1);
             player.isShootingFireball = true;
+            fireball.startY = player.y;
             fireball.x = player.x;
+            initialDirection = player.direction;
         }
 
         if(player.isShootingFireball)
         {
-            if(player.direction == Player.Direction.RIGHT)
+            if(initialDirection == Player.Direction.RIGHT)
             {
                 fireball.x += fireball.vx * deltaTime;
-                gameEngine.drawBitmap(loadFireball(player), fireball.x, player.y + 11);
+                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
 
                 if(fireball.x > player.x + 100)
                 {
@@ -125,10 +126,10 @@ public class World
                 }
 
             }
-            if(player.direction == Player.Direction.LEFT)
+            if(initialDirection == Player.Direction.LEFT)
             {
                 fireball.x -= fireball.vx * deltaTime;
-                gameEngine.drawBitmap(loadFireball(player), fireball.x, player.y + 11);
+                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
 
                 if(fireball.x < player.x - 100)
                 {
@@ -137,6 +138,19 @@ public class World
                 }
 
             }
+        }
+    }
+
+    private void shootFireballRight(Player player, Fireball fireball, float deltaTime)
+    {
+        fireball.startY = player.y + 11;
+        fireball.x += fireball.vx * deltaTime;
+        gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY);
+
+        if(fireball.x > player.x + 100)
+        {
+            player.isShootingFireball = false;
+            fireball.x = player.x;
         }
 
     }
@@ -172,17 +186,12 @@ public class World
 
     private Bitmap loadFireball(Player player)
     {
-        Bitmap fireball;
         if(player.direction == Player.Direction.RIGHT)
         {
-            fireball = gameEngine.loadBitmap("ExamGame/Fireball/rightfireball.png");
-        }
-        else
-        {
-            fireball = gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
+            return gameEngine.loadBitmap("ExamGame/Fireball/rightfireball.png");
         }
 
-        return fireball;
+        return gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
     }
 
 
@@ -358,7 +367,7 @@ public class World
 
     public void collideFireball(Fireball fireball, Orc orc, Player player, List<Orc> orcs)
     {
-        if(collideRects(fireball.x, player.y + 11, Fireball.WIDTH, Fireball.HEIGHT,
+        if(collideRects(fireball.x, fireball.startY + 11, Fireball.WIDTH, Fireball.HEIGHT,
                 orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
         {
             orcDeathSound.play(1);

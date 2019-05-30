@@ -125,6 +125,12 @@ public class FirstLevel extends Screen
             //  door
             world.objDoor.x -= 3;
 
+            //  fireball
+            if(playerRenderer.world.player.isShootingFireball)
+            {
+                playerRenderer.world.fireball.x -= 3;
+            }
+
         }
         else if(directionHandler.isMovingLeft(gameEngine))
         {
@@ -156,6 +162,12 @@ public class FirstLevel extends Screen
 
             //  door
             world.objDoor.x += 3;
+
+            // fireball
+            if(playerRenderer.world.player.isShootingFireball)
+            {
+                playerRenderer.world.fireball.x += 3;
+            }
         }
         else
         {

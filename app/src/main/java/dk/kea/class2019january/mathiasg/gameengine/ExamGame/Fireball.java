@@ -8,6 +8,7 @@ public class Fireball
     //is this what fucks up the fireball location?
     public int x;
     public int y;
+    public int startY = 0;
 
     // v = velocity aka speed
     public float vx = 200;
