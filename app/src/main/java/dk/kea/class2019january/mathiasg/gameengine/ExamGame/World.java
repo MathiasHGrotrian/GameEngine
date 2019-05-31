@@ -98,7 +98,7 @@ public class World
 
     private void shootFireball(float deltaTime)
     {
-        Player.Direction initialDirection = Player.Direction.RIGHT;
+        Player.Direction initialDirection = player.direction;
         //player shoots fireball
         if (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
@@ -123,6 +123,7 @@ public class World
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
+                    fireball.startY = 0;
                 }
 
             }
@@ -135,6 +136,7 @@ public class World
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
+                    fireball.startY = 0;
                 }
 
             }
