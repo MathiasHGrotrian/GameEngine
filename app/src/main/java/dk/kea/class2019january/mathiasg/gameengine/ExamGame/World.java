@@ -99,18 +99,22 @@ public class World
     private void shootFireball(float deltaTime)
     {
         Player.Direction initialDirection = player.direction;
-        //player shoots fireball
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > movementButtonsLenght + 40
-                && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
+        if(!player.isShootingFireball)
         {
-            fireballSound.play(1);
-            player.isShootingFireball = true;
-            fireball.startY = player.y;
-            fireball.x = player.x;
-            initialDirection = player.direction;
+            //player shoots fireball
+            if (gameEngine.isTouchDown(0)
+                    && gameEngine.getTouchY(0) > 240
+                    && gameEngine.getTouchX(0) > movementButtonsLenght + 40
+                    && gameEngine.getTouchX(0) < movementButtonsLenght + 40 + actionButtonDimensions)
+            {
+                fireballSound.play(1);
+                player.isShootingFireball = true;
+                fireball.startY = player.y;
+                fireball.x = player.x;
+                initialDirection = player.direction;
+            }
         }
+
 
         if(player.isShootingFireball)
         {
@@ -141,20 +145,6 @@ public class World
 
             }
         }
-    }
-
-    private void shootFireballRight(Player player, Fireball fireball, float deltaTime)
-    {
-        fireball.startY = player.y + 11;
-        fireball.x += fireball.vx * deltaTime;
-        gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY);
-
-        if(fireball.x > player.x + 100)
-        {
-            player.isShootingFireball = false;
-            fireball.x = player.x;
-        }
-
     }
 
     public void jump(float deltaTime)
