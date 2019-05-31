@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Coin;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
@@ -29,6 +30,8 @@ public class World
     Sound deathSound;
     Sound damageSound;
     Sound orcDeathSound;
+    public Sound doorAppearsSound;
+    public Sound enterDoorSound;
     public List<Orc> orcs;
     public List<Coin> coins;
     public List<LevelObject> levelObjects;
@@ -51,13 +54,13 @@ public class World
         this.deathSound = gameEngine.loadSound("ExamGame/Sounds/death.ogg");
         this.damageSound = gameEngine.loadSound("ExamGame/Sounds/damage.wav");
         this.orcDeathSound = gameEngine.loadSound("ExamGame/Sounds/orcDeath.wav");
+        this.doorAppearsSound = gameEngine.loadSound("ExamGame/Sounds/doorAppears.wav");
+        this.enterDoorSound = gameEngine.loadSound("ExamGame/Sounds/enterDoor.wav");
         this.orcs = new ArrayList<>();
         this.coins = new ArrayList<>();
         this.levelObjects = new ArrayList<>();
         this.platforms = new ArrayList<>();
         this.objDoor = new Door(doorX, doorY);
-
-
     }
 
     public void update(float deltaTime)
@@ -65,10 +68,8 @@ public class World
         movePlayerLeft();
         movePlayerRight();
         shootFireball(deltaTime);
-
         jump(deltaTime);
-
-
+        //moveOrcs(orcs.get(0), deltaTime, orcs.get(0).initialPosition);
     }
 
     private void movePlayerLeft()
@@ -79,7 +80,7 @@ public class World
                 && gameEngine.getTouchY(0) > 240
                 && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
         {
-            player.direction = Player.Direction.LEFT;
+            player.direction = Direction.LEFT;
         }
     }
 
@@ -91,14 +92,14 @@ public class World
                 && gameEngine.getTouchY(0) > 240
                 && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
         {
-            player.direction = Player.Direction.RIGHT;
+            player.direction = Direction.RIGHT;
         }
     }
 
 
     private void shootFireball(float deltaTime)
     {
-        Player.Direction initialDirection = player.direction;
+        Direction initialDirection = player.direction;
         if(!player.isShootingFireball)
         {
             //player shoots fireball
@@ -118,7 +119,7 @@ public class World
 
         if(player.isShootingFireball)
         {
-            if(initialDirection == Player.Direction.RIGHT)
+            if(initialDirection == Direction.RIGHT)
             {
                 fireball.x += fireball.vx * deltaTime;
                 gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
@@ -131,7 +132,7 @@ public class World
                 }
 
             }
-            if(initialDirection == Player.Direction.LEFT)
+            if(initialDirection == Direction.LEFT)
             {
                 fireball.x -= fireball.vx * deltaTime;
                 gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
@@ -151,7 +152,7 @@ public class World
     {
 
         //player jumps
-        if(player.verticalDirection == Player.VerticalDirection.STILL)
+        if(player.verticalDirection == VerticalDirection.STILL)
         {
             if (gameEngine.isTouchDown(0)
                     && gameEngine.getTouchY(0) > 240
@@ -160,25 +161,25 @@ public class World
             {
                 jumpSound.play(1);
                 jumpStartPoint = player.y;
-                player.verticalDirection = Player.VerticalDirection.UP;
+                player.verticalDirection = VerticalDirection.UP;
                 player.isIdle = false;
                 //player.y -= 5;
             }
         }
 
-        if (player.verticalDirection == Player.VerticalDirection.UP)
+        if (player.verticalDirection == VerticalDirection.UP)
         {
             player.y -= 5;
         }
         if(player.y < jumpStartPoint - 90)
         {
-            player.verticalDirection = Player.VerticalDirection.DOWN;
+            player.verticalDirection = VerticalDirection.DOWN;
         }
     }
 
     private Bitmap loadFireball(Player player)
     {
-        if(player.direction == Player.Direction.RIGHT)
+        if(player.direction == Direction.RIGHT)
         {
             return gameEngine.loadBitmap("ExamGame/Fireball/rightfireball.png");
         }
@@ -190,7 +191,7 @@ public class World
     public void moveObjects(Player player, int knockback)
     {
         Log.d("moveObjects()", "Objecst should be moved");
-        if(player.direction == Player.Direction.RIGHT)
+        if(player.direction == Direction.RIGHT)
         {
             levelX += knockback;
 
@@ -340,7 +341,7 @@ public class World
         {
             //Log.d("FirstLevel.collideGround()", "Player collided with ground");
             player.y = levelObject.y - Player.HEIGHT;
-            player.verticalDirection = Player.VerticalDirection.STILL;
+            player.verticalDirection = VerticalDirection.STILL;
             player.isIdle = true;
         }
     }
@@ -353,7 +354,7 @@ public class World
         {
             Log.d("FirstLevel.collideGround()", "Player collided with platform");
             player.y = levelObject.y - Player.HEIGHT - 1;
-            player.verticalDirection = Player.VerticalDirection.STILL;
+            player.verticalDirection = VerticalDirection.STILL;
         }
     }
 
@@ -376,6 +377,28 @@ public class World
             coinSound.play(1);
             coins.remove(coin);
             player.coinsCollected += 1;
+        }
+    }
+
+    public void moveOrcs(Orc orc, float deltaTime, int initialPosition)
+    {
+        //Log.d("World.moveOrcs()", "Initial position is: " + initialPosition + "\n" +
+                //"orc.x is :" + orc.x + "\n");
+        if(orc.direction == Direction.RIGHT)
+        {
+            orc.x += 1;
+            if(orc.x >= 700 + 5)
+            {
+                orc.direction = Direction.LEFT;
+            }
+        }
+        if(orc.direction == Direction.LEFT)
+        {
+            orc.x -= 1;
+            if(orc.x <= 700 - 5)
+            {
+                orc.direction = Direction.RIGHT;
+            }
         }
     }
 }

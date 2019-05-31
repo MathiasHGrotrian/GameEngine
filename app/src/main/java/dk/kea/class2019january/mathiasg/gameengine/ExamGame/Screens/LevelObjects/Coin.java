@@ -1,4 +1,4 @@
-package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
+package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects;
 
 public class Coin
 {

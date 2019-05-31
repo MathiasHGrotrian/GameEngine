@@ -8,12 +8,14 @@ public class Orc
     //determines spawn location
     public int x;
     public int y;
-    public boolean isGoingRight = true;
+    public Direction direction = Direction.LEFT;
+    int initialPosition;
 
     public Orc(int x, int y)
     {
         this.x = x;
         this.y = y;
+        this.initialPosition = x;
     }
 
     public int moveOrc()

@@ -20,19 +20,6 @@ public class Player
 
     public boolean isIdle = true;
 
-    // enums used to determine which player sprite to load
-    public enum Direction
-    {
-        RIGHT,
-        LEFT
-    }
-    public enum VerticalDirection
-    {
-        UP,
-        DOWN,
-        STILL
-    }
-
     // set default directions
     public Direction direction = Direction.RIGHT;
     public VerticalDirection verticalDirection = VerticalDirection.STILL;

@@ -41,41 +41,41 @@ public class PlayerRenderer
     private Bitmap loadPlayerSprite(float deltaTime)
     {
         if(world.player.isIdle
-                && world.player.direction == Player.Direction.RIGHT
-                && world.player.verticalDirection == Player.VerticalDirection.STILL)
+                && world.player.direction == Direction.RIGHT
+                && world.player.verticalDirection == VerticalDirection.STILL)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerRight.png");
         }
         if(world.player.isIdle
-                && world.player.direction == Player.Direction.LEFT
-                && world.player.verticalDirection == Player.VerticalDirection.STILL)
+                && world.player.direction == Direction.LEFT
+                && world.player.verticalDirection == VerticalDirection.STILL)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerLeft.png");
         }
-        if(world.player.verticalDirection == Player.VerticalDirection.UP
-                && world.player.direction == Player.Direction.RIGHT)
+        if(world.player.verticalDirection == VerticalDirection.UP
+                && world.player.direction == Direction.RIGHT)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerJumpRight.png");
         }
-        if(world.player.verticalDirection == Player.VerticalDirection.UP
-                && world.player.direction == Player.Direction.LEFT)
+        if(world.player.verticalDirection == VerticalDirection.UP
+                && world.player.direction == Direction.LEFT)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerJumpLeft.png");
         }
-        if(world.player.verticalDirection == Player.VerticalDirection.DOWN
-                && world.player.direction == Player.Direction.RIGHT)
+        if(world.player.verticalDirection == VerticalDirection.DOWN
+                && world.player.direction == Direction.RIGHT)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerFallRight.png");
         }
-        if(world.player.verticalDirection == Player.VerticalDirection.DOWN
-                && world.player.direction == Player.Direction.LEFT)
+        if(world.player.verticalDirection == VerticalDirection.DOWN
+                && world.player.direction == Direction.LEFT)
         {
             return gameEngine.loadBitmap("ExamGame/Player/playerFallLeft.png");
         }
-        if(world.player.direction == Player.Direction.RIGHT)
+        if(world.player.direction == Direction.RIGHT)
         {
             passedTime += deltaTime;
-            if((passedTime - (int)passedTime) > 0.5f)
+            if((passedTime - (int)passedTime) > 0.4f)
             {
                 return gameEngine.loadBitmap("ExamGame/Player/playerRunRight1.png");
             }
@@ -86,10 +86,10 @@ public class PlayerRenderer
 
             //this.playerImage = gameEngine.loadBitmap("ExamGame/Player/playerRight.png");
         }
-        if(world.player.direction == Player.Direction.LEFT)
+        if(world.player.direction == Direction.LEFT)
         {
             passedTime += deltaTime;
-            if((passedTime - (int)passedTime) > 0.5f)
+            if((passedTime - (int)passedTime) > 0.4f)
             {
                 return gameEngine.loadBitmap("ExamGame/Player/playerRunLeft1.png");
             }

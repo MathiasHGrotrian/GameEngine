@@ -13,7 +13,7 @@ public class DirectionHandler
         //20 is padding from edge of screen
         return  (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > 480 - 75 - 20);
+                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20);
 
     }
 

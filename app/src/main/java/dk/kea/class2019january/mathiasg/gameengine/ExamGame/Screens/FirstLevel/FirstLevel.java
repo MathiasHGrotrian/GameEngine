@@ -8,16 +8,13 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Coin;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Coin;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Fireball;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigHill;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigMossyPlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigStonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BoundaryWall;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.LongStonePlatform;
@@ -29,7 +26,6 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Music;
 import dk.kea.class2019january.mathiasg.gameengine.Screen;
-import dk.kea.class2019january.mathiasg.gameengine.Sound;
 
 public class FirstLevel extends Screen
 {
@@ -46,7 +42,7 @@ public class FirstLevel extends Screen
     Bitmap door;
     Bitmap health;
 
-    World world = null;
+    World world;
     PlayerRenderer playerRenderer;
     int levelY = 0;
     DirectionHandler directionHandler = new DirectionHandler();
@@ -214,13 +210,14 @@ public class FirstLevel extends Screen
 
         if(world.openDoor())
         {
-            Log.d("door", "update: opening door");
+            Log.d("Firstlevel.update()", "Update: Opening door");
             gameEngine.drawBitmap(door, world.objDoor.x,world.objDoor.y);
             if(world.collideDoor(playerRenderer.world.player, world.objDoor) && (gameEngine.isTouchDown(0)
                 && gameEngine.getTouchY(0) > 240
                 && gameEngine.getTouchX(0) > 480 - 75 - 40 - 80
                 && gameEngine.getTouchX(0) < 480 - 75 - 40))
             {
+                world.enterDoorSound.play(1);
                 gameEngine.setScreen(new MainMenuScreen(gameEngine));
             }
         }
@@ -342,6 +339,8 @@ public class FirstLevel extends Screen
 
         return platforms;
     }
+
+
 
     @Override
     public void pause()
