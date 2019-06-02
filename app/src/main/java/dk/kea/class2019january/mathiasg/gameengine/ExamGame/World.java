@@ -41,6 +41,7 @@ public class World
 
     // fireball object
     public Fireball fireball = new Fireball(player.x, player.y + 11);
+    Direction initialDirection = player.direction;
 
 
     public World(GameEngine gameEngine, int doorX, int doorY)
@@ -99,7 +100,6 @@ public class World
 
     private void shootFireball(float deltaTime)
     {
-        Direction initialDirection = player.direction;
         if(!player.isShootingFireball)
         {
             //player shoots fireball
