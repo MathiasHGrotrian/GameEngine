@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Level;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Coin;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigHill;
@@ -27,7 +28,7 @@ import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Music;
 import dk.kea.class2019january.mathiasg.gameengine.Screen;
 
-public class FirstLevel extends Screen
+public class FirstLevel extends Screen implements Level
 {
     enum State
     {
@@ -234,7 +235,7 @@ public class FirstLevel extends Screen
 
     }
 
-    private List<LevelObject> buildBoundaries()
+    public List<LevelObject> buildBoundaries()
     {
         List<LevelObject> boundaries = new ArrayList<>();
 
@@ -247,7 +248,7 @@ public class FirstLevel extends Screen
         return boundaries;
     }
 
-    private List<Orc> populateLevel()
+    public List<Orc> populateLevel()
     {
         List<Orc> orcs = new ArrayList<>();
 
@@ -276,7 +277,7 @@ public class FirstLevel extends Screen
 
     }
 
-    private List<Coin> placeCoins()
+    public List<Coin> placeCoins()
     {
         List<Coin> coins = new ArrayList<>();
 
@@ -308,7 +309,7 @@ public class FirstLevel extends Screen
 
     }
 
-    private List<LevelObject> buildPlatforms()
+    public List<LevelObject> buildPlatforms()
     {
         List<LevelObject> platforms = new ArrayList<>();
 
