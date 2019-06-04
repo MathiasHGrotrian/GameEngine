@@ -110,40 +110,38 @@ public class World
             {
                 fireballSound.play(1);
                 player.isShootingFireball = true;
-                fireball.startY = player.y;
+                fireball.y = player.y;
                 fireball.x = player.x;
                 fireball.direction = player.direction;
             }
         }
-
 
         if(player.isShootingFireball)
         {
             if(fireball.direction == Direction.RIGHT)
             {
                 fireball.x += fireball.vx * deltaTime;
-                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
+                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.y + 11);
 
                 if(fireball.x > player.x + 100)
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
-                    fireball.startY = 0;
+                    fireball.y = 0;
                 }
 
             }
             if(fireball.direction == Direction.LEFT)
             {
                 fireball.x -= fireball.vx * deltaTime;
-                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
+                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.y + 11);
 
                 if(fireball.x < player.x - 100)
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
-                    fireball.startY = 0;
+                    fireball.y = 0;
                 }
-
             }
         }
     }
@@ -360,7 +358,7 @@ public class World
 
     public void collideFireball(Fireball fireball, Orc orc, Player player, List<Orc> orcs)
     {
-        if(collideRects(fireball.x, fireball.startY + 11, Fireball.WIDTH, Fireball.HEIGHT,
+        if(collideRects(fireball.x, fireball.y + 11, Fireball.WIDTH, Fireball.HEIGHT,
                 orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
         {
             orcDeathSound.play(1);
