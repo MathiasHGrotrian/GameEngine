@@ -21,6 +21,7 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.MossyPlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.StonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.SecondLevel.SecondLevel;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
@@ -218,7 +219,7 @@ public class FirstLevel extends Screen
                 && gameEngine.getTouchX(0) < 480 - 75 - 40))
             {
                 world.enterDoorSound.play(1);
-                gameEngine.setScreen(new MainMenuScreen(gameEngine));
+                gameEngine.setScreen(new SecondLevel(gameEngine));
             }
         }
 
