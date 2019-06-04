@@ -41,7 +41,6 @@ public class World
 
     // fireball object
     public Fireball fireball = new Fireball(player.x, player.y + 11);
-    Direction initialDirection = player.direction;
 
 
     public World(GameEngine gameEngine, int doorX, int doorY)
@@ -62,6 +61,7 @@ public class World
         this.levelObjects = new ArrayList<>();
         this.platforms = new ArrayList<>();
         this.objDoor = new Door(doorX, doorY);
+        this.fireball.direction = Direction.RIGHT;
     }
 
     public void update(float deltaTime)
@@ -69,7 +69,7 @@ public class World
         movePlayerLeft();
         movePlayerRight();
         shootFireball(deltaTime);
-        jump(deltaTime);
+        jump();
         //moveOrcs(orcs.get(0), deltaTime, orcs.get(0).initialPosition);
     }
 
@@ -112,14 +112,14 @@ public class World
                 player.isShootingFireball = true;
                 fireball.startY = player.y;
                 fireball.x = player.x;
-                initialDirection = player.direction;
+                fireball.direction = player.direction;
             }
         }
 
 
         if(player.isShootingFireball)
         {
-            if(initialDirection == Direction.RIGHT)
+            if(fireball.direction == Direction.RIGHT)
             {
                 fireball.x += fireball.vx * deltaTime;
                 gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
@@ -132,7 +132,7 @@ public class World
                 }
 
             }
-            if(initialDirection == Direction.LEFT)
+            if(fireball.direction == Direction.LEFT)
             {
                 fireball.x -= fireball.vx * deltaTime;
                 gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.startY + 11);
@@ -148,7 +148,7 @@ public class World
         }
     }
 
-    public void jump(float deltaTime)
+    public void jump()
     {
 
         //player jumps
