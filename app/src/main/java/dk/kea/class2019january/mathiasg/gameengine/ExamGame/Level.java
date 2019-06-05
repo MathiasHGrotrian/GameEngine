@@ -2,8 +2,8 @@ package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 
 import java.util.List;
 
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Coin;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Coin;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.LevelObject;
 
 public interface Level
 {

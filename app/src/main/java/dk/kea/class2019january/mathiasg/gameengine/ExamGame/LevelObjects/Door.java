@@ -1,4 +1,4 @@
-package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects;
+package dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects;
 
 public class Door extends LevelObject
 {

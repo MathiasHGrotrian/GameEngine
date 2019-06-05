@@ -6,9 +6,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Coin;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Door;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Coin;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Door;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Sound;
@@ -66,36 +66,12 @@ public class World
 
     public void update(float deltaTime)
     {
-        movePlayerLeft();
-        movePlayerRight();
         shootFireball(deltaTime);
         jump();
         //moveOrcs(orcs.get(0), deltaTime, orcs.get(0).initialPosition);
     }
 
-    private void movePlayerLeft()
-    {
-        //moves player left
-        //20 is padding from edge of screen
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) < 20 + movementButtonsLenght)
-        {
-            player.direction = Direction.LEFT;
-        }
-    }
 
-    private void movePlayerRight()
-    {
-        //moves player right
-        //20 is padding from edge of screen
-        if (gameEngine.isTouchDown(0)
-                && gameEngine.getTouchY(0) > 240
-                && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 20)
-        {
-            player.direction = Direction.RIGHT;
-        }
-    }
 
 
     private void shootFireball(float deltaTime)

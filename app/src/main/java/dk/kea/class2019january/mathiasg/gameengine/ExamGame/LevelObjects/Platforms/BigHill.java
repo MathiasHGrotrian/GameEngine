@@ -1,6 +1,6 @@
-package dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms;
+package dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Platforms;
 
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.LevelObject;
 
 public class BigHill extends LevelObject
 {

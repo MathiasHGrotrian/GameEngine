@@ -8,17 +8,19 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Fireball;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Level;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Coin;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Player;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Coin;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.DirectionHandler;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigHill;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.BigMossyPlatform;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.BoundaryWall;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Platforms.BigHill;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Platforms.BigMossyPlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.BoundaryWall;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Orc;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Ground;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.LevelObject;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.MossyPlatform;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.LevelObjects.Platforms.StonePlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Ground;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.LevelObject;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Platforms.MossyPlatform;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Platforms.StonePlatform;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.World;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.PlayerRenderer;
@@ -43,12 +45,15 @@ public class SecondLevel extends Screen implements Level
 
     World world;
     PlayerRenderer playerRenderer;
+    Player player;
+    Fireball fireball;
     int levelY = 0;
     DirectionHandler directionHandler = new DirectionHandler();
     List<LevelObject> levelObjects = buildBoundaries();
     Ground ground = new Ground(0, 243);
     List<LevelObject> platforms = buildPlatforms();
     Typeface font;
+    int coinsToCollect;
 
     Music backgroundMusic;
 
@@ -68,11 +73,14 @@ public class SecondLevel extends Screen implements Level
         this.world = new World(gameEngine, 2555, 200);
         this.world.orcs = populateLevel();
         this.world.coins = placeCoins();
+        this.coinsToCollect = world.coins.size();
 
         this.world.levelObjects = buildBoundaries();
         this.world.platforms = buildPlatforms();
 
         this.playerRenderer = new PlayerRenderer(gameEngine, world);
+        this.player = world.player;
+        this.fireball = world.fireball;
 
 
     }
@@ -83,15 +91,15 @@ public class SecondLevel extends Screen implements Level
         backgroundMusic.play();
         playerRenderer.world.player.y += 1;
 
-        world.collideGround(playerRenderer.world.player, ground);
+        world.collideGround(player, ground);
         for(LevelObject platform : platforms)
         {
-            world.collidePlatform(playerRenderer.world.player, platform);
+            world.collidePlatform(player, platform);
         }
 
-        if(directionHandler.isMovingRight(gameEngine))
+        if(directionHandler.isMovingRight(gameEngine, player))
         {
-            playerRenderer.world.player.isIdle = false;
+            player.isIdle = false;
             //  orcs
             world.levelX -= 3;
             for(Orc orc: world.orcs)
@@ -121,15 +129,15 @@ public class SecondLevel extends Screen implements Level
             world.objDoor.x -= 3;
 
             //  fireball
-            if(playerRenderer.world.player.isShootingFireball)
+            if(player.isShootingFireball)
             {
-                playerRenderer.world.fireball.x -= 3;
+                fireball.x -= 3;
             }
 
         }
-        else if(directionHandler.isMovingLeft(gameEngine))
+        else if(directionHandler.isMovingLeft(gameEngine, player))
         {
-            playerRenderer.world.player.isIdle = false;
+            player.isIdle = false;
             //  orcs
             world.levelX += 3;
             for(Orc orc: world.orcs)
@@ -159,14 +167,14 @@ public class SecondLevel extends Screen implements Level
             world.objDoor.x += 3;
 
             // fireball
-            if(playerRenderer.world.player.isShootingFireball)
+            if(player.isShootingFireball)
             {
-                playerRenderer.world.fireball.x += 3;
+                fireball.x += 3;
             }
         }
         else
         {
-            playerRenderer.world.player.isIdle = true;
+            player.isIdle = true;
         }
 
         gameEngine.drawBitmap(secondLevel, world.levelX, levelY);
@@ -174,16 +182,16 @@ public class SecondLevel extends Screen implements Level
         //  orcs
         for(Orc objOrc: world.orcs)
         {
-            gameEngine.drawBitmap(world.loadOrc(playerRenderer.world.player.x, objOrc.x), objOrc.x, objOrc.y);
+            gameEngine.drawBitmap(world.loadOrc(player.x, objOrc.x), objOrc.x, objOrc.y);
         }
         for(int i = 0; i < world.orcs.size(); i++)
         {
-            world.collideOrc(playerRenderer.world.player, world.orcs.get(i));
+            world.collideOrc(player, world.orcs.get(i));
         }
 
         for(int i = 0; i < world.orcs.size(); i++)
         {
-            world.collideFireball(playerRenderer.world.fireball, world.orcs.get(i), playerRenderer.world.player, world.orcs);
+            world.collideFireball(fireball, world.orcs.get(i), player, world.orcs);
         }
 
         //  coins
@@ -193,25 +201,25 @@ public class SecondLevel extends Screen implements Level
         }
         for(int i = 0; i < world.coins.size(); i++)
         {
-            world.collideCoin(playerRenderer.world.player, world.coins.get(i));
+            world.collideCoin(player, world.coins.get(i));
         }
 
         for (LevelObject levelObject: world.levelObjects)
         {
-            world.collideObjectsSides(playerRenderer.world.player, levelObject, levelObjects);
+            world.collideObjectsSides(player, levelObject, levelObjects);
         }
 
         for(LevelObject platform: world.platforms)
         {
-            world.collidePlatform(playerRenderer.world.player, platform);
+            world.collidePlatform(player, platform);
         }
 
 
         if(world.openDoor())
         {
             Log.d("Firstlevel.update()", "Update: Opening door");
-            gameEngine.drawBitmap(door, world.objDoor.x,world.objDoor.y);
-            if(world.collideDoor(playerRenderer.world.player, world.objDoor) && (gameEngine.isTouchDown(0)
+            gameEngine.drawBitmap(door, world.objDoor.x, world.objDoor.y);
+            if(world.collideDoor(player, world.objDoor) && (gameEngine.isTouchDown(0)
                     && gameEngine.getTouchY(0) > 240
                     && gameEngine.getTouchX(0) > 480 - 75 - 40 - 80
                     && gameEngine.getTouchX(0) < 480 - 75 - 40))
@@ -222,12 +230,12 @@ public class SecondLevel extends Screen implements Level
         }
 
 
-        gameEngine.drawBitmap(world.loadHealth(playerRenderer.world.player.health), 10, 10);
+        gameEngine.drawBitmap(world.loadHealth(player.health), 10, 10);
 
-        String showText = "Coins: " + playerRenderer.world.player.coinsCollected;
+        String showText = "Coins: " + player.coinsCollected + " / " + coinsToCollect;
 
-        gameEngine.drawText(font,showText, 400, 20, Color.BLACK, 12);
-        gameEngine.drawBitmap(coin, 380, 7);
+        gameEngine.drawText(font,showText, 380, 20, Color.BLACK, 12);
+        gameEngine.drawBitmap(coin, 360, 7);
 
         world.update(deltaTime);
         playerRenderer.render(deltaTime);
