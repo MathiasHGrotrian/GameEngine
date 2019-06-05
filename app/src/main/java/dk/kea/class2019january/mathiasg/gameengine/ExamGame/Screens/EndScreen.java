@@ -26,24 +26,23 @@ public class EndScreen extends Screen
         this.menuMusic.setLooping(true);
         this.gameEngine.loadFont("ExamGame/font.ttf");
 
-        gameEngine.setSecondSnapshot(System.currentTimeMillis());
-        System.out.println("First Snapshot " + gameEngine.getFirstSnapshot());
-        System.out.println("Second Snapshot " + gameEngine.getSecondSnapshot());
+        gameEngine.setSecondSnapshot(System.nanoTime());
+
     }
 
     long timeElapsed = gameEngine.getSecondSnapshot() - gameEngine.getFirstSnapshot();
 
-
     /*
 
-    SHOULD BE USED TO CONVERT THE LONG INTO A NICE TIME STAMP
+        SHOULD BE USED TO FORMAT TIME ELAPSED TO A NICE FORMAT
 
-    String finalTime = String.format("%02d min, %02d sec",
-            TimeUnit.MILLISECONDS.toMinutes(timeElapsed),
-        TimeUnit.MILLISECONDS.toSeconds(timeElapsed) -
-        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeElapsed))
-        );
-    */
+    String finalTime = String.format("%02d:%02d:%02d",
+            TimeUnit.MILLISECONDS.toHours(timeElapsed),
+            TimeUnit.MILLISECONDS.toMinutes(timeElapsed) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeElapsed)),
+            TimeUnit.MILLISECONDS.toSeconds(timeElapsed) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeElapsed)));
+       */
 
 
     @Override
