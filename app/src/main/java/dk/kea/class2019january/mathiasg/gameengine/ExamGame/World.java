@@ -12,6 +12,7 @@ import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Coin;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Door;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.LevelObject;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.EndScreen;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.SecondLevel.SecondLevel;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
@@ -57,6 +58,7 @@ public class World
     public int coinsToCollect;
     public int level;
 
+
     public World(GameEngine gameEngine, int doorX, int doorY)
     {
         this.gameEngine = gameEngine;
@@ -83,6 +85,7 @@ public class World
         this.orc = gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
         this.font = gameEngine.loadFont("ExamGame/font.ttf");
         this.coinsToCollect = coins.size();
+        System.out.println("New World");
     }
 
     public void update(float deltaTime)
@@ -348,7 +351,7 @@ public class World
                 && player.x > levelObject.x
                 && player.x < levelObject.x + levelObject.width)
         {
-            Log.d("FirstLevel.collideGround()", "Player collided with platform");
+            //Log.d("FirstLevel.collideGround()", "Player collided with platform");
             player.y = levelObject.y - Player.HEIGHT - 1;
             player.verticalDirection = VerticalDirection.STILL;
         }
@@ -542,7 +545,7 @@ public class World
                 }
                 else
                 {
-                    gameEngine.setScreen(new MainMenuScreen(gameEngine));
+                    gameEngine.setScreen(new EndScreen(gameEngine));
                 }
 
 

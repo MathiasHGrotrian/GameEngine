@@ -63,7 +63,7 @@ public class SecondLevel extends Screen implements Level
         this.player = world.player;
         this.fireball = world.fireball;
         this.world.level = 2;
-
+        System.out.println(gameEngine.getFirstSnapshot());
 
     }
 

@@ -52,6 +52,28 @@ public abstract class GameEngine extends Activity implements Runnable, TouchHand
     Paint paint = new Paint();
     public Music music;
 
+    long firstSnapshot;
+    long secondSnapshot;
+
+    public long getFirstSnapshot()
+    {
+        return firstSnapshot;
+    }
+
+    public void setFirstSnapshot(long firstSnapshot)
+    {
+        this.firstSnapshot = firstSnapshot;
+    }
+
+    public long getSecondSnapshot()
+    {
+        return secondSnapshot;
+    }
+
+    public void setSecondSnapshot(long secondSnapshot)
+    {
+        this.secondSnapshot = secondSnapshot;
+    }
 
     public abstract Screen createStartScreen();
     public void setScreen(Screen screen)
