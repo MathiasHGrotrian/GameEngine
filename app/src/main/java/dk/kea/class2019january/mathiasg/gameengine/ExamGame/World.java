@@ -1,6 +1,8 @@
 package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -8,8 +10,10 @@ import java.util.List;
 
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Coin;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Door;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.SecondLevel.SecondLevel;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Sound;
 
@@ -38,10 +42,20 @@ public class World
     public List<LevelObject> platforms;
     public Door objDoor;
     public int levelX = 0;
+    Ground ground = new Ground(0, 243);
+    DirectionHandler directionHandler = new DirectionHandler();
 
     // fireball object
     public Fireball fireball = new Fireball(player.x, player.y + 11);
 
+    Bitmap orc;
+    Bitmap coin;
+    Bitmap door;
+    Bitmap health;
+    Typeface font;
+
+    public int coinsToCollect;
+    public int level;
 
     public World(GameEngine gameEngine, int doorX, int doorY)
     {
@@ -62,10 +76,18 @@ public class World
         this.platforms = new ArrayList<>();
         this.objDoor = new Door(doorX, doorY);
         this.fireball.direction = Direction.RIGHT;
+
+        this.coin = gameEngine.loadBitmap("ExamGame/LevelObjects/coin.png");
+        this.door = gameEngine.loadBitmap("ExamGame/LevelObjects/door.png");
+        this.health = gameEngine.loadBitmap("ExamGame/Health/3hearts.png");
+        this.orc = gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
+        this.font = gameEngine.loadFont("ExamGame/font.ttf");
+        this.coinsToCollect = coins.size();
     }
 
     public void update(float deltaTime)
     {
+        gameUpdate();
         shootFireball(deltaTime);
         jump();
         //moveOrcs(orcs.get(0), deltaTime, orcs.get(0).initialPosition);
@@ -374,5 +396,165 @@ public class World
                 orc.direction = Direction.RIGHT;
             }
         }
+    }
+
+    public void gameUpdate()
+    {
+        player.y += 1;
+
+        collideGround(player, ground);
+        for(LevelObject platform : platforms)
+        {
+            collidePlatform(player, platform);
+        }
+
+        if(directionHandler.isMovingRight(gameEngine, player))
+        {
+            player.isIdle = false;
+            //  orcs
+            levelX -= 3;
+            for(Orc orc: orcs)
+            {
+                orc.x -= 3;
+            }
+
+            //  objects
+            for(LevelObject levelObject: levelObjects)
+            {
+                levelObject.x -= 3;
+            }
+
+            //  platforms
+            for(LevelObject platform: platforms)
+            {
+                platform.x -= 3;
+            }
+
+            //  coins
+            for(Coin objCoin: coins)
+            {
+                objCoin.x -= 3;
+            }
+
+            //  door
+            objDoor.x -= 3;
+
+            //  fireball
+            if(player.isShootingFireball)
+            {
+                fireball.x -= 3;
+            }
+
+        }
+        else if(directionHandler.isMovingLeft(gameEngine, player))
+        {
+            player.isIdle = false;
+            //  orcs
+            levelX += 3;
+            for(Orc orc: orcs)
+            {
+                orc.x += 3;
+            }
+
+            //  objects
+            for(LevelObject levelObject: levelObjects)
+            {
+                levelObject.x += 3;
+            }
+
+            //  platforms
+            for(LevelObject platform: platforms)
+            {
+                platform.x += 3;
+            }
+
+            //  coins
+            for(Coin objCoin: coins)
+            {
+                objCoin.x += 3;
+            }
+
+            //  door
+            objDoor.x += 3;
+
+            // fireball
+            if(player.isShootingFireball)
+            {
+                fireball.x += 3;
+            }
+        }
+        else
+        {
+            player.isIdle = true;
+        }
+
+
+
+        //  orcs
+        for(Orc objOrc: orcs)
+        {
+            gameEngine.drawBitmap(loadOrc(player.x, objOrc.x), objOrc.x, objOrc.y);
+        }
+        for(int i = 0; i < orcs.size(); i++)
+        {
+            collideOrc(player, orcs.get(i));
+        }
+
+        for(int i = 0; i < orcs.size(); i++)
+        {
+            collideFireball(fireball, orcs.get(i), player, orcs);
+        }
+
+        //  coins
+        for(Coin objCoin: coins)
+        {
+            gameEngine.drawBitmap(coin, objCoin.x, objCoin.y);
+        }
+        for(int i = 0; i < coins.size(); i++)
+        {
+            collideCoin(player, coins.get(i));
+        }
+
+        for (LevelObject levelObject: levelObjects)
+        {
+            collideObjectsSides(player, levelObject, levelObjects);
+        }
+
+        for(LevelObject platform: platforms)
+        {
+            collidePlatform(player, platform);
+        }
+
+
+        if(openDoor())
+        {
+            Log.d("Firstlevel.update()", "Update: Opening door");
+            gameEngine.drawBitmap(door, objDoor.x, objDoor.y);
+            if(collideDoor(player, objDoor) && (gameEngine.isTouchDown(0)
+                    && gameEngine.getTouchY(0) > 240
+                    && gameEngine.getTouchX(0) > 480 - 75 - 40 - 80
+                    && gameEngine.getTouchX(0) < 480 - 75 - 40))
+            {
+                enterDoorSound.play(1);
+                if(level == 1)
+                {
+                    gameEngine.setScreen(new SecondLevel(gameEngine));
+                }
+                else
+                {
+                    gameEngine.setScreen(new MainMenuScreen(gameEngine));
+                }
+
+
+
+            }
+        }
+
+        String showText = "Coins: " + player.coinsCollected + " / " + coinsToCollect;
+
+        gameEngine.drawText(font, showText, 380, 20, Color.BLACK, 12);
+        gameEngine.drawBitmap(coin, 360, 7);
+
+        gameEngine.drawBitmap(loadHealth(player.health), 10, 10);
     }
 }

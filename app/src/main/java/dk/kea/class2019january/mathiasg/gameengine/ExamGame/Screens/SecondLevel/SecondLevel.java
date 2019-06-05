@@ -37,24 +37,12 @@ public class SecondLevel extends Screen implements Level
         GameOver
     }
 
-    Bitmap orc;
-    Bitmap coin;
     Bitmap secondLevel;
-    Bitmap door;
-    Bitmap health;
-
     World world;
     PlayerRenderer playerRenderer;
     Player player;
     Fireball fireball;
     int levelY = 0;
-    DirectionHandler directionHandler = new DirectionHandler();
-    List<LevelObject> levelObjects = buildBoundaries();
-    Ground ground = new Ground(0, 243);
-    List<LevelObject> platforms = buildPlatforms();
-    Typeface font;
-    int coinsToCollect;
-
     Music backgroundMusic;
 
     public SecondLevel(GameEngine gameEngine)
@@ -62,25 +50,19 @@ public class SecondLevel extends Screen implements Level
         super(gameEngine);
         Log.d("Examgame", "Starting the game");
 
-        this.orc = gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
-        this.coin = gameEngine.loadBitmap("ExamGame/LevelObjects/coin.png");
         this.secondLevel = gameEngine.loadBitmap("ExamGame/Levels/secondLevel.png");
-        this.door = gameEngine.loadBitmap("ExamGame/LevelObjects/door.png");
-        this.health = gameEngine.loadBitmap("ExamGame/Health/3hearts.png");
-        this.font = gameEngine.loadFont("ExamGame/font.ttf");
         this.backgroundMusic = gameEngine.loadMusic("ExamGame/Sounds/music2.wav");
         this.backgroundMusic.setLooping(true);
         this.world = new World(gameEngine, 2555, 200);
         this.world.orcs = populateLevel();
         this.world.coins = placeCoins();
-        this.coinsToCollect = world.coins.size();
-
+        this.world.coinsToCollect = world.coins.size();
         this.world.levelObjects = buildBoundaries();
         this.world.platforms = buildPlatforms();
-
         this.playerRenderer = new PlayerRenderer(gameEngine, world);
         this.player = world.player;
         this.fireball = world.fireball;
+        this.world.level = 2;
 
 
     }
@@ -89,154 +71,7 @@ public class SecondLevel extends Screen implements Level
     public void update(float deltaTime)
     {
         backgroundMusic.play();
-        playerRenderer.world.player.y += 1;
-
-        world.collideGround(player, ground);
-        for(LevelObject platform : platforms)
-        {
-            world.collidePlatform(player, platform);
-        }
-
-        if(directionHandler.isMovingRight(gameEngine, player))
-        {
-            player.isIdle = false;
-            //  orcs
-            world.levelX -= 3;
-            for(Orc orc: world.orcs)
-            {
-                orc.x -= 3;
-            }
-
-            //  objects
-            for(LevelObject levelObject: world.levelObjects)
-            {
-                levelObject.x -= 3;
-            }
-
-            //  platforms
-            for(LevelObject platform: world.platforms)
-            {
-                platform.x -= 3;
-            }
-
-            //  coins
-            for(Coin objCoin: world.coins)
-            {
-                objCoin.x -= 3;
-            }
-
-            //  door
-            world.objDoor.x -= 3;
-
-            //  fireball
-            if(player.isShootingFireball)
-            {
-                fireball.x -= 3;
-            }
-
-        }
-        else if(directionHandler.isMovingLeft(gameEngine, player))
-        {
-            player.isIdle = false;
-            //  orcs
-            world.levelX += 3;
-            for(Orc orc: world.orcs)
-            {
-                orc.x += 3;
-            }
-
-            //  objects
-            for(LevelObject levelObject: world.levelObjects)
-            {
-                levelObject.x += 3;
-            }
-
-            //  platforms
-            for(LevelObject platform: world.platforms)
-            {
-                platform.x += 3;
-            }
-
-            //  coins
-            for(Coin objCoin: world.coins)
-            {
-                objCoin.x += 3;
-            }
-
-            //  door
-            world.objDoor.x += 3;
-
-            // fireball
-            if(player.isShootingFireball)
-            {
-                fireball.x += 3;
-            }
-        }
-        else
-        {
-            player.isIdle = true;
-        }
-
         gameEngine.drawBitmap(secondLevel, world.levelX, levelY);
-
-        //  orcs
-        for(Orc objOrc: world.orcs)
-        {
-            gameEngine.drawBitmap(world.loadOrc(player.x, objOrc.x), objOrc.x, objOrc.y);
-        }
-        for(int i = 0; i < world.orcs.size(); i++)
-        {
-            world.collideOrc(player, world.orcs.get(i));
-        }
-
-        for(int i = 0; i < world.orcs.size(); i++)
-        {
-            world.collideFireball(fireball, world.orcs.get(i), player, world.orcs);
-        }
-
-        //  coins
-        for(Coin objCoin: world.coins)
-        {
-            gameEngine.drawBitmap(coin, objCoin.x, objCoin.y);
-        }
-        for(int i = 0; i < world.coins.size(); i++)
-        {
-            world.collideCoin(player, world.coins.get(i));
-        }
-
-        for (LevelObject levelObject: world.levelObjects)
-        {
-            world.collideObjectsSides(player, levelObject, levelObjects);
-        }
-
-        for(LevelObject platform: world.platforms)
-        {
-            world.collidePlatform(player, platform);
-        }
-
-
-        if(world.openDoor())
-        {
-            Log.d("Firstlevel.update()", "Update: Opening door");
-            gameEngine.drawBitmap(door, world.objDoor.x, world.objDoor.y);
-            if(world.collideDoor(player, world.objDoor) && (gameEngine.isTouchDown(0)
-                    && gameEngine.getTouchY(0) > 240
-                    && gameEngine.getTouchX(0) > 480 - 75 - 40 - 80
-                    && gameEngine.getTouchX(0) < 480 - 75 - 40))
-            {
-                world.enterDoorSound.play(1);
-                gameEngine.setScreen(new MainMenuScreen(gameEngine));
-            }
-        }
-
-
-        gameEngine.drawBitmap(world.loadHealth(player.health), 10, 10);
-
-        String showText = "Coins: " + player.coinsCollected + " / " + coinsToCollect;
-
-        gameEngine.drawText(font,showText, 380, 20, Color.BLACK, 12);
-        gameEngine.drawBitmap(coin, 360, 7);
-
         world.update(deltaTime);
         playerRenderer.render(deltaTime);
 
