@@ -53,6 +53,7 @@ public class World
     Bitmap coin;
     Bitmap door;
     Bitmap health;
+    Bitmap pause;
     Typeface font;
 
     public int coinsToCollect;
@@ -79,6 +80,7 @@ public class World
         this.objDoor = new Door(doorX, doorY);
         this.fireball.direction = Direction.RIGHT;
 
+        this.pause = gameEngine.loadBitmap("ExamGame/Controls/pause.png");
         this.coin = gameEngine.loadBitmap("ExamGame/LevelObjects/coin.png");
         this.door = gameEngine.loadBitmap("ExamGame/LevelObjects/door.png");
         this.health = gameEngine.loadBitmap("ExamGame/Health/3hearts.png");
@@ -555,8 +557,10 @@ public class World
 
         String showText = "Coins: " + player.coinsCollected + " / " + coinsToCollect;
 
-        gameEngine.drawText(font, showText, 380, 20, Color.BLACK, 12);
-        gameEngine.drawBitmap(coin, 360, 7);
+        gameEngine.drawText(font, showText, 330, 20, Color.BLACK, 12);
+        gameEngine.drawBitmap(coin, 310, 7);
+
+        gameEngine.drawBitmap(pause, 440, 7);
 
         gameEngine.drawBitmap(loadHealth(player.health), 10, 10);
     }

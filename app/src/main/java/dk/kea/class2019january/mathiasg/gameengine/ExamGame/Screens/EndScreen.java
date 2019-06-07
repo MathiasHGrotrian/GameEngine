@@ -28,6 +28,8 @@ public class EndScreen extends Screen
 
         gameEngine.setSecondSnapshot(System.nanoTime());
 
+        System.out.println(gameEngine.getFirstSnapshot());
+        System.out.println(gameEngine.getSecondSnapshot());
     }
 
     long timeElapsed = gameEngine.getSecondSnapshot() - gameEngine.getFirstSnapshot();

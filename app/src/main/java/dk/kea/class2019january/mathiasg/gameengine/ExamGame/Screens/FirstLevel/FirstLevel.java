@@ -68,8 +68,6 @@ public class FirstLevel extends Screen implements Level
         this.fireball = world.fireball;
         this.world.coinsToCollect = world.coins.size();
         this.world.level = 1;
-        gameEngine.setFirstSnapshot(System.nanoTime());
-        System.out.println("start time is: " + gameEngine.getFirstSnapshot());
     }
 
     @Override

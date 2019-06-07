@@ -45,6 +45,11 @@ public class SecondLevel extends Screen implements Level
     int levelY = 0;
     Music backgroundMusic;
 
+    long time2 = 3274242523769L;
+    long time1 = 3190380680769L;
+
+
+
     public SecondLevel(GameEngine gameEngine)
     {
         super(gameEngine);
@@ -65,7 +70,15 @@ public class SecondLevel extends Screen implements Level
         this.world.level = 2;
         System.out.println(gameEngine.getFirstSnapshot());
 
+        gameEngine.setFirstSnapshot(System.nanoTime());
+        System.out.println("start time is: " + gameEngine.getFirstSnapshot());
+
+        System.out.println("Total time is");
+        System.out.println(time2-time1);
+
     }
+
+
 
     @Override
     public void update(float deltaTime)
