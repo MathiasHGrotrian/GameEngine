@@ -13,57 +13,37 @@ import dk.kea.class2019january.mathiasg.gameengine.Screen;
 public class EndScreen extends Screen
 {
     Bitmap background;
-    float passedTime = 0;
     Music menuMusic;
     Typeface font;
+    long timeElapsed;
 
     public EndScreen(GameEngine gameEngine)
     {
         super(gameEngine);
         background = gameEngine.loadBitmap("ExamGame/Menu/endScreen.png");
-
         this.menuMusic = gameEngine.loadMusic("ExamGame/Sounds/menuMusic.wav");
         this.menuMusic.setLooping(true);
-        this.gameEngine.loadFont("ExamGame/font.ttf");
-
-        gameEngine.setSecondSnapshot(System.nanoTime());
-
-        System.out.println(gameEngine.getFirstSnapshot());
-        System.out.println(gameEngine.getSecondSnapshot());
+        this.font = this.gameEngine.loadFont("ExamGame/enchanted_land.otf");
+        gameEngine.secondSnapshot = System.currentTimeMillis();
+        this.timeElapsed = gameEngine.secondSnapshot - gameEngine.firstSnapshot;
+        timeElapsed = TimeUnit.MILLISECONDS.toSeconds(timeElapsed);
     }
-
-    long timeElapsed = gameEngine.getSecondSnapshot() - gameEngine.getFirstSnapshot();
-
-    /*
-
-        SHOULD BE USED TO FORMAT TIME ELAPSED TO A NICE FORMAT
-
-    String finalTime = String.format("%02d:%02d:%02d",
-            TimeUnit.MILLISECONDS.toHours(timeElapsed),
-            TimeUnit.MILLISECONDS.toMinutes(timeElapsed) -
-                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeElapsed)),
-            TimeUnit.MILLISECONDS.toSeconds(timeElapsed) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeElapsed)));
-       */
-
 
     @Override
     public void update(float deltaTime)
     {
         menuMusic.play();
-        if (gameEngine.isTouchDown(0) && passedTime > 0.5f)
+        if (gameEngine.isTouchDown(0))
         {
             Log.d("Examgame", "trying to get game screen");
             gameEngine.setScreen(new MainMenuScreen(gameEngine));
             return;
         }
 
-        System.out.println("Final time: " + timeElapsed);
         gameEngine.drawBitmap(background, 0, 0);
 
-        //  NEEDS TO DRAW THE FINAL TIME
-        //gameEngine.drawText(, , 380, 20, Color.BLACK, 12);
-
+        gameEngine.drawText(font, timeElapsed + " seconds", 161, 201, Color.BLACK, 40);
+        gameEngine.drawText(font, timeElapsed + " seconds", 160, 200, Color.YELLOW, 40);
 
     }
 

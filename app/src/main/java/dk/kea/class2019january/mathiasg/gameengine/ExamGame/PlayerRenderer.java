@@ -2,103 +2,115 @@ package dk.kea.class2019january.mathiasg.gameengine.ExamGame;
 
 import android.graphics.Bitmap;
 
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Characters.Player;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Directions.Direction;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Directions.VerticalDirection;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 
 public class PlayerRenderer
 {
     GameEngine gameEngine;
     public World world;
-    public Bitmap playerImage;
-    Bitmap rightArrow;
-    Bitmap leftArrow;
-    Bitmap jumpButton;
-    Bitmap fireBallButton;
+    public Player player;
+
+    //bitmaps
+    Bitmap playerRight;
+    Bitmap playerLeft;
+    Bitmap playerJumpRight;
+    Bitmap playerJumpLeft;
+    Bitmap playerFallRight;
+    Bitmap playerFallLeft;
+    Bitmap playerRunRight1;
+    Bitmap playerRunRight2;
+    Bitmap playerRunLeft1;
+    Bitmap playerRunLeft2;
+
+    //time used for animating player bitmap
     float passedTime = 0;
 
     public PlayerRenderer(GameEngine gameEngine, World world)
     {
         this.gameEngine = gameEngine;
         this.world = world;
-        this.rightArrow = gameEngine.loadBitmap("ExamGame/Controls/rightArrow.png");
-        this.leftArrow = gameEngine.loadBitmap("ExamGame/Controls/leftArrow.png");
-        this.jumpButton = gameEngine.loadBitmap("ExamGame/Controls/jumpButton.png");
-        this.fireBallButton = gameEngine.loadBitmap("ExamGame/Controls/fireball.png");
+        this.player = world.player;
 
+        this.playerRight = gameEngine.loadBitmap("ExamGame/Player/playerRight.png");
+        this.playerLeft = gameEngine.loadBitmap("ExamGame/Player/playerLeft.png");
+        this.playerJumpRight = gameEngine.loadBitmap("ExamGame/Player/playerJumpRight.png");
+        this.playerJumpLeft = gameEngine.loadBitmap("ExamGame/Player/playerJumpLeft.png");
+        this.playerFallRight = gameEngine.loadBitmap("ExamGame/Player/playerFallRight.png");
+        this.playerFallLeft = gameEngine.loadBitmap("ExamGame/Player/playerFallLeft.png");
+        this.playerRunRight1 = gameEngine.loadBitmap("ExamGame/Player/playerRunRight1.png");
+        this.playerRunRight2 = gameEngine.loadBitmap("ExamGame/Player/playerRunRight2.png");
+        this.playerRunLeft1 = gameEngine.loadBitmap("ExamGame/Player/playerRunLeft1.png");
+        this.playerRunLeft2 = gameEngine.loadBitmap("ExamGame/Player/playerRunLeft2.png");
     }
 
+    //renders player in current level
     public void render(float deltaTime)
     {
-        gameEngine.drawBitmap(loadPlayerSprite(deltaTime), world.player.x, world.player.y);
-
-        gameEngine.drawBitmap(leftArrow, 20, 240);
-        gameEngine.drawBitmap(rightArrow, 380, 240);
-        gameEngine.drawBitmap(jumpButton, 280, 230);
-        gameEngine.drawBitmap(fireBallButton, leftArrow.getWidth() + 40, 230);
-
+        gameEngine.drawBitmap(loadPlayerSprite(deltaTime), player.x, player.y);
     }
 
 
     private Bitmap loadPlayerSprite(float deltaTime)
     {
-        if(world.player.isIdle
-                && world.player.direction == Direction.RIGHT
-                && world.player.verticalDirection == VerticalDirection.STILL)
+        if(player.isIdle
+                && player.direction == Direction.RIGHT
+                && player.verticalDirection == VerticalDirection.STILL)
         {
-            return gameEngine.loadBitmap("ExamGame/Player/playerRight.png");
+            return playerRight;
         }
-        if(world.player.isIdle
-                && world.player.direction == Direction.LEFT
-                && world.player.verticalDirection == VerticalDirection.STILL)
+        if(player.isIdle
+                && player.direction == Direction.LEFT
+                && player.verticalDirection == VerticalDirection.STILL)
         {
-            return gameEngine.loadBitmap("ExamGame/Player/playerLeft.png");
+            return playerLeft;
         }
-        if(world.player.verticalDirection == VerticalDirection.UP
-                && world.player.direction == Direction.RIGHT)
+        if(player.verticalDirection == VerticalDirection.UP
+                && player.direction == Direction.RIGHT)
         {
-            return gameEngine.loadBitmap("ExamGame/Player/playerJumpRight.png");
+            return playerJumpRight;
         }
-        if(world.player.verticalDirection == VerticalDirection.UP
-                && world.player.direction == Direction.LEFT)
+        if(player.verticalDirection == VerticalDirection.UP
+                && player.direction == Direction.LEFT)
         {
-            return gameEngine.loadBitmap("ExamGame/Player/playerJumpLeft.png");
+            return playerJumpLeft;
         }
-        if(world.player.verticalDirection == VerticalDirection.DOWN
-                && world.player.direction == Direction.RIGHT)
+        if(player.verticalDirection == VerticalDirection.DOWN
+                && player.direction == Direction.RIGHT)
         {
-            return gameEngine.loadBitmap("ExamGame/Player/playerFallRight.png");
+            return playerFallRight;
         }
-        if(world.player.verticalDirection == VerticalDirection.DOWN
-                && world.player.direction == Direction.LEFT)
+        if(player.verticalDirection == VerticalDirection.DOWN
+                && player.direction == Direction.LEFT)
         {
-            return gameEngine.loadBitmap("ExamGame/Player/playerFallLeft.png");
+            return playerFallLeft;
         }
-        if(world.player.direction == Direction.RIGHT)
+        if(player.direction == Direction.RIGHT)
         {
             passedTime += deltaTime;
-            if((passedTime - (int)passedTime) > 0.4f)
+            if((passedTime - (int)passedTime) > 0.5f)
             {
-                return gameEngine.loadBitmap("ExamGame/Player/playerRunRight1.png");
+                return playerRunRight1;
             }
             else
             {
-                return gameEngine.loadBitmap("ExamGame/Player/playerRunRight2.png");
+                return playerRunRight2;
             }
-
-            //this.playerImage = gameEngine.loadBitmap("ExamGame/Player/playerRight.png");
         }
-        if(world.player.direction == Direction.LEFT)
+        if(player.direction == Direction.LEFT)
         {
             passedTime += deltaTime;
-            if((passedTime - (int)passedTime) > 0.4f)
+            if((passedTime - (int)passedTime) > 0.5f)
             {
-                return gameEngine.loadBitmap("ExamGame/Player/playerRunLeft1.png");
+                return playerRunLeft1;
             }
             else
             {
-                return gameEngine.loadBitmap("ExamGame/Player/playerRunLeft2.png");
+                return playerRunLeft2;
             }
         }
-
-        return this.playerImage;
+        return this.playerRight;
     }
 }

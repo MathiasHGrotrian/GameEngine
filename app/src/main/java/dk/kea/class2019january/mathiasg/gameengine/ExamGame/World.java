@@ -8,26 +8,34 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Coin;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Door;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Ground;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Characters.Fireball;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Characters.Orc;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Characters.Player;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Directions.Direction;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Directions.DirectionHandler;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Directions.VerticalDirection;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Environment.Coin;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Environment.Door;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.Environment.Ground;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.LevelObjects.LevelObject;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.EndScreen;
 import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.MainMenuScreen;
-import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.SecondLevel.SecondLevel;
+import dk.kea.class2019january.mathiasg.gameengine.ExamGame.Screens.Levels.SecondLevel;
 import dk.kea.class2019january.mathiasg.gameengine.GameEngine;
 import dk.kea.class2019january.mathiasg.gameengine.Sound;
 
 public class World
 {
+    //player object to determine where on screen to render
     public Player player = new Player();
+
     GameEngine gameEngine;
+
+    //dimensions for buttons
     int movementButtonsLenght = 75;
     int actionButtonDimensions = 80;
-    int jumpStartPoint;
 
-    //fireball sprites
-    Bitmap fireballBitmap;
+    //sounds to be used in world
     Sound fireballSound;
     Sound jumpSound;
     Sound bounceSound;
@@ -35,35 +43,76 @@ public class World
     Sound deathSound;
     Sound damageSound;
     Sound orcDeathSound;
-    public Sound doorAppearsSound;
-    public Sound enterDoorSound;
+    Sound enterDoorSound;
+
+    //lists of world objects
     public List<Orc> orcs;
     public List<Coin> coins;
     public List<LevelObject> levelObjects;
     public List<LevelObject> platforms;
-    public Door objDoor;
+
+    //door object to determine where door should be drawn
+    Door objDoor;
+
+    //variable to determine where the levels x position is
     public int levelX = 0;
+
+    //ground object for player to walk on
     Ground ground = new Ground(0, 243);
+
+    //handler for handling when player changes direction
     DirectionHandler directionHandler = new DirectionHandler();
 
     // fireball object
     public Fireball fireball = new Fireball(player.x, player.y + 11);
 
-    Bitmap orc;
+    //bitmaps to draw
+    Bitmap orcRight;
+    Bitmap orcLeft;
     Bitmap coin;
     Bitmap door;
     Bitmap health;
-    Bitmap pause;
+    Bitmap fireballLeft;
+    Bitmap fireballRight;
+
+    //control bitmaps
+    Bitmap rightArrow;
+    Bitmap leftArrow;
+    Bitmap jumpButton;
+    Bitmap fireBallButton;
+
+    //font for showing text on screen
     Typeface font;
 
+    //amount of coins player has to collect
     public int coinsToCollect;
+
+    //variable for determining which level player is on
     public int level;
+
+    public int levelvx = 3;
 
 
     public World(GameEngine gameEngine, int doorX, int doorY)
     {
         this.gameEngine = gameEngine;
-        this.fireballBitmap = gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
+
+        //bitmaps
+        this.coin = gameEngine.loadBitmap("ExamGame/LevelObjects/coin.png");
+        this.door = gameEngine.loadBitmap("ExamGame/LevelObjects/door.png");
+        this.health = gameEngine.loadBitmap("ExamGame/Health/3hearts.png");
+        this.orcRight = gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
+        this.orcLeft = gameEngine.loadBitmap("ExamGame/Orc/orcLeft.png");
+        this.fireballRight = gameEngine.loadBitmap("ExamGame/Fireball/rightfireball.png");
+        this.fireballLeft = gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
+
+        //control bitmaps
+        this.rightArrow = gameEngine.loadBitmap("ExamGame/Controls/rightArrow.png");
+        this.leftArrow = gameEngine.loadBitmap("ExamGame/Controls/leftArrow.png");
+        this.jumpButton = gameEngine.loadBitmap("ExamGame/Controls/jumpButton.png");
+        this.fireBallButton = gameEngine.loadBitmap("ExamGame/Controls/fireball.png");
+
+        //sounds
         this.fireballSound = gameEngine.loadSound("ExamGame/Sounds/fireball.wav");
         this.jumpSound = gameEngine.loadSound("ExamGame/Sounds/jump.wav");
         this.bounceSound = gameEngine.loadSound("ExamGame/Sounds/bounce.wav");
@@ -71,35 +120,37 @@ public class World
         this.deathSound = gameEngine.loadSound("ExamGame/Sounds/death.ogg");
         this.damageSound = gameEngine.loadSound("ExamGame/Sounds/damage.wav");
         this.orcDeathSound = gameEngine.loadSound("ExamGame/Sounds/orcDeath.wav");
-        this.doorAppearsSound = gameEngine.loadSound("ExamGame/Sounds/doorAppears.wav");
         this.enterDoorSound = gameEngine.loadSound("ExamGame/Sounds/enterDoor.wav");
+
+        //lists
         this.orcs = new ArrayList<>();
         this.coins = new ArrayList<>();
         this.levelObjects = new ArrayList<>();
         this.platforms = new ArrayList<>();
+
+        //misc
         this.objDoor = new Door(doorX, doorY);
         this.fireball.direction = Direction.RIGHT;
-
-        this.pause = gameEngine.loadBitmap("ExamGame/Controls/pause.png");
-        this.coin = gameEngine.loadBitmap("ExamGame/LevelObjects/coin.png");
-        this.door = gameEngine.loadBitmap("ExamGame/LevelObjects/door.png");
-        this.health = gameEngine.loadBitmap("ExamGame/Health/3hearts.png");
-        this.orc = gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
         this.font = gameEngine.loadFont("ExamGame/font.ttf");
         this.coinsToCollect = coins.size();
         System.out.println("New World");
     }
 
-    public void update(float deltaTime)
+    //update method to be called in levels update method
+    public void gameUpdate(float deltaTime)
     {
-        gameUpdate();
+        //gravity
+        player.y += 1;
+
+        collideGround(player, ground);
+        movePlayer();
+        drawWorldObjects();
+        collideWorldObjects();
+        drawDoor();
+        drawUI();
         shootFireball(deltaTime);
         jump();
-        //moveOrcs(orcs.get(0), deltaTime, orcs.get(0).initialPosition);
     }
-
-
-
 
     private void shootFireball(float deltaTime)
     {
@@ -113,8 +164,9 @@ public class World
             {
                 fireballSound.play(1);
                 player.isShootingFireball = true;
-                fireball.y = player.y;
+                fireball.y = player.y + 11;
                 fireball.x = player.x;
+                fireball.initialX = player.x;
                 fireball.direction = player.direction;
             }
         }
@@ -124,9 +176,9 @@ public class World
             if(fireball.direction == Direction.RIGHT)
             {
                 fireball.x += fireball.vx * deltaTime;
-                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.y + 11);
+                gameEngine.drawBitmap(fireballRight, fireball.x, fireball.y);
 
-                if(fireball.x > player.x + 100)
+                if(fireball.x > fireball.initialX + 100)
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
@@ -134,12 +186,13 @@ public class World
                 }
 
             }
+
             if(fireball.direction == Direction.LEFT)
             {
                 fireball.x -= fireball.vx * deltaTime;
-                gameEngine.drawBitmap(loadFireball(player), fireball.x, fireball.y + 11);
+                gameEngine.drawBitmap(fireballLeft, fireball.x, fireball.y);
 
-                if(fireball.x < player.x - 100)
+                if(fireball.x < fireball.initialX - 100)
                 {
                     player.isShootingFireball = false;
                     fireball.x = player.x;
@@ -149,50 +202,37 @@ public class World
         }
     }
 
-    public void jump()
+    private void jump()
     {
-
         //player jumps
         if(player.verticalDirection == VerticalDirection.STILL)
         {
-            if (gameEngine.isTouchDown(0)
+            if(gameEngine.isTouchDown(0)
                     && gameEngine.getTouchY(0) > 240
                     && gameEngine.getTouchX(0) > 480 - movementButtonsLenght - 40 - actionButtonDimensions
                     && gameEngine.getTouchX(0) < 480 - movementButtonsLenght - 40)
             {
                 jumpSound.play(1);
-                jumpStartPoint = player.y;
+                player.jumpStartPoint = player.y;
                 player.verticalDirection = VerticalDirection.UP;
                 player.isIdle = false;
-                //player.y -= 5;
             }
         }
 
-        if (player.verticalDirection == VerticalDirection.UP)
+        if(player.verticalDirection == VerticalDirection.UP)
         {
             player.y -= 5;
         }
-        if(player.y < jumpStartPoint - 90)
+        if(player.y < player.jumpStartPoint - 90)
         {
             player.verticalDirection = VerticalDirection.DOWN;
         }
     }
 
-    private Bitmap loadFireball(Player player)
-    {
-        if(player.direction == Direction.RIGHT)
-        {
-            return gameEngine.loadBitmap("ExamGame/Fireball/rightfireball.png");
-        }
-
-        return gameEngine.loadBitmap("ExamGame/Fireball/leftfireball.png");
-    }
-
-
-    public void moveObjects(Player player, int knockback)
+    private void moveObjects(Direction direction, int knockback)
     {
         Log.d("moveObjects()", "Objecst should be moved");
-        if(player.direction == Direction.RIGHT)
+        if(direction == Direction.RIGHT)
         {
             levelX += knockback;
 
@@ -256,13 +296,13 @@ public class World
         }
     }
 
-    public boolean collideDoor(Player player, Door door)
+    private boolean collideDoor(Player player, Door door)
     {
         return collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
                 door.x, door.y, Door.WIDTH, Door.HEIGHT);
     }
 
-    public Bitmap loadHealth(int health)
+    private Bitmap loadHealth(int health)
     {
         if(health == 3)
         {
@@ -277,17 +317,17 @@ public class World
 
     }
 
-    public Bitmap loadOrc(int playerX, int orcX)
+    private Bitmap loadOrc(int playerX, int orcX)
     {
         if(playerX <= orcX)
         {
-            return gameEngine.loadBitmap("ExamGame/Orc/orcLeft.png");
+            return orcLeft;
         }
 
-        return gameEngine.loadBitmap("ExamGame/Orc/orcRight.png");
+        return orcRight;
     }
 
-    public boolean openDoor()
+    private boolean openDoor()
     {
         return orcs.isEmpty() && coins.isEmpty();
     }
@@ -300,14 +340,14 @@ public class World
 
     }
 
-    public void collideOrc(Player player, Orc orc)
+    private void collideOrc(Player player, Orc orc)
     {
         if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
                 orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
         {
             Log.d("FirstLevel", "Player collided with Orc");
             damageSound.play(1);
-            moveObjects(player, player.orcKnockBack);
+            moveObjects(player.direction, player.orcKnockBack);
             player.health -= 1;
             if(player.health <= 0)
             {
@@ -318,23 +358,23 @@ public class World
         }
     }
 
-    public void collideObjectsSides(Player player, LevelObject levelObject, List<LevelObject> levelObjects)
+    private void collideObjectsSides(Player player, LevelObject levelObject, List<LevelObject> levelObjects)
     {
         if(collideSides(player, levelObject))
         {
             Log.d("FirstLevel", "Player collided with object");
             bounceSound.play(1);
-            moveObjects(player, player.wallKnockBack);
+            moveObjects(player.direction, player.wallKnockBack);
         }
     }
 
-    public boolean collideSides(Player player, LevelObject levelObject)
+    private boolean collideSides(Player player, LevelObject levelObject)
     {
         return (player.x < levelObject.x + levelObject.width
                 && player.x + Player.WIDTH > levelObject.x);
     }
 
-    public void collideGround(Player player, LevelObject levelObject)
+    private void collideGround(Player player, LevelObject levelObject)
     {
         if(player.y + Player.HEIGHT > levelObject.y
                 && player.x > levelObject.x
@@ -347,7 +387,7 @@ public class World
         }
     }
 
-    public void collidePlatform(Player player, LevelObject levelObject)
+    private void collidePlatform(Player player, LevelObject levelObject)
     {
         if(player.y + Player.HEIGHT == levelObject.y
                 && player.x > levelObject.x
@@ -359,7 +399,7 @@ public class World
         }
     }
 
-    public void collideFireball(Fireball fireball, Orc orc, Player player, List<Orc> orcs)
+    private void collideFireball(Fireball fireball, Orc orc, Player player, List<Orc> orcs)
     {
         if(collideRects(fireball.x, fireball.y + 11, Fireball.WIDTH, Fireball.HEIGHT,
                 orc.x, orc.y, Orc.WIDTH, Orc.HEIGHT))
@@ -370,7 +410,7 @@ public class World
         }
     }
 
-    public void collideCoin(Player player, Coin coin)
+    private void collideCoin(Player player, Coin coin)
     {
         if(collideRects(player.x, player.y, Player.WIDTH, Player.HEIGHT,
                 coin.x, coin.y, Coin.WIDTH, Coin.HEIGHT))
@@ -381,73 +421,43 @@ public class World
         }
     }
 
-    public void moveOrcs(Orc orc, float deltaTime, int initialPosition)
+    private void movePlayer()
     {
-        //Log.d("World.moveOrcs()", "Initial position is: " + initialPosition + "\n" +
-                //"orc.x is :" + orc.x + "\n");
-        if(orc.direction == Direction.RIGHT)
-        {
-            orc.x += 1;
-            if(orc.x >= 700 + 5)
-            {
-                orc.direction = Direction.LEFT;
-            }
-        }
-        if(orc.direction == Direction.LEFT)
-        {
-            orc.x -= 1;
-            if(orc.x <= 700 - 5)
-            {
-                orc.direction = Direction.RIGHT;
-            }
-        }
-    }
-
-    public void gameUpdate()
-    {
-        player.y += 1;
-
-        collideGround(player, ground);
-        for(LevelObject platform : platforms)
-        {
-            collidePlatform(player, platform);
-        }
-
         if(directionHandler.isMovingRight(gameEngine, player))
         {
             player.isIdle = false;
             //  orcs
-            levelX -= 3;
+            levelX -= levelvx;
             for(Orc orc: orcs)
             {
-                orc.x -= 3;
+                orc.x -= levelvx;
             }
 
             //  objects
             for(LevelObject levelObject: levelObjects)
             {
-                levelObject.x -= 3;
+                levelObject.x -= levelvx;
             }
 
             //  platforms
             for(LevelObject platform: platforms)
             {
-                platform.x -= 3;
+                platform.x -= levelvx;
             }
 
             //  coins
             for(Coin objCoin: coins)
             {
-                objCoin.x -= 3;
+                objCoin.x -= levelvx;
             }
 
             //  door
-            objDoor.x -= 3;
+            objDoor.x -= levelvx;
 
             //  fireball
             if(player.isShootingFireball)
             {
-                fireball.x -= 3;
+                fireball.x -= levelvx;
             }
 
         }
@@ -455,82 +465,62 @@ public class World
         {
             player.isIdle = false;
             //  orcs
-            levelX += 3;
+            levelX += levelvx;
             for(Orc orc: orcs)
             {
-                orc.x += 3;
+                orc.x += levelvx;
             }
 
             //  objects
             for(LevelObject levelObject: levelObjects)
             {
-                levelObject.x += 3;
+                levelObject.x += levelvx;
             }
 
             //  platforms
             for(LevelObject platform: platforms)
             {
-                platform.x += 3;
+                platform.x += levelvx;
             }
 
             //  coins
             for(Coin objCoin: coins)
             {
-                objCoin.x += 3;
+                objCoin.x += levelvx;
             }
 
             //  door
-            objDoor.x += 3;
+            objDoor.x += levelvx;
 
             // fireball
             if(player.isShootingFireball)
             {
-                fireball.x += 3;
+                fireball.x += levelvx;
             }
         }
         else
         {
             player.isIdle = true;
         }
+    }
 
+    //draws the UI
+    private void drawUI()
+    {
+        String showText = "Coins: " + player.coinsCollected + " / " + coinsToCollect;
 
+        gameEngine.drawText(font, showText, 380, 20, Color.BLACK, 12);
+        gameEngine.drawBitmap(coin, 360, 7);
+        gameEngine.drawBitmap(loadHealth(player.health), 10, 10);
+        gameEngine.drawBitmap(leftArrow, 20, 240);
+        gameEngine.drawBitmap(rightArrow, 380, 240);
+        gameEngine.drawBitmap(jumpButton, 280, 230);
+        gameEngine.drawBitmap(fireBallButton, leftArrow.getWidth() + 40, 230);
+    }
 
-        //  orcs
-        for(Orc objOrc: orcs)
-        {
-            gameEngine.drawBitmap(loadOrc(player.x, objOrc.x), objOrc.x, objOrc.y);
-        }
-        for(int i = 0; i < orcs.size(); i++)
-        {
-            collideOrc(player, orcs.get(i));
-        }
-
-        for(int i = 0; i < orcs.size(); i++)
-        {
-            collideFireball(fireball, orcs.get(i), player, orcs);
-        }
-
-        //  coins
-        for(Coin objCoin: coins)
-        {
-            gameEngine.drawBitmap(coin, objCoin.x, objCoin.y);
-        }
-        for(int i = 0; i < coins.size(); i++)
-        {
-            collideCoin(player, coins.get(i));
-        }
-
-        for (LevelObject levelObject: levelObjects)
-        {
-            collideObjectsSides(player, levelObject, levelObjects);
-        }
-
-        for(LevelObject platform: platforms)
-        {
-            collidePlatform(player, platform);
-        }
-
-
+    //draws the door when conditions are met
+    private void drawDoor()
+    {
         if(openDoor())
         {
             Log.d("Firstlevel.update()", "Update: Opening door");
@@ -550,18 +540,57 @@ public class World
                     gameEngine.setScreen(new EndScreen(gameEngine));
                 }
 
-
-
             }
         }
+    }
 
-        String showText = "Coins: " + player.coinsCollected + " / " + coinsToCollect;
+    //collides player with every object in the level
+    private void collideWorldObjects()
+    {
+        for(LevelObject platform : platforms)
+        {
+            collidePlatform(player, platform);
+        }
 
-        gameEngine.drawText(font, showText, 330, 20, Color.BLACK, 12);
-        gameEngine.drawBitmap(coin, 310, 7);
+        for(int i = 0; i < orcs.size(); i++)
+        {
+            collideOrc(player, orcs.get(i));
+        }
 
-        gameEngine.drawBitmap(pause, 440, 7);
+        for(int i = 0; i < orcs.size(); i++)
+        {
+            collideFireball(fireball, orcs.get(i), player, orcs);
+        }
 
-        gameEngine.drawBitmap(loadHealth(player.health), 10, 10);
+
+        for(int i = 0; i < coins.size(); i++)
+        {
+            collideCoin(player, coins.get(i));
+        }
+
+        for (LevelObject levelObject: levelObjects)
+        {
+            collideObjectsSides(player, levelObject, levelObjects);
+        }
+
+        for(LevelObject platform: platforms)
+        {
+            collidePlatform(player, platform);
+        }
+    }
+
+    //draws objects like coins and orcs
+    private void drawWorldObjects()
+    {
+        //  orcs
+        for(Orc objOrc: orcs)
+        {
+            gameEngine.drawBitmap(loadOrc(player.x, objOrc.x), objOrc.x, objOrc.y);
+        }
+        //  coins
+        for(Coin objCoin: coins)
+        {
+            gameEngine.drawBitmap(coin, objCoin.x, objCoin.y);
+        }
     }
 }
